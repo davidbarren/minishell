@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/05 13:56:28 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/08 16:22:48 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <stdlib.h>
@@ -30,11 +30,16 @@ typedef struct s_env
 	struct s_env *next;
 	struct s_env *prev;
 	char *env_element;
+	int	index;
 }	t_env;
 
+typedef struct s_input
+{
+	char *input;
+}	t_input;
 void	store_env(char **ep, t_env **env);
 t_env	*get_last_node(t_env *env);
-t_env	*add_env_to_back(t_env *env, void *data);
+t_env	*add_env_to_back(t_env *env, char *data, int index);
 void	parse_input(char **ep, t_env *env);
-
+void	print_list(t_env *env);
 #endif
