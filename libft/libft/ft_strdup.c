@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 09:46:52 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/08 16:05:15 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/09 18:44:00 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strdup(const char *s)
 	char	*dup;
 	int		i;
 
+	if (!s)
+		return (NULL);
 	i = 0;
 	dup = (char *)malloc (1 + ft_strlen(s) * sizeof (char));
 	if (!dup)

@@ -6,7 +6,7 @@
 #    By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 14:15:56 by dbarrene          #+#    #+#              #
-#    Updated: 2024/04/05 13:55:26 by dbarrene         ###   ########.fr        #
+#    Updated: 2024/04/09 18:53:28 by dbarrene         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME = minishell
 
 CC	= cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 SRCDIR = src
 OBJDIR = obj
@@ -29,6 +29,7 @@ SRCS = $(SRCDIR)/main.c\
 BSRCS = $(SRCDIR)/main_bonus.c\
 
 CSRCS = $(SRCDIR)/parsing.c\
+		$(SRCDIR)/newparse.c\
 
 OBJS= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 BOBJS= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(BSRCS))

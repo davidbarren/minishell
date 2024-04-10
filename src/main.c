@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/08 16:14:53 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/09 19:10:21 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_env	envs;
+	t_env	*envs = NULL;
+	t_args args;
 	char	*input;
 	int	i;
 	t_input	line;
-	ft_memset(&envs, 0, sizeof(t_env));
+//	ft_memset(&envs, 0, sizeof(t_env));
 	if (argc && argv)
 		i = 69;
 	rl_bind_key('\t', rl_complete);
@@ -31,10 +32,15 @@ int	main(int argc, char **argv, char **envp)
 		add_history(input);
 		line.input = ft_strdup(input);
 		ft_printf("input: %s\n", line.input);
-		// add some shit here!
+		tokenize_input(&args, line.input);
+		free(args.arglist);
 		free(input);
 	}
+//	ft_printf("Address in main: %p\n", envs);
+//	int k = 0;
+//	while (envp[k])
+//		ft_printf("Env:%s\n", envp[k++]);
 	parse_input(envp, &envs);
-	print_list(&envs);
+//	print_list(envs);
 	return (69);
 }
