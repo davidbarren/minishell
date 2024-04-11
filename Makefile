@@ -6,7 +6,7 @@
 #    By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 14:15:56 by dbarrene          #+#    #+#              #
-#    Updated: 2024/04/09 18:53:28 by dbarrene         ###   ########.fr        #
+#    Updated: 2024/04/11 13:59:04 by dbarrene         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME = minishell
 
 CC	= cc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g 
 
 SRCDIR = src
 OBJDIR = obj

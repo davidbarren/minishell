@@ -6,63 +6,81 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/09 18:00:55 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/11 19:21:34 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	tokenize_input(t_args *args, char *input)
+static t_redir *get_final_node(t_redir *env)
 {
+	while (env->next)
+		env = env->next;
+	return (env);
+}
+
+void	prep_input(char *input, t_args *args)
+{
+
+	args->arglist = ft_quotesplit(input, '|'); 
 	int i = 0;
-	t_split splitter;
-	char *stringi;
-	args->arglist = split_quotes(input,' ', '\"', &splitter);
 	while (args->arglist[i])
-		ft_printf("%s\n", args->arglist[i++]);
-	stringi = remove_whitespace(input);
-//	printf("Stringi: %s\n", stringi);
+		printf("Elements of split array:%s\n", args->arglist[i++]);
+//	scan_input(input, args);
+//	scan input function segfaults atm, fix it!
 }
 
-char *remove_whitespace(char *str)
+void	scan_input(char *input, t_args *args)
 {
-	int len;
-	int spacecount;
-	char *fullstr;
 	int i;
-	int k;
+	int push;
+	char c;
+	char *newin;
 
-	k = 0;
-	i = 0;
-	len = ft_strlen(str);
-	spacecount = count_spaces(str);
-	fullstr = malloc (sizeof (char) * len - spacecount + 1);
-	while (str[i])
+	while (*input)
 	{
-		if (str[i] != ' ' && str[i] != '\'' && str[i] != '\"')
+		if (*input == '>' || *input == '<')
 		{
-			fullstr[k] = str[i];
-			k++;
-			i++;
+			c = *input;
+			push = strlen_delim(input, 'c');
+			printf("%c\n", c);
+			newin = ft_substr(input, 0, push);
+			make_redir_node(newin, args->redirects);
+			input += push;
 		}
-		else
-			i++;
+		input++;
 	}
-	fullstr[k] = '\0';
-	return (fullstr);
+	i = 0;
+	while (args->redirects[i])
+		printf("From scan input: %s\n", args->redirects[i++]->str);
+}
+void	make_redir_node(char *input, t_redir **redir)
+{
+	t_redir	*last_node;
+	t_redir	*new_node;
+	t_redir	*temp;
+
+	temp = *redir;
+	new_node = malloc(sizeof(t_redir));
+	if (!new_node)
+		return ;
+	new_node->str = input;
+	new_node->next = NULL;
+	if (!*redir)
+		*redir = new_node;
+	else
+	{
+		last_node = get_final_node(*redir);
+		last_node->next = new_node;
+	}
 }
 
-
-int	count_spaces(char *str)
+int strlen_delim(char *str, char c)
 {
-	int count;
+	int i;
 
-	count = 0;
-	while (*str)
-	{
-		if (*str == ' ')
-			count++;
-		str++;
-	}
-	return (count);
+	i = 0;
+	while (str[i] && str[i] != c)
+		i++;
+	return (i);
 }

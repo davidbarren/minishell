@@ -6,11 +6,18 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:15:18 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/10 11:25:16 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:17:01 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static t_env *get_last_node(t_env *env)
+{
+	while (env->next)
+		env = env->next;
+	return (env);
+}
 
 void	parse_input(char **ep, t_env **env)
 {
@@ -70,9 +77,3 @@ void	add_env_to_back(t_env **env, char *data, int index)
 	}
 }
 
-t_env	*get_last_node(t_env *env)
-{
-	while (env->next)
-		env = env->next;
-	return (env);
-}
