@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 12:32:02 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/03/24 15:17:12 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/11 19:17:26 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,27 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }					t_list;
-typedef struct s_split
+/*typedef struct s_split
 {
 	char		**split_arr;
 	int			i;
 	int			j;
 	int			wc;
 }					t_split;
+*/
+typedef struct s_qsplit
+{
+	char		**arr;
+	int			i;
+	int			j;
+	char		temp;
+}					t_qsplit;
+typedef struct	s_wordc 
+{
+	int			i;
+	int			flag;
+	char		temp;
+}					t_wordc;
 /* ************************************************************************** */
 /*  Original Libft                                                            */
 /* ************************************************************************** */
@@ -76,7 +90,7 @@ char	*ft_substring(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
-char	**split_quotes(const char *str, char delim, char q, t_split *st);
+//char	**split_quotes(const char *str, char delim, char q, t_split *st);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f) (unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
@@ -92,6 +106,8 @@ void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
+char	**ft_quotesplit(const char *s, char c);
+void	free_2d(char **arr);
 /* ************************************************************************** */
 /*  Ft_printf                                                                 */
 /* ************************************************************************** */
