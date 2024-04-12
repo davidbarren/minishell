@@ -6,7 +6,7 @@
 #    By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 10:40:52 by dbarrene          #+#    #+#              #
-#    Updated: 2024/04/11 19:19:09 by dbarrene         ###   ########.fr        #
+#    Updated: 2024/04/12 16:26:31 by dbarrene         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ ft_substring.c\
 ft_newsplit.c\
 free_2d.c\
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 INCFLAGS = -Iincludes
 
 DEP = $(OBJ:.o=.d)

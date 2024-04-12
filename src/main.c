@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/11 19:20:25 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/12 16:20:44 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_env	*envs;
-	t_args	args;
+	t_args	*args;
 	char	*input;
 	(void) argc;
 	(void) argv;
@@ -24,12 +24,12 @@ int	main(int argc, char **argv, char **envp)
 	using_history();
 	while (1)
 	{
+		input = NULL;
 		input = readline("baboonshell> ");
 		if (!input)
 			break ;
 		add_history(input);
 		prep_input(input, &args);
-		free(args.arglist);
 		free(input);
 	}
 	parse_input(envp, &envs);

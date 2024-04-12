@@ -6,7 +6,7 @@
 #    By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 14:15:56 by dbarrene          #+#    #+#              #
-#    Updated: 2024/04/11 13:59:04 by dbarrene         ###   ########.fr        #
+#    Updated: 2024/04/12 14:48:47 by dbarrene         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,10 @@ OBJDIR = obj
 LIBFTPATH = libft
 
 READLINE = -lreadline
+
+READEXTRA = -L .brew/opt/readline/lib
+
+READUTILS = -I .brew/opt/readline/include
 
 LIBFT = $(LIBFTPATH)/libft.a
 
@@ -39,7 +43,7 @@ all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJDIR) $(COBJS) $(OBJS)
 	@echo $(NAME) is being compiled...
-	@$(CC) $(CFLAGS) $(OBJS) $(COBJS) -L$(LIBFTPATH) $(READLINE) -lft -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(COBJS) -L$(LIBFTPATH) $(READEXTRA) $(READUTILS) $(READLINE) -lft -o $(NAME)
 
 $(LIBFT):
 	@make -C $(LIBFTPATH)
