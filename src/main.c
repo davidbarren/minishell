@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/04/12 16:20:44 by dbarrene         ###   ########.fr       */
+=======
+/*   Updated: 2024/04/12 14:18:52 by plang            ###   ########.fr       */
+>>>>>>> f1deb35542f2b6d47dc31e3368383280517b7e4e
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +36,7 @@ int	main(int argc, char **argv, char **envp)
 		prep_input(input, &args);
 		free(input);
 	}
+	envs->index = 69;
 	parse_input(envp, &envs);
 	return (69);
 }
