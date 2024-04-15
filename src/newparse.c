@@ -3,84 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   newparse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/12 16:42:51 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:58:18 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static t_args *get_final_node(t_args *env)
+void	prep_input(char *line, t_input *input)
 {
-	while (env->next)
-		env = env->next;
-	return (env);
+	char	**temp;
+	int		i;
+ 
+	i = 0;
+	temp = ft_quotesplit(line, '|');
+	input->pipe_count = ft_arrlen(temp);
+	input->input = ft_calloc(input->pipe_count + 1, sizeof(char *));
+	while (temp[i])
+	{
+		input->input[i] = trim_input(temp[i], ' ');
+		i++;
+	}
+	free_2d(temp);
 }
 
-void	prep_input(char *input, t_args **args)
+int		ft_arrlen(char **arr)
 {
 	int i;
-	t_args *temp;
-	i = 0;
-	make_arg_node(input, args);
-	temp = *args;
-//	args->arglist = ft_quotesplit(input, '|');
-	while (temp)
-	{
-		while (temp->arglist[i])
-			printf("Elements of split array:%s\n", temp->arglist[i++]);
-		temp = temp->next;
-		i = 0;
-	}
-	printf("input:%s\n", input);
-}
-/*
-void	scan_input(char *input, t_args *args)
-{
-	int i;
-	int push;
-	char c;
-	char *newin;
 
-	while (*input)
-	{
-		if (*input == '>' || *input == '<')
-		{
-			c = *input;
-			push = strlen_delim(input, 'c');
-			printf("%c\n", c);
-			newin = ft_substr(input, 0, push);
-			make_redir_node(newin, args->redirects);
-			input += push;
-		}
-		input++;
-	}
 	i = 0;
-	while (args->redirects[i])
-		printf("From scan input: %s\n", args->redirects[i++]->str);
-}
-*/
-void	make_arg_node(char *input, t_args **args)
-{
-	t_args	*last_node;
-	t_args	*new_node;
-
-	new_node = malloc(sizeof(t_args));
-	if (!new_node)
-		return ;
-	new_node->arglist = ft_quotesplit(input, '|');
-	if (!new_node->arglist)
-		return ;
-	new_node->next = NULL;
-	if (!*args)
-		*args= new_node;
-	else
-	{
-		last_node = get_final_node(*args);
-		last_node->next = new_node;
-	}
+	while (arr[i])
+		i++;
+	return (i);
 }
 
 int strlen_delim(char *str, char c)

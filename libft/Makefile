@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+         #
+#    By: plang <plang@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 10:40:52 by dbarrene          #+#    #+#              #
-#    Updated: 2024/04/12 16:26:31 by dbarrene         ###   ########.fr        #
+#    Updated: 2024/04/15 13:06:27 by plang            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ $(NAME): $(OBJ)
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(OBJ_DIR)
-	@cc $(CFLAGS) $(INCFLAGS) -c $< -o $@
+	cc $(CFLAGS) $(INCFLAGS) -c $< -o $@
 
 -include $(DEP)
 

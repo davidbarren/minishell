@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+         #
+#    By: plang <plang@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 14:15:56 by dbarrene          #+#    #+#              #
-#    Updated: 2024/04/12 14:48:47 by dbarrene         ###   ########.fr        #
+#    Updated: 2024/04/15 13:06:31 by plang            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ BSRCS = $(SRCDIR)/main_bonus.c\
 
 CSRCS = $(SRCDIR)/parsing.c\
 		$(SRCDIR)/newparse.c\
+		$(SRCDIR)/trim_input.c\
 
 OBJS= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 BOBJS= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(BSRCS))
@@ -43,7 +44,7 @@ all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJDIR) $(COBJS) $(OBJS)
 	@echo $(NAME) is being compiled...
-	@$(CC) $(CFLAGS) $(OBJS) $(COBJS) -L$(LIBFTPATH) $(READEXTRA) $(READUTILS) $(READLINE) -lft -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(COBJS) -L$(LIBFTPATH) $(READEXTRA) $(READUTILS) $(READLINE) -lft -o $(NAME)
 
 $(LIBFT):
 	@make -C $(LIBFTPATH)
