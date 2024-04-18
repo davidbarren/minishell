@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/18 18:21:43 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/18 18:34:06 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,22 @@ void	clean_arglist(t_args *args)
 	i = 0;
 	temp = args->arglist;
 	ft_skip_chars(&temp, ' ');
-	if (!strlen_delim_double(temp, '>', '<');
+	if (!strlen_delim_double(temp, '>', '<')
+
+ /* the logic so far is:
+  * delimiters go in delimset, need to determine if << or >
+  * regardless of case of double or single delims:
+  * strndup the delims
+  * skip the whitespace if any
+  * strndup the word following the delimset
+  * ft_strjoin_flex both and free the remainder
+  * then check for further delims ands go agane
+  * after there are no more delim - word sets
+  * rest of the input is a cmd or an argument for the cmd
+  * those will then get split and sent to execve, need to maybe trim 
+  * quotes from those but that should not be an issue 
+  * */ 
+
 }
 
 void	tokenize_args(t_args *args)
