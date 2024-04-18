@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 12:32:02 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/12 14:16:06 by plang            ###   ########.fr       */
+/*   Updated: 2024/04/18 18:19:29 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 char	**ft_quotesplit(const char *s, char c);
 void	free_2d(char **arr);
+void	ft_skip_chars(char **s, char c);
+char	*ft_strjoin_flex(const char *s1, const char *s2, int flag);
 /* ************************************************************************** */
 /*  Ft_printf                                                                 */
 /* ************************************************************************** */

@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:15:18 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/15 12:47:46 by plang            ###   ########.fr       */
+/*   Updated: 2024/04/17 15:27:24 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_env *get_last_node(t_env *env)
 void	parse_input(char **ep, t_env **env)
 {
 	store_env(ep, env);
-	print_list(*env);
+//	print_list(*env);
 }
 
 void	store_env(char **ep, t_env **env)
@@ -47,6 +47,23 @@ void	print_list(t_env *env)
 		printf("%s\n index:%d\n", temp->env_element, temp->index);
 		temp = temp->next;
 	}
+}
+int	count_redirects(char *str)
+{
+	int count;
+
+	count = 0;
+	if (!str)
+		return (0);
+	while (*str)
+	{
+		if ((*str) == '>' || *str == '<')
+			count++;
+		str++;
+		if ((*str) == '>' || *str == '<')
+		str++;
+	}
+	return (count);
 }
 
 void	add_env_to_back(t_env **env, char *data, int index)

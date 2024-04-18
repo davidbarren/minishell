@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/15 13:11:29 by plang            ###   ########.fr       */
+/*   Updated: 2024/04/17 15:17:19 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ int	main(int argc, char **argv, char **envp)
 	{
 		line = NULL;
 		line = readline("baboonshell> ");
+//		if (!quotes_num(line))
+//			printf("syntax error");
+//		printf("result of isredir: %d\n", ft_is_redirect(line));
 		if (!line)
 			break ;
 		add_history(line);
