@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/18 15:07:16 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:52:37 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ typedef struct s_args
 	char			*arglist;
 	char			**split_cmds;
 	int				cmd_index;
-	char			**tokenized_args;
+	char			*tokenized_args;
+	char			*long_command;
 	int				redir_count;
 	int				token_count;
+	int				has_redir;
 	pid_t			*pids;
 }	t_args;
 
@@ -76,4 +78,7 @@ int		ft_is_redirect(char *str);
 void	categorize_tokens(t_args *args);
 int		count_redirects(char *str);
 char	*ft_strndup(char *str, size_t n);
+void	clean_arglist(t_args *args);
+void	update_redirs(t_args *args);
+void	extract_cmds(t_args *args);
 #endif

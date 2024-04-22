@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 17:45:45 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/18 18:09:18 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:55:55 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ char	*ft_strjoin_flex(const char *s1, const char *s2, int flag)
 {
 	char	*joined;
 	int		len1;
-	int		len2;
 
 	if (!s1 && !s2)
 		return (NULL);
@@ -39,8 +38,9 @@ char	*ft_strjoin_flex(const char *s1, const char *s2, int flag)
 	if (!s2)
 		return (ft_strdup(s1));
 	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	joined = malloc(len1 + len2 + 1);
+	joined = malloc(len1 + ft_strlen(s2) + 1);
+	if (!joined)
+		return (NULL);
 	ft_strcpy(joined, s1);
 	ft_strcpy(joined + len1, s2);
 	if (flag == 1)

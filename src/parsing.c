@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:15:18 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/17 15:27:24 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:52:55 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,23 @@ void	print_list(t_env *env)
 		temp = temp->next;
 	}
 }
+
 int	count_redirects(char *str)
 {
 	int count;
+	int	i;
 
+	i = 0;
 	count = 0;
 	if (!str)
 		return (0);
-	while (*str)
+	while (str[i])
 	{
-		if ((*str) == '>' || *str == '<')
+		if ((str[i]) == '>' || str[i] == '<')
 			count++;
-		str++;
-		if ((*str) == '>' || *str == '<')
-		str++;
+		i++;
+		if ((str[i]) == '>' || str[i] == '<')
+			i++;
 	}
 	return (count);
 }

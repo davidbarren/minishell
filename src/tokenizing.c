@@ -6,17 +6,23 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/18 18:34:06 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/22 17:22:24 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+/* 
+ * remember to add condition if it's just one word it should be a cmd
+ * don't be a baboon!
+ * */
+
 void	prep_input(char *line, t_input *input)
 {
 	char	**temp;
 	int		i;
- 
+	t_redir *iterator;
+
 	i = 0;
 	temp = ft_quotesplit(line, '|');
 	input->pipe_count = ft_arrlen(temp);
@@ -29,9 +35,22 @@ void	prep_input(char *line, t_input *input)
 	free_2d(temp);
 	build_struct(input);
 	i = 0;
-
-	while(i < input->pipe_count)
-		tokenize_args(input->arg_struct[i++]);
+	while (i < input->pipe_count)
+	{
+			clean_arglist(input->arg_struct[i]);
+		tokenize_args(input->arg_struct[i]);
+		extract_cmds(input->arg_struct[i]);
+		if (input->arg_struct[i]->redir_count)
+		{
+			iterator = *(input->arg_struct[i]->redirects);
+			while (iterator)
+			{
+				printf("Info in the arg_struct:%s\n", iterator->str);
+				iterator = iterator->next;
+			}
+		}
+		printf("Commands to run: %s\n", input->arg_struct[i++]->long_command);
+	}
 }
 
 void	build_struct(t_input *input)
@@ -42,7 +61,6 @@ void	build_struct(t_input *input)
 	input->arg_struct = malloc (input->pipe_count * sizeof(t_args *));
 	if (!input->arg_struct)
 		return ;
-	ft_printf("Pipecount:%d\n", input->pipe_count);
 	while (i < input->pipe_count)
 	{
 		input->arg_struct[i] = malloc (sizeof (t_args));
@@ -51,6 +69,7 @@ void	build_struct(t_input *input)
 		input->arg_struct[i]->arglist = ft_strdup(input->input[i]);
 		if (!input->arg_struct[i]->arglist)
 			return ;
+		update_redirs(input->arg_struct[i]);
 		i++;
 	}
 	i = 0;
@@ -79,20 +98,43 @@ int quotes_num(char *line)
 		return (0);
 	return (1);
 }
-
+ 
 void	clean_arglist(t_args *args)
 {
 	char	*delimset;
 	char	*word_after;
 	char	*temp;
 	int		i;
+//	int		ducklen;
 
+//	printf("arglist at start of clean:%s\n", args->arglist);
 	i = 0;
 	temp = args->arglist;
 	ft_skip_chars(&temp, ' ');
-	if (!strlen_delim_double(temp, '>', '<')
+	if (args->redir_count)
+	{
+		if (*temp == '<' || *temp == '>') 
+		{
+			delimset = ft_strndup(temp,1);
+			temp += 1;
+		}
+		ft_skip_chars(&temp, ' ');
+		while (temp[i] != ' ')
+			i++;
+		word_after = ft_strndup(temp, i);
+		temp += i;
+		args->tokenized_args = ft_strjoin_flex(delimset, word_after, 3);
+		//	printf("cleaned arglist:%s\n", args->tokenized_args);
+		i = strlen_delim_double(temp, '<', '>');
+		args->long_command = ft_substr(temp, 0, i);
+	}
+	else
+		args->long_command = ft_strdup(temp);
+//	printf("longboi:%s\n", args->long_command);
 
- /* the logic so far is:
+	
+
+/* the logic so far is:
   * delimiters go in delimset, need to determine if << or >
   * regardless of case of double or single delims:
   * strndup the delims
@@ -104,9 +146,10 @@ void	clean_arglist(t_args *args)
   * rest of the input is a cmd or an argument for the cmd
   * those will then get split and sent to execve, need to maybe trim 
   * quotes from those but that should not be an issue 
-  * */ 
-
+  *  
+*/ 
 }
+
 
 void	tokenize_args(t_args *args)
 {
@@ -114,27 +157,26 @@ void	tokenize_args(t_args *args)
 	int		len;
 
 	temp = args->arglist;
-	printf("Inside tokenize args: %s\n", args->arglist);
-	args->redirects = ft_calloc(1, sizeof(t_redir *));
-	if (!args->redirects)
-		return ;
-	args->redir_count = count_redirects(args->arglist);
-	printf("Redir count:%d\n", args->redir_count);
-	
-	int i = 0;
-	while (*temp)
+//	printf("Inside tokenize args: %s\n", args->arglist);
+	if (args->redir_count)
 	{
-		printf("Temp before function:%s\n", temp);
-		len = strlen_delim_double(temp + 1, '>', '<');
-		printf("Temp after function:%s\n", temp);
-		printf("Current len until redir:%d at index:%d\n",len,i);
-		make_redirect_node(args->redirects, temp, len);
-		temp += len;
-		if (*temp)
-			temp += 1;
-		i++;
+		args->redirects = ft_calloc(1, sizeof(t_redir *));
+		if (!args->redirects)
+			return ;
+
+		int i = 0;
+		while (*temp)
+		{
+			len = strlen_delim_double(temp + 1, '>', '<');
+			make_redirect_node(args->redirects, temp, len);
+			temp += len;
+			if (*temp)
+				temp += 1;
+			i++;
+		}
 	}
 }
+
 static t_redir	*get_last_redir(t_redir *redir)
 {
 	t_redir	*temp;
@@ -167,7 +209,6 @@ void	make_redirect_node (t_redir **redir, char *str, int len)
 		last->next = new;
 		new->index = last->index + 1;
 	}
-	printf("Node created with index :%d and info:%s\n", new->index, new->str);
 }
 int		ft_arrlen(char **arr)
 {
@@ -179,16 +220,23 @@ int		ft_arrlen(char **arr)
 	return (i);
 }
 
-/*
-void	categorize_tokens(t_args *args)
+
+void	extract_cmds(t_args *args)
 {
+	
+	t_redir	*temp;
 
-	int i;
-
-	i = 0;
-			
+	if (!args->redir_count)
+		return ;
+	temp = *(args->redirects);
+	while (temp)
+	{
+		if (ft_strnstr(temp->str, args->long_command, ft_strlen(temp->str)))
+		{
+			free (temp->str);
+			temp->str = ft_strdup(args->tokenized_args);
+		}
+		temp = temp->next;
+	}
 }
-*///need a token counter as well so i know how much mmry to malloc for tokens
-  //maybe do a ft_strlen_delim with that handles either redirect
-   //and then substr up until that point so we keep the < / >
-   // can put the tokens in a linked list like we planned
+
