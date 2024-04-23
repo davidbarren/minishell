@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 18:46:49 by dbarrene          #+#    #+#             */
-/*   Updated: 2023/11/15 13:02:42 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/23 11:22:33 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,7 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	int	i;
-
 	if (!s)
 		return ;
-	i = 0;
-	while (s[i] != 0)
-	{
-		write (fd, &s[i], 1);
-		i++;
-	}
+	write (fd, s, ft_strlen(s));
 }
