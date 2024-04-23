@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 18:24:57 by plang             #+#    #+#             */
-/*   Updated: 2024/04/15 15:27:11 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:55:44 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*trim_input(char *input, char c)
 	{
 		while (input[k] == c)
 			k--;
-	}	
+	}
 	str = malloc(((k - i + 1) + 1) * sizeof(char));
 	if (!str)
 		return (NULL);

@@ -6,13 +6,13 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:15:18 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/19 15:52:55 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:44:10 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static t_env *get_last_node(t_env *env)
+static t_env	*get_last_node(t_env *env)
 {
 	while (env->next)
 		env = env->next;
@@ -22,7 +22,7 @@ static t_env *get_last_node(t_env *env)
 void	parse_input(char **ep, t_env **env)
 {
 	store_env(ep, env);
-//	print_list(*env);
+	print_list(*env);
 }
 
 void	store_env(char **ep, t_env **env)
@@ -51,7 +51,7 @@ void	print_list(t_env *env)
 
 int	count_redirects(char *str)
 {
-	int count;
+	int	count;
 	int	i;
 
 	i = 0;
@@ -96,4 +96,3 @@ void	add_env_to_back(t_env **env, char *data, int index)
 		new_node->prev = last_node;
 	}
 }
-

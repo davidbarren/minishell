@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 12:32:02 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/18 18:19:29 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/23 18:01:27 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_qsplit
 	int			j;
 	char		temp;
 }					t_qsplit;
-typedef struct	s_wordc 
+typedef struct s_wordc
 {
 	int			i;
 	int			flag;
@@ -110,6 +110,7 @@ char	**ft_quotesplit(const char *s, char c);
 void	free_2d(char **arr);
 void	ft_skip_chars(char **s, char c);
 char	*ft_strjoin_flex(const char *s1, const char *s2, int flag);
+int		ft_strcmp(char *s1, char *s2);
 /* ************************************************************************** */
 /*  Ft_printf                                                                 */
 /* ************************************************************************** */

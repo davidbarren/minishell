@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/22 11:52:37 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/23 17:31:06 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,16 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include "../libft/includes/libft.h"
-//# include <readline/readline.h>
+# include <readline/readline.h>
 # include <readline/history.h>
 
+typedef struct s_env
+{
+	struct s_env	*next;
+	struct s_env	*prev;
+	char			*env_element;
+	int				index;
+}	t_env;
 typedef struct s_redir
 {
 	int				index;
@@ -41,6 +48,7 @@ typedef struct s_args
 	int				token_count;
 	int				has_redir;
 	pid_t			*pids;
+	t_env			**list;
 }	t_args;
 
 typedef struct s_input
@@ -50,15 +58,7 @@ typedef struct s_input
 	t_args	**arg_struct;
 }	t_input;
 
-typedef struct s_env
-{
-	struct s_env	*next;
-	struct s_env	*prev;
-	char			*env_element;
-	int				index;
-}	t_env;
-
-void	make_redirect_node (t_redir **redir, char *str, int len);
+void	make_redirect_node(t_redir **redir, char *str, int len);
 void	prep_input(char *line, t_input *input);
 void	store_env(char **ep, t_env **env);
 //t_env	*get_last_node(t_env *env);
@@ -75,7 +75,6 @@ char	*trim_input(char *input, char c);
 void	build_struct(t_input *input);
 void	tokenize_args(t_args *args);
 int		ft_is_redirect(char *str);
-void	categorize_tokens(t_args *args);
 int		count_redirects(char *str);
 char	*ft_strndup(char *str, size_t n);
 void	clean_arglist(t_args *args);
