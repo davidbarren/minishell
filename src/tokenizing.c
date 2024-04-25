@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/23 11:25:05 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:42:11 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	prep_input(char *line, t_input *input)
 {
 	char	**temp;
 	int		i;
-	t_redir *iterator;
+	t_redir	*iterator; //used for printf
 
 	i = 0;
 	temp = ft_quotesplit(line, '|');
@@ -37,13 +37,13 @@ void	prep_input(char *line, t_input *input)
 	i = 0;
 	while (i < input->pipe_count)
 	{
-			clean_arglist(input->arg_struct[i]);
+		clean_arglist(input->arg_struct[i]);
 		tokenize_args(input->arg_struct[i]);
 		extract_cmds(input->arg_struct[i]);
 		if (input->arg_struct[i]->redir_count)
 		{
 			iterator = *(input->arg_struct[i]->redirects);
-			while (iterator)
+			while (iterator) //used for printf
 			{
 				printf("Info in the arg_struct:%s\n", iterator->str);
 				iterator = iterator->next;
@@ -70,16 +70,18 @@ void	build_struct(t_input *input)
 		if (!input->arg_struct[i]->arglist)
 			return ;
 		update_redirs(input->arg_struct[i]);
+		if (!ft_strncmp(input->arg_struct[i]->arglist, "<<", 3))
+				input->arg_struct[i]->is_hdoc = 1;
 		i++;
 	}
 	i = 0;
 }
 
-int quotes_num(char *line)
+/*int	quotes_num(char *line)
 {
-	int i;
+	int	i;
 	int	singlect;
-	int doublect;
+	int	doublect;
 
 	if (!line)
 		return (0);
@@ -98,24 +100,23 @@ int quotes_num(char *line)
 		return (0);
 	return (1);
 }
- 
+*/
 void	clean_arglist(t_args *args)
 {
 	char	*delimset;
 	char	*word_after;
 	char	*temp;
 	int		i;
-//	int		ducklen;
 
-//	printf("arglist at start of clean:%s\n", args->arglist);
+	delimset = NULL;
 	i = 0;
 	temp = args->arglist;
 	ft_skip_chars(&temp, ' ');
 	if (args->redir_count)
 	{
-		if (*temp == '<' || *temp == '>') 
+		if (*temp == '<' || *temp == '>')
 		{
-			delimset = ft_strndup(temp,1);
+			delimset = ft_strndup(temp, 1);
 			temp += 1;
 		}
 		ft_skip_chars(&temp, ' ');
@@ -131,8 +132,33 @@ void	clean_arglist(t_args *args)
 	else
 		args->long_command = ft_strdup(temp);
 //	printf("longboi:%s\n", args->long_command);
+}
 
-	
+void	tokenize_args(t_args *args)
+{
+	char	*temp;
+	int		len;
+	int		i;
+
+	i = 0;
+	temp = args->arglist;
+//	printf("Inside tokenize args: %s\n", args->arglist);
+	if (args->redir_count)
+	{
+		args->redirects = ft_calloc(1, sizeof(t_redir *));
+		if (!args->redirects)
+			return ;
+		while (*temp)
+		{
+			len = strlen_delim_double(temp + 1, '>', '<');
+			make_redirect_node(args->redirects, temp, len);
+			temp += len;
+			if (*temp)
+				temp += 1;
+			i++;
+		}
+	}
+}
 
 /* the logic so far is:
   * delimiters go in delimset, need to determine if << or >
@@ -147,96 +173,4 @@ void	clean_arglist(t_args *args)
   * those will then get split and sent to execve, need to maybe trim 
   * quotes from those but that should not be an issue 
   *  
-*/ 
-}
-
-
-void	tokenize_args(t_args *args)
-{
-	char	*temp;
-	int		len;
-
-	temp = args->arglist;
-//	printf("Inside tokenize args: %s\n", args->arglist);
-	if (args->redir_count)
-	{
-		args->redirects = ft_calloc(1, sizeof(t_redir *));
-		if (!args->redirects)
-			return ;
-
-		int i = 0;
-		while (*temp)
-		{
-			len = strlen_delim_double(temp + 1, '>', '<');
-			make_redirect_node(args->redirects, temp, len);
-			temp += len;
-			if (*temp)
-				temp += 1;
-			i++;
-		}
-	}
-}
-
-static t_redir	*get_last_redir(t_redir *redir)
-{
-	t_redir	*temp;
-
-	temp = redir;
-	while (temp->next)
-		temp = temp->next;
-	return (temp);
-}
-
-
-void	make_redirect_node (t_redir **redir, char *str, int len)
-{
-	t_redir	*new;
-	t_redir	*last;
-
-	new = calloc (1, sizeof(t_redir));
-	if (!new)
-		return ;
-	new->index = 0;
-	new->next = NULL;
-	new->str = ft_strndup(str, len);
-	if (!new->str)
-		return ;
-	if (!*redir)
-		*redir = new;
-	else
-	{
-		last = get_last_redir(*redir);
-		last->next = new;
-		new->index = last->index + 1;
-	}
-}
-int		ft_arrlen(char **arr)
-{
-	int i;
-
-	i = 0;
-	while (arr[i])
-		i++;
-	return (i);
-}
-
-
-void	extract_cmds(t_args *args)
-{
-	
-	t_redir	*temp;
-
-	if (!args->redir_count)
-		return ;
-	temp = *(args->redirects);
-	while (temp)
-	{
-		if (ft_strnstr(temp->str, args->long_command, ft_strlen(temp->str)))
-		{
-			free (temp->str);
-			temp->str = ft_strdup(args->tokenized_args);
-		}
-		temp = temp->next;
-	}
-}
-
+*/
