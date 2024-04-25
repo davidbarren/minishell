@@ -6,22 +6,11 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:13:37 by plang             #+#    #+#             */
-/*   Updated: 2024/04/25 13:57:54 by plang            ###   ########.fr       */
+/*   Updated: 2024/04/25 16:01:29 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include "libft.h"
-
-typedef struct s_env
-{
-	struct s_env	*next;
-	struct s_env	*prev;
-	char			*env_element;
-	int				index;
-}	t_env;
+#include "../includes/minishell.h"
 
 void	ft_unset(t_env **env, char *cmd_args)
 {
@@ -57,65 +46,6 @@ t_env	*ft_getenv(t_env **envs, char *str)
 	return (temp);
 }
 
-static t_env *get_last_node(t_env *env)
-{
-	while (env->next)
-		env = env->next;
-	return (env);
-}
-
-void	add_env_to_back(t_env **env, char *data, int index)
-{
-	t_env	*last_node;
-	t_env	*new_node;
-	t_env	*temp;
-
-	temp = *env;
-	new_node = malloc(sizeof(t_env));
-	if (!new_node)
-		return ;
-	new_node->env_element = ft_strdup(data);
-	new_node->index = index;
-	if (!new_node->env_element)
-		return ;
-	new_node->next = NULL;
-	if (!*env)
-	{
-		new_node->prev = NULL;
-		*env = new_node;
-	}
-	else
-	{
-		last_node = get_last_node(*env);
-		last_node->next = new_node;
-		new_node->prev = last_node;
-	}
-}
-
-void	store_env(char **ep, t_env **env)
-{
-	int	i;
-
-	i = 0;
-	while (ep[i])
-	{
-		add_env_to_back(env, ep[i], i);
-		i++;
-	}
-}
-
-void	print_list(t_env *env)
-{
-	t_env	*temp;
-
-	temp = env;
-	while (temp)
-	{
-		printf("%s\n index:%d\n", temp->env_element, temp->index);
-		temp = temp->next;
-	}
-}
-
 char *get_env_str(t_env *complete_env)
 {
 	char	*extracted;
@@ -144,20 +74,20 @@ char *get_env_str(t_env *complete_env)
 	return (extracted);
 }
 
-int	main(int argc, char **argv, char **envp)
-{
-	t_env	*envs;
-	t_env	*the_one;
-	char	*no_env;
+// int	main(int argc, char **argv, char **envp)
+// {
+// 	t_env	*envs;
+// 	t_env	*the_one;
+// 	char	*no_env;
 
-	(void) argc;
-	(void) argv;
-	store_env(envp, &envs);
-	the_one = ft_getenv(&envs, "PATH");
-	no_env = get_env_str(the_one);
-	ft_unset(&envs, "PATH");
-	print_list(envs);
-	printf("%s\n", the_one->env_element);
-	printf("%s\n", no_env);
-	return (0);
-}
+// 	(void) argc;
+// 	(void) argv;
+// 	store_env(envp, &envs);
+// 	the_one = ft_getenv(&envs, "PATH");
+// 	no_env = get_env_str(the_one);
+// 	ft_unset(&envs, "PATH");
+// 	print_list(envs);
+// 	printf("%s\n", the_one->env_element);
+// 	printf("%s\n", no_env);
+// 	return (0);
+// }
