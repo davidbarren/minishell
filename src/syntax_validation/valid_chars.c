@@ -6,12 +6,11 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:42:20 by plang             #+#    #+#             */
-/*   Updated: 2024/04/19 16:12:03 by plang            ###   ########.fr       */
+/*   Updated: 2024/04/25 14:58:10 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h> // remove
+#include "../../includes/minishell.h"
 
 int	not_supported_chars(char *str, char c)
 {
@@ -72,15 +71,5 @@ int	valid_chars(char *str)
 		return (1);
 	if (not_supported_chars(str, ';'))
 		return (1);
-	return (0);
-}
-
-int	main(int argc, char **argv)
-{
-	(void)argc;
-	int	check;
-
-	check = valid_chars(argv[1]);
-	printf("check: %d\n", check);
 	return (0);
 }

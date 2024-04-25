@@ -6,32 +6,11 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:25:49 by plang             #+#    #+#             */
-/*   Updated: 2024/04/23 19:33:36 by plang            ###   ########.fr       */
+/*   Updated: 2024/04/25 15:00:01 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include "libft.h"
-
-void	ft_skip_space(char **s, char c)
-{
-	while (**s && **s == c)
-	{
-		(*s)++;
-	}
-}
-
-int	ft_strcmp(char *s1, char *s2)
-{
-	int	i;
-
-	i = 0;
-	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
-		i++;
-	return (s1[i] - s2[i]);
-}
+#include "../../includes/minishell.h"
 
 int	check_flag_validity(char *str)
 {
@@ -70,7 +49,6 @@ void	ft_echo(char **words)
 
 	i = 0;
 	flag_index = ft_check_flags(words);
-	printf("%d\n", flag_index);
 	if (flag_index > 1)
 	{
 		printf("\n");
@@ -85,19 +63,6 @@ void	ft_echo(char **words)
 	}
 	if (flag_index == 1)
 	{
-		printf(" newline");
 		printf("\n");
 	}
-}
-
-int	main(int argc, char **argv)
-{
-	char	**array;
-	int		i;
-
-	(void)argc;
-	i = 0;
-	array = ft_split(argv[1], ' ');
-	ft_echo(array);
-	return (0);
 }

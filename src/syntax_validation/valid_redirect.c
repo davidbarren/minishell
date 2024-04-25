@@ -6,12 +6,11 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:47:32 by plang             #+#    #+#             */
-/*   Updated: 2024/04/25 11:41:44 by plang            ###   ########.fr       */
+/*   Updated: 2024/04/25 14:59:04 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h> // remove
+#include "../../includes/minishell.h"
 
 int	we_have_redirect(char *str, int *i)
 {
@@ -58,53 +57,3 @@ int	valid_redirect(char *str)
 		return (1);
 	return (0);
 }
-
-int	main(int argc, char **argv)
-{
-	(void)argc;
-	int	check;
-
-	check = valid_redirect(argv[1]);
-	printf("%d\n", check);
-	return (0);
-}
-
-// int	valid_redirect(char *str)
-// {
-// 	int		check;
-// 	char	temp;
-
-// 	check = 0;
-// 	while (*str != '\0')
-// 	{
-// 		if (*str == '<')
-// 			temp = *str;
-// 		else if (*str == '>')
-// 			temp = *str;
-// 		if (*str == ' ')
-// 			ft_skip_char(&str, ' ');
-// 		str++;
-// 	}
-// 	return (check);
-// }
-		// if (str[i] == '<' || str[i] == '>')
-		// {
-		// 	i++;
-		// 	if (str[i] == ' ')
-		// 	{
-		// 		if ((str[i + 1]) == '<' || (str[i + 1]) == '>')
-		// 		{
-		// 			check = 1;
-		// 			printf("yo");
-		// 			break ;
-		// 		}
-		// 		ft_skip_char(&str, ' ');
-		// 		if (str[i] == '\0' || str[i] == '>' || str[i] == '<')
-		// 		{
-		// 			check = 1;
-		// 			printf("man");
-		// 			break ;
-		// 		}
-		// 	}
-		// }
-		// i++;

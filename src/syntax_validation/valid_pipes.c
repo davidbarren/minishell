@@ -6,19 +6,11 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:06:11 by plang             #+#    #+#             */
-/*   Updated: 2024/04/19 12:01:06 by plang            ###   ########.fr       */
+/*   Updated: 2024/04/25 14:58:35 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// void	ft_skip_space(char **str, char c)
-// {
-// 	while (**str && **str == c)
-// 	{
-// 		(*str)++;
-// 	}
-// }
-
-#include "libft.h"
+#include "../../includes/minishell.h"
 
 int	valid_pipes(char *str)
 {
@@ -43,16 +35,4 @@ int	valid_pipes(char *str)
 		str++;
 	}
 	return (check);
-}
-
-#include <stdio.h>
-
-int	main(int argc, char **argv)
-{
-	(void)argc;
-	int	check;
-
-	check = valid_pipes(argv[1]);
-	printf("%d\n", check);
-	return (0);
 }

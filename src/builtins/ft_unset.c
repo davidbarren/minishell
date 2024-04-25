@@ -6,32 +6,11 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:37:22 by plang             #+#    #+#             */
-/*   Updated: 2024/04/25 13:42:12 by plang            ###   ########.fr       */
+/*   Updated: 2024/04/25 15:00:57 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include "libft.h"
-
-typedef struct s_env
-{
-	struct s_env	*next;
-	struct s_env	*prev;
-	char			*env_element;
-	int				index;
-}	t_env;
-
-// int	ft_strcmp(char *s1, char *s2)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
-// 		i++;
-// 	return (s1[i] - s2[i]);
-// }
+#include "../../includes/minishell.h"
 
 void	ft_unset(t_env **env, char **cmd_args)
 {
@@ -58,7 +37,4 @@ void	ft_unset(t_env **env, char **cmd_args)
 		temp = temp->next;
 	}
 }
-
-	// string, argument after the command. strcmp to the environment linked list
-	// take in environment list and 2d array of command and argument.
 	

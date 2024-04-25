@@ -6,12 +6,11 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:17:25 by plang             #+#    #+#             */
-/*   Updated: 2024/04/18 18:54:34 by plang            ###   ########.fr       */
+/*   Updated: 2024/04/25 14:58:48 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h> // remove
+#include "../../includes/minishell.h"
 
 void	find_next_quote(char *str, int *i, int *dq, int *sq)
 {
@@ -82,15 +81,5 @@ int	valid_quotes(char *str)
 		if (str[i] != '\0')
 			i++;
 	}
-	return (0);
-}
-
-int	main(int argc, char **argv)
-{
-	(void)argc;
-	int	check;
-
-	check = valid_quotes(argv[1]);
-	printf("%d\n", check);
 	return (0);
 }
