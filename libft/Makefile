@@ -6,7 +6,7 @@
 #    By: plang <plang@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 10:40:52 by dbarrene          #+#    #+#              #
-#    Updated: 2024/04/18 18:10:35 by dbarrene         ###   ########.fr        #
+#    Updated: 2024/04/24 14:39:48 by dbarrene         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,8 @@ ft_newsplit.c\
 free_2d.c\
 ft_strjoin_flex.c\
 ft_skipchar.c\
+ft_strcmp.c\
+ft_strjoin_sep.c\
 
 CFLAGS = -Wall -Wextra -Werror -g
 INCFLAGS = -Iincludes

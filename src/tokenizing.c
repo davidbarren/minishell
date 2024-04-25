@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/23 17:59:01 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:42:11 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	build_struct(t_input *input)
 		if (!input->arg_struct[i]->arglist)
 			return ;
 		update_redirs(input->arg_struct[i]);
+		if (!ft_strncmp(input->arg_struct[i]->arglist, "<<", 3))
+				input->arg_struct[i]->is_hdoc = 1;
 		i++;
 	}
 	i = 0;
@@ -106,6 +108,7 @@ void	clean_arglist(t_args *args)
 	char	*temp;
 	int		i;
 
+	delimset = NULL;
 	i = 0;
 	temp = args->arglist;
 	ft_skip_chars(&temp, ' ');
