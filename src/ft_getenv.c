@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:13:37 by plang             #+#    #+#             */
-/*   Updated: 2024/04/25 13:44:03 by plang            ###   ########.fr       */
+/*   Updated: 2024/04/25 13:57:54 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	print_list(t_env *env)
 	}
 }
 
-char *move_env_pointer(t_env *complete_env)
+char *get_env_str(t_env *complete_env)
 {
 	char	*extracted;
 	int		start;
@@ -154,7 +154,7 @@ int	main(int argc, char **argv, char **envp)
 	(void) argv;
 	store_env(envp, &envs);
 	the_one = ft_getenv(&envs, "PATH");
-	no_env = move_env_pointer(the_one);
+	no_env = get_env_str(the_one);
 	ft_unset(&envs, "PATH");
 	print_list(envs);
 	printf("%s\n", the_one->env_element);
