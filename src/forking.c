@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:00:26 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/25 14:06:50 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/28 16:41:18 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	prep_child_command(t_args *args)
 			free_2d(split_path);
 		}
 	}
-	execve(split_path[i], args->split_cmds,ep);
+	execve(split_path[i], args->split_cmds, ep);
 }
 /*
 char	**copy_2d(char **src)
@@ -53,6 +53,7 @@ char	**copy_2d(char **src)
 	return (dest);
 }
 */
+
 static	int	get_env_len(t_env *env)
 {
 	t_env	*temp;
@@ -73,5 +74,4 @@ void	copy_env(char **ep, t_env **env)
 	int	len;
 
 	len = get_env_len(*env);
-
 }

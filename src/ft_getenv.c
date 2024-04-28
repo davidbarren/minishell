@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:13:37 by plang             #+#    #+#             */
-/*   Updated: 2024/04/25 16:01:29 by plang            ###   ########.fr       */
+/*   Updated: 2024/04/28 16:40:34 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ void	ft_unset(t_env **env, char *cmd_args)
 	temp = *env;
 	while (temp != NULL)
 	{
-			if (!ft_strncmp(temp->env_element, cmd_args, ft_strlen(cmd_args)))
-			{
-				unset = temp;
-				temp->prev->next = temp->next;
-				temp->next->prev = temp->prev;
-				free(unset);
-				break ;
-			}
+		if (!ft_strncmp(temp->env_element, cmd_args, ft_strlen(cmd_args)))
+		{
+			unset = temp;
+			temp->prev->next = temp->next;
+			temp->next->prev = temp->prev;
+			free(unset);
+			break ;
+		}
 		temp = temp->next;
 	}
 }
@@ -46,7 +46,7 @@ t_env	*ft_getenv(t_env **envs, char *str)
 	return (temp);
 }
 
-char *get_env_str(t_env *complete_env)
+char	*get_env_str(t_env *complete_env)
 {
 	char	*extracted;
 	int		start;

@@ -1,0 +1,4 @@
+CompileFlags:
+  Add:
+    - "-I/Users/dbarrene/Documents/42Cursus/minishell/inc"
+    - "-I/Users/dbarrene/Documents/42Cursus/minishell/libft/inc"
