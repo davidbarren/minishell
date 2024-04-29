@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:25:49 by plang             #+#    #+#             */
-/*   Updated: 2024/04/25 15:00:01 by plang            ###   ########.fr       */
+/*   Updated: 2024/04/25 17:22:13 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	check_flag_validity(char *str)
 {
-	printf("%s\n", str);
 	int	i;
 
 	i = 1;
@@ -32,6 +31,7 @@ int	check_flag_validity(char *str)
 int	ft_check_flags(char **words)
 {
 	int	i;
+
 	i = 1;
 	while (words[i] != '\0')
 	{
