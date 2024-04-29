@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/29 17:16:05 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/29 17:51:06 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	prep_input(char *line, t_input *input)
 		clean_arglist(input->arg_struct[i]);
 		tokenize_args(input->arg_struct[i]);
 		extract_cmds(input->arg_struct[i]);
-//		prep_child_command(input->arg_struct[i]);	
+		prep_child_command(input->arg_struct[i]);	
 		if (input->arg_struct[i]->redir_count)
 			clean_redir_node(input->arg_struct[i]->redirects,
 				input->arg_struct[i]->long_command);
@@ -73,6 +73,7 @@ void	build_struct(t_input *input)
 		update_redirs(input->arg_struct[i]);
 		if (!ft_strncmp(input->arg_struct[i]->arglist, "<<", 3))
 			input->arg_struct[i]->is_hdoc = 1;
+		input->arg_struct[i]->envlist = input->envlist;
 		i++;
 	}
 	i = 0;

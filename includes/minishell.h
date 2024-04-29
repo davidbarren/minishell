@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/29 16:57:32 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/29 18:07:23 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_args
 	int				token_count;
 	int				has_redir;
 	pid_t			*pids;
-	t_env			**list;
+	t_env			**envlist;
 	int				is_builtin;
 }	t_args;
 
@@ -66,6 +66,7 @@ typedef struct s_input
 	char	**input;
 	t_args	**arg_struct;
 	pid_t	*pids;
+	t_env	**envlist;
 }	t_input;
 
 void	make_redirect_node(t_redir **redir, char *str, int len);
@@ -95,10 +96,10 @@ void	clean_redir_node(t_redir **redir, char *str);
 char	*get_cmd_filename_last(char *str);
 char	*get_file_filename_last(char *str);
 char	*ft_getenv(t_env **envs, char *str);
-void	copy_env(char **ep, t_env **env);
 void	prep_child_command(t_args *args);
 int		valid_quotes(char *str);
 int		valid_pipes(char *str);
 int		valid_chars(char *str);
 int		valid_redirect(char *str);
+char	**copy_env(char **ep, t_env **env);
 #endif

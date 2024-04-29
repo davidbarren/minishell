@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/26 15:25:11 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/29 17:49:04 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	main(int argc, char **argv, char **envp)
 	using_history();
 	printf("Address of input in main: %p\n", &input);
 	parse_input(envp, &envs);
+	input.envlist = &envs;
+	printf("Address of envlist:%p\n", input.envlist);
 	while (1)
 	{
 		line = NULL;
