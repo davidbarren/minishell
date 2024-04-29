@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/24 12:42:11 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/29 13:47:50 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ void	prep_input(char *line, t_input *input)
 {
 	char	**temp;
 	int		i;
-	t_redir	*iterator; //used for printf
-
+//	t_redir	*iterator; //used for printf
 	i = 0;
 	temp = ft_quotesplit(line, '|');
 	input->pipe_count = ft_arrlen(temp);
@@ -40,15 +39,17 @@ void	prep_input(char *line, t_input *input)
 		clean_arglist(input->arg_struct[i]);
 		tokenize_args(input->arg_struct[i]);
 		extract_cmds(input->arg_struct[i]);
+//		prep_child_command(input->arg_struct[i]);	
 		if (input->arg_struct[i]->redir_count)
-		{
-			iterator = *(input->arg_struct[i]->redirects);
-			while (iterator) //used for printf
-			{
-				printf("Info in the arg_struct:%s\n", iterator->str);
-				iterator = iterator->next;
-			}
-		}
+			clean_redir_node(input->arg_struct[i]->redirects,
+				input->arg_struct[i]->long_command);
+//			iterator = *(input->arg_struct[i]->redirects);
+//			while (iterator) //used for printf
+//			{
+//				printf("Info in the arg_struct:%s\n", iterator->str);
+//				iterator = iterator->next;
+//			}
+//		}
 		printf("Commands to run: %s\n", input->arg_struct[i++]->long_command);
 	}
 }
@@ -71,36 +72,12 @@ void	build_struct(t_input *input)
 			return ;
 		update_redirs(input->arg_struct[i]);
 		if (!ft_strncmp(input->arg_struct[i]->arglist, "<<", 3))
-				input->arg_struct[i]->is_hdoc = 1;
+			input->arg_struct[i]->is_hdoc = 1;
 		i++;
 	}
 	i = 0;
 }
 
-/*int	quotes_num(char *line)
-{
-	int	i;
-	int	singlect;
-	int	doublect;
-
-	if (!line)
-		return (0);
-	i = 0;
-	singlect = 0;
-	doublect = 0;
-	while (line[i])
-	{
-		if (line[i] == '\'' || line[i] == '\"')
-			singlect++;
-		if (line[i] == '\"')
-			doublect++;
-		i++;
-	}
-	if ((singlect % 2) || (doublect % 2))
-		return (0);
-	return (1);
-}
-*/
 void	clean_arglist(t_args *args)
 {
 	char	*delimset;
@@ -112,22 +89,28 @@ void	clean_arglist(t_args *args)
 	i = 0;
 	temp = args->arglist;
 	ft_skip_chars(&temp, ' ');
+	printf("Arglist in clean arglist:%s\n", args->arglist);
 	if (args->redir_count)
 	{
 		if (*temp == '<' || *temp == '>')
 		{
 			delimset = ft_strndup(temp, 1);
 			temp += 1;
+			ft_skip_chars(&temp, ' ');
+			while (temp[i] != ' ')
+				i++;
+			word_after = ft_strndup(temp, i);
+			temp += i;
+			args->tokenized_args = ft_strjoin_flex(delimset, word_after, 3);
+			printf("cleaned arglist:%s\n", args->tokenized_args);
+			i = strlen_delim_double(temp, '<', '>');
+			args->long_command = ft_substr(temp, 0, i);
 		}
-		ft_skip_chars(&temp, ' ');
-		while (temp[i] != ' ')
-			i++;
-		word_after = ft_strndup(temp, i);
-		temp += i;
-		args->tokenized_args = ft_strjoin_flex(delimset, word_after, 3);
-		//	printf("cleaned arglist:%s\n", args->tokenized_args);
-		i = strlen_delim_double(temp, '<', '>');
-		args->long_command = ft_substr(temp, 0, i);
+		else
+		{
+			args->long_command = get_cmd_filename_last(temp);
+			args->tokenized_args = get_file_filename_last(temp);
+		}
 	}
 	else
 		args->long_command = ft_strdup(temp);

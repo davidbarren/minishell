@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:15:18 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/23 17:44:10 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/28 15:10:51 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_env	*get_last_node(t_env *env)
 void	parse_input(char **ep, t_env **env)
 {
 	store_env(ep, env);
-	print_list(*env);
+//	print_list(*env);
 }
 
 void	store_env(char **ep, t_env **env)

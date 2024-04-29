@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:37:22 by plang             #+#    #+#             */
-/*   Updated: 2024/04/25 15:00:57 by plang            ###   ########.fr       */
+/*   Updated: 2024/04/28 16:35:10 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	ft_unset(t_env **env, char **cmd_args)
 		i = 1;
 		while (cmd_args[i])
 		{
-			if (!ft_strncmp(temp->env_element, cmd_args[i], ft_strlen(cmd_args[i])))
+			if (!ft_strncmp(temp->env_element, cmd_args[i],
+					ft_strlen(cmd_args[i])))
 			{
 				unset = temp;
 				temp->prev->next = temp->next;
@@ -37,4 +38,3 @@ void	ft_unset(t_env **env, char **cmd_args)
 		temp = temp->next;
 	}
 }
-	
