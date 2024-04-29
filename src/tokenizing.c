@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/28 16:34:13 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/29 13:47:50 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	prep_input(char *line, t_input *input)
 		clean_arglist(input->arg_struct[i]);
 		tokenize_args(input->arg_struct[i]);
 		extract_cmds(input->arg_struct[i]);
+//		prep_child_command(input->arg_struct[i]);	
 		if (input->arg_struct[i]->redir_count)
 			clean_redir_node(input->arg_struct[i]->redirects,
 				input->arg_struct[i]->long_command);
@@ -113,7 +114,7 @@ void	clean_arglist(t_args *args)
 	}
 	else
 		args->long_command = ft_strdup(temp);
-	printf("longboi:%s\n", args->long_command);
+//	printf("longboi:%s\n", args->long_command);
 }
 
 void	tokenize_args(t_args *args)
