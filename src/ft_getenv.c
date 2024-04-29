@@ -6,33 +6,13 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:13:37 by plang             #+#    #+#             */
-/*   Updated: 2024/04/28 16:40:34 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/29 15:08:29 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_unset(t_env **env, char *cmd_args)
-{
-	t_env	*temp;
-	t_env	*unset;
-
-	temp = *env;
-	while (temp != NULL)
-	{
-		if (!ft_strncmp(temp->env_element, cmd_args, ft_strlen(cmd_args)))
-		{
-			unset = temp;
-			temp->prev->next = temp->next;
-			temp->next->prev = temp->prev;
-			free(unset);
-			break ;
-		}
-		temp = temp->next;
-	}
-}
-
-t_env	*ft_getenv(t_env **envs, char *str)
+t_env	*getenv_node(t_env **envs, char *str)
 {
 	t_env	*temp;
 
@@ -74,20 +54,12 @@ char	*get_env_str(t_env *complete_env)
 	return (extracted);
 }
 
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	t_env	*envs;
-// 	t_env	*the_one;
-// 	char	*no_env;
+char    *ft_getenv(t_env **envs, char *str)
+{
+    t_env    *node;
+    char    *env_str;
 
-// 	(void) argc;
-// 	(void) argv;
-// 	store_env(envp, &envs);
-// 	the_one = ft_getenv(&envs, "PATH");
-// 	no_env = get_env_str(the_one);
-// 	ft_unset(&envs, "PATH");
-// 	print_list(envs);
-// 	printf("%s\n", the_one->env_element);
-// 	printf("%s\n", no_env);
-// 	return (0);
-// }
+    node = getenv_node(envs, str);
+    env_str = get_str_from_env(node);
+    return (env_str);
+}
