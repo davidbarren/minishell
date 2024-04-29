@@ -6,13 +6,13 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:15:18 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/28 15:10:51 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:52:42 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static t_env	*get_last_node(t_env *env)
+t_env	*get_last_node(t_env *env)
 {
 	while (env->next)
 		env = env->next;

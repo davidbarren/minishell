@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:00:26 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/29 13:38:32 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:45:54 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@ void	prep_child_command(t_args *args)
 	char	**split_path;
 	int		i;
 	char	*path;
-	t_env	*pathnode;
-
+//	t_env	*pathnode;
+	
+	ep = NULL;
 	i = 0;
 	args->split_cmds = ft_quotesplit(args->long_command, ' ');
-	pathnode = ft_getenv(args->list, "PATH");
-	path = pathnode->env_element;
+//	pathnode = ft_getenv(args->list, "PATH");
+	path = ft_getenv(args->list, "PATH");
 	split_path = ft_split(path, ':');
 	copy_env(ep, args->list);
 	while (ep[i])

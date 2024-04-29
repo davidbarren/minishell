@@ -6,11 +6,11 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:42:20 by plang             #+#    #+#             */
-/*   Updated: 2024/04/25 14:58:10 by plang            ###   ########.fr       */
+/*   Updated: 2024/04/29 16:51:33 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
 int	not_supported_chars(char *str, char c)
 {

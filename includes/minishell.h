@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/29 13:40:41 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:57:32 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ typedef struct s_env
 	struct s_env	*next;
 	struct s_env	*prev;
 	char			*env_element;
+	char			*title;
+	char			*info;
 	int				index;
 }	t_env;
 typedef struct s_redir
@@ -69,7 +71,7 @@ typedef struct s_input
 void	make_redirect_node(t_redir **redir, char *str, int len);
 void	prep_input(char *line, t_input *input);
 void	store_env(char **ep, t_env **env);
-//t_env	*get_last_node(t_env *env);
+t_env	*get_last_node(t_env *env);
 void	add_env_to_back(t_env **env, char *data, int index);
 int		quotes_num(char *line);
 void	parse_input(char **ep, t_env **env);
@@ -92,7 +94,11 @@ char	**copy_2d(char **src);
 void	clean_redir_node(t_redir **redir, char *str);
 char	*get_cmd_filename_last(char *str);
 char	*get_file_filename_last(char *str);
-t_env	*ft_getenv(t_env **envs, char *str);
+char	*ft_getenv(t_env **envs, char *str);
 void	copy_env(char **ep, t_env **env);
 void	prep_child_command(t_args *args);
+int		valid_quotes(char *str);
+int		valid_pipes(char *str);
+int		valid_chars(char *str);
+int		valid_redirect(char *str);
 #endif

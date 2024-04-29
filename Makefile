@@ -6,7 +6,7 @@
 #    By: plang <plang@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 14:15:56 by dbarrene          #+#    #+#              #
-#    Updated: 2024/04/29 13:48:15 by dbarrene         ###   ########.fr        #
+#    Updated: 2024/04/29 16:49:37 by dbarrene         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,20 @@ CSRCS = $(SRCDIR)/parsing.c\
 		$(SRCDIR)/trim_input.c\
 		$(SRCDIR)/token_utils.c\
 		$(SRCDIR)/token_utils_2.c\
+		$(SRCDIR)/forking.c\
+		$(SRCDIR)/ft_getenv.c\
+		$(SRCDIR)/cmd_is_builtin.c\
+		$(SRCDIR)/ft_echo.c\
+		$(SRCDIR)/ft_env.c\
+		$(SRCDIR)/ft_export.c\
+		$(SRCDIR)/ft_pwd.c\
+		$(SRCDIR)/ft_unset.c\
+		$(SRCDIR)/valid_chars.c\
+		$(SRCDIR)/valid_quotes.c\
+		$(SRCDIR)/valid_redirect.c\
+		$(SRCDIR)/valid_pipes.c\
+		$(SRCDIR)/valid_syntax_check.c\
+
 
 OBJS= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 BOBJS= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(BSRCS))

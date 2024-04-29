@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:05:53 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/23 17:42:23 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/29 17:16:07 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,27 +34,6 @@ char	*ft_strndup(char *str, size_t n)
 	}
 	ret[i] = 0;
 	return (ret);
-}
-
-int	ft_is_redirect(char *str)
-{
-	char	*list[5];
-	int		i;
-	int		result;
-
-	i = 0;
-	list[0] = "<";
-	list[1] = "<<";
-	list[2] = ">";
-	list[3] = ">>";
-	list[4] = NULL;
-	while (i < 4)
-	{
-		result = ft_strncmp(str, list[i++], 3);
-		if (!result)
-			return (1);
-	}
-	return (0);
 }
 
 int	strlen_delim_double(char *str, char c, char k)

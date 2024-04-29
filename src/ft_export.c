@@ -6,11 +6,11 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:54:49 by plang             #+#    #+#             */
-/*   Updated: 2024/04/29 13:55:25 by plang            ###   ########.fr       */
+/*   Updated: 2024/04/29 16:51:15 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
 int	check_duplicate_env(char *env_list_str, char *export_str, int what_env)
 {

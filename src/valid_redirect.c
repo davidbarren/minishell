@@ -6,23 +6,23 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:47:32 by plang             #+#    #+#             */
-/*   Updated: 2024/04/28 16:37:16 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:53:50 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
 int	we_have_redirect(char *str, int *i)
 {
 	if (str[*i] == '<' && str[*i + 1] == '>')
 	{
-		ft_skip_char(&str, ' ');
+		ft_skip_chars(&str, ' ');
 		if (str[*i] == '\0')
 			return (1);
 	}
 	if (str[*i] == '>' && str[*i + 1] == '<')
 	{
-		ft_skip_char(&str, ' ');
+		ft_skip_chars(&str, ' ');
 		if (str[*i] == '\0')
 			return (1);
 	}

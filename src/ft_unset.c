@@ -1,33 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/23 13:54:24 by plang             #+#    #+#             */
-/*   Updated: 2024/04/25 15:00:22 by plang            ###   ########.fr       */
+/*   Created: 2024/04/24 10:37:22 by plang             #+#    #+#             */
+/*   Updated: 2024/04/29 16:50:44 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
-int	ft_env(t_env **env)
+void	ft_unset(t_env **env, char **cmd_args)
 {
 	t_env	*temp;
-	int		status;
+	t_env	*unset;
+	int		i;
 
 	temp = *env;
-	status = 0;
-	if (temp)
+	while (temp != NULL)
 	{
-		while (temp->next != NULL)
+		i = 1;
+		while (cmd_args[i])
 		{
-			printf("%s\n", temp->env_element);
-			temp = temp->next;
+			if (!ft_strncmp(temp->env_element, \
+				cmd_args[i], ft_strlen(cmd_args[i])))
+			{
+				unset = temp;
+				temp->prev->next = temp->next;
+				temp->next->prev = temp->prev;
+				free(unset->env_element);
+				free(unset);
+				break ;
+			}
+			i++;
 		}
+		temp = temp->next;
 	}
-	else
-		status = 1;
-	return (status);
 }

@@ -6,11 +6,11 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:17:25 by plang             #+#    #+#             */
-/*   Updated: 2024/04/28 16:35:34 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/29 16:51:25 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
 void	find_next_quote(char *str, int *i, int *dq, int *sq)
 {

@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   valid_syntax_check.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/16 11:57:26 by plang             #+#    #+#             */
-/*   Updated: 2024/04/25 15:00:41 by plang            ###   ########.fr       */
+/*   Created: 2024/04/25 17:27:49 by plang             #+#    #+#             */
+/*   Updated: 2024/04/29 16:50:53 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
-int	ft_pwd(void)
+int	valid_syntax_check(char	*line)
 {
-	char	pwd[1024];
-	int		status;
-
-	status = 0;
-	if (getcwd(pwd, sizeof(pwd)) != NULL)
-		printf("%s\n", pwd);
-	else
-		status = 1;
-	return (status);
+	if (valid_quotes(line) && (valid_redirect(line)
+		|| valid_pipes(line)
+		|| valid_chars(line)))
+		return (1);
+	return (0);
 }
