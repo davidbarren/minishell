@@ -6,13 +6,14 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/25 13:50:10 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/29 13:40:41 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <fcntl.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include "../libft/includes/libft.h"
@@ -32,6 +33,10 @@ typedef struct s_redir
 	int				fd_out;
 	int				fd_in;
 	char			*str;
+	char			*filename;
+	char			*cmd;
+	char			*permissions;
+	int				redir_type;
 	struct s_redir	*next;
 
 }	t_redir;
@@ -84,4 +89,10 @@ void	clean_arglist(t_args *args);
 void	update_redirs(t_args *args);
 void	extract_cmds(t_args *args);
 char	**copy_2d(char **src);
+void	clean_redir_node(t_redir **redir, char *str);
+char	*get_cmd_filename_last(char *str);
+char	*get_file_filename_last(char *str);
+t_env	*ft_getenv(t_env **envs, char *str);
+void	copy_env(char **ep, t_env **env);
+void	prep_child_command(t_args *args);
 #endif
