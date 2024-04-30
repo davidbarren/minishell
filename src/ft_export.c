@@ -6,11 +6,24 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:54:49 by plang             #+#    #+#             */
-/*   Updated: 2024/04/29 16:51:15 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/30 12:32:01 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	export_no_args(t_env **envs)
+{
+	t_env	*temp;
+
+	temp = *envs;
+	while (temp != NULL)
+	{
+		printf("declare -x %s=\"%s\"\n", temp->title, temp->info);
+		temp = temp->next;
+	}
+	return (1);
+}
 
 int	check_duplicate_env(char *env_list_str, char *export_str, int what_env)
 {
@@ -79,6 +92,8 @@ void	ft_export(t_env **envs, char **cmd_args)
 
 	temp = *envs;
 	flag = 0;
+	if (!cmd_args[1] && export_no_args(envs))
+		return ;
 	while (temp != NULL)
 	{
 		i = 1;
@@ -86,11 +101,11 @@ void	ft_export(t_env **envs, char **cmd_args)
 		while (cmd_args[i][what_env] != '=')
 			what_env++;
 		if (!check_duplicate_env(temp->env_element, cmd_args[i], what_env))
-				flag = 1;
+			flag = 1;
 		temp = temp->next;
 	}
-	if (flag == 0)
-		add_export_to_list(envs, cmd_args[i]);
-	else if (flag == 1)
+	if (flag == 1)
 		change_lists_content(envs, cmd_args[i]);
+	else if (flag == 0)
+		add_export_to_list(envs, cmd_args[i]);
 }
