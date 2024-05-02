@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:00:26 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/29 18:10:24 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/02 14:13:50 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,13 @@ void	prep_child_command(t_args *args)
 	char	**split_path;
 	int		i;
 	char	*path;
-//	t_env	*pathnode;
-	
+
 	ep = NULL;
 	i = 0;
-	args->split_cmds = ft_quotesplit(args->long_command, ' ');
-//	printf("Address of head of linked envlist in p_c_c %p\n", args->envlist);
-//	printf("Address of head of linked envlist in p_c_c %p\n", *args->envlist);
+	args->split_cmds = ft_split(args->long_command, ' ');
 	path = ft_getenv(args->envlist, "PATH");
-//	printf("Path in prepchild: %s\n", path);
 	split_path = ft_split(path, ':');
-//	printf("Before copying moi!");
 	ep = copy_env(ep, args->envlist);
-//	printf("Len of our 2d:%d\n", ft_arrlen(ep));
-//	while (ep[i])
-//	{
-//		printf("Hello on iteration number%d\n", i);
-//		printf("Ep content: %s\n", ep[i++]);
-//	}
 	i = 0;
 	while (split_path[i])
 	{
@@ -47,46 +36,14 @@ void	prep_child_command(t_args *args)
 			free(args->long_command);
 			args->long_command = ft_strdup(split_path[i]);
 			free_2d(split_path);
+			printf("Path in prepchild: %s\n", args->long_command);
+			int k = 0;
+			while (args->split_cmds[k])
+				printf("Command in prepchild: %s\n", args->split_cmds[k++]);
 			execve(args->long_command, args->split_cmds, ep);
 		}
 	}
 }
-	/* need to turn each node of the env linked envlist into an element of the 2d
-	 * array so i can pass it to execve!*/
-
-	/*split_path = ft_split(getenv("PATH"), ':');
-	while (split_path[i])
-	{
-		split_path[i] = ft_strjoin_sep(split_path[i], args->split_cmds[0], '/');
-		if (access(split_path[i], F_OK))
-			i++;
-		else
-		{
-			free(args->long_command);
-			args->long_command = ft_strdup(split_path[i]);
-			free_2d(split_path);
-		}
-	}
-	execve(split_path[i], args->split_cmds, ep);
-}*/
-/*
-char	**copy_2d(char **src)
-{
-	char	**dest;
-	int		i;
-	int		len;
-
-	len = ft_arrlen(src);
-	dest = malloc (sizeof (char *) * (len + 1));
-	while (src[i])
-	{
-		dest[i] = ft_strdup(src[i]);
-		i++;
-	}
-	dest[i] = 0;
-	return (dest);
-}
-*/
 
 static	int	get_env_len(t_env *env)
 {
@@ -112,7 +69,6 @@ char	**copy_env(char **ep, t_env **env)
 	temp = *env;
 	i = 0;
 	len = get_env_len(*env);
-	printf("len of our linked list:%d\n", len);
 	ep = ft_calloc((len + 1), sizeof (char *));
 	while (temp)
 	{

@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:26:05 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/28 16:39:37 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/04/30 13:38:08 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,59 +76,27 @@ void	make_redirect_node(t_redir **redir, char *str, int len)
 void	clean_redir_node(t_redir **redir, char *cmd)
 {
 	t_redir	*temp;
-	char	*iterator;
+	char	*iter;
 
 	temp = *redir;
 	while (temp)
 	{
-		iterator = temp->str;
-		if ((ft_strlen(iterator) == 1) && (*iterator == '<' || *iterator == '>'))
+		iter = temp->str;
+		if ((ft_strlen(iter) == 1) && (*iter == '<' || *iter == '>'))
 		{
 			temp = temp->next;
-			iterator = temp->str;
+			iter = temp->str;
 			temp->redir_type = 2;
 		}
-		while (*iterator == '<' || *iterator == '>' || *iterator == ' ')
-			iterator++;
-		temp->filename = ft_strdup(iterator);
-		while (*iterator && (*iterator != '>' && *iterator != '<'))
-			iterator++;
+		while (*iter == '<' || *iter == '>' || *iter == ' ')
+			iter++;
+		temp->filename = ft_strdup(iter);
+		while (*iter && (*iter != '>' && *iter != '<'))
+			iter++;
 		temp->cmd = ft_strdup(cmd);
 		printf("Filename:%s\n", temp->filename);
 		printf("Command to run:%s\n", temp->cmd);
 		printf("Type of redir:%d\n", temp->redir_type);
 		temp = temp->next;
 	}
-}
-
-char	*get_cmd_filename_last(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && str[i] != '<' && str[i] != '>')
-		i++;
-//	i--;
-	while (str[i] != ' ')
-		i--;
-	return (ft_strndup(str, i));
-}
-
-char	*get_file_filename_last(char *str)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (str[i] && str[i] != '<' && str[i] != '>')
-		i++;
-//	i--;
-	while (str[i] != ' ')
-		i--;
-	str += i;
-	return (ft_strdup(str));
-//	while (str[i] && str[i] != '<' && str[i] != '>')
-//		j++;
-//	return (ft_strndup(str, j));
 }

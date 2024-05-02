@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:54:49 by plang             #+#    #+#             */
-/*   Updated: 2024/04/30 12:32:01 by plang            ###   ########.fr       */
+/*   Updated: 2024/04/30 13:33:20 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	add_export_to_list(t_env **envs, char *str)
 	t_env	*last_node;
 	t_env	*new_node;
 	t_env	*temp;
-	
+
 	temp = *envs;
 	new_node = malloc(sizeof(t_env));
 	if (!new_node)

@@ -6,7 +6,7 @@
 #    By: plang <plang@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 14:15:56 by dbarrene          #+#    #+#              #
-#    Updated: 2024/04/29 18:04:27 by dbarrene         ###   ########.fr        #
+#    Updated: 2024/05/02 13:58:26 by dbarrene         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ CSRCS = $(SRCDIR)/parsing.c\
 		$(SRCDIR)/trim_input.c\
 		$(SRCDIR)/token_utils.c\
 		$(SRCDIR)/token_utils_2.c\
+		$(SRCDIR)/token_utils_3.c\
 		$(SRCDIR)/forking.c\
 		$(SRCDIR)/ft_getenv.c\
 		$(SRCDIR)/cmd_is_builtin.c\
@@ -48,7 +49,8 @@ CSRCS = $(SRCDIR)/parsing.c\
 		$(SRCDIR)/valid_redirect.c\
 		$(SRCDIR)/valid_pipes.c\
 		$(SRCDIR)/valid_syntax_check.c\
-
+		$(SRCDIR)/parsing_utils.c\
+		$(SRCDIR)/child_spawning.c\
 
 OBJS= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 BOBJS= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(BSRCS))
@@ -61,7 +63,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 
 $(NAME): $(LIBFT) $(OBJDIR) $(COBJS) $(OBJS)
 	@echo $(NAME) is being compiled...
-	$(CC) $(CFLAGS) $(OBJS) $(COBJS) -L$(LIBFTPATH) $(READUTILS) $(READLINE) -lft -o $(NAME) 
+	@$(CC) $(CFLAGS) $(OBJS) $(COBJS) -L$(LIBFTPATH) $(READUTILS) $(READLINE) -lft -o $(NAME) 
 
 $(LIBFT):
 	@make -C $(LIBFTPATH)
