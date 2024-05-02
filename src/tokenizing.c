@@ -6,22 +6,17 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/29 17:51:06 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/02 14:06:07 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/* 
- * remember to add condition if it's just one word it should be a cmd
- * don't be a baboon!
- * */
-
 void	prep_input(char *line, t_input *input)
 {
 	char	**temp;
 	int		i;
-//	t_redir	*iterator; //used for printf
+
 	i = 0;
 	temp = ft_quotesplit(line, '|');
 	input->pipe_count = ft_arrlen(temp);
@@ -39,18 +34,10 @@ void	prep_input(char *line, t_input *input)
 		clean_arglist(input->arg_struct[i]);
 		tokenize_args(input->arg_struct[i]);
 		extract_cmds(input->arg_struct[i]);
-		prep_child_command(input->arg_struct[i]);	
 		if (input->arg_struct[i]->redir_count)
 			clean_redir_node(input->arg_struct[i]->redirects,
 				input->arg_struct[i]->long_command);
-//			iterator = *(input->arg_struct[i]->redirects);
-//			while (iterator) //used for printf
-//			{
-//				printf("Info in the arg_struct:%s\n", iterator->str);
-//				iterator = iterator->next;
-//			}
-//		}
-		printf("Commands to run: %s\n", input->arg_struct[i++]->long_command);
+		prep_child_command(input->arg_struct[i++]);
 	}
 }
 
@@ -90,7 +77,6 @@ void	clean_arglist(t_args *args)
 	i = 0;
 	temp = args->arglist;
 	ft_skip_chars(&temp, ' ');
-	printf("Arglist in clean arglist:%s\n", args->arglist);
 	if (args->redir_count)
 	{
 		if (*temp == '<' || *temp == '>')
@@ -103,7 +89,6 @@ void	clean_arglist(t_args *args)
 			word_after = ft_strndup(temp, i);
 			temp += i;
 			args->tokenized_args = ft_strjoin_flex(delimset, word_after, 3);
-			printf("cleaned arglist:%s\n", args->tokenized_args);
 			i = strlen_delim_double(temp, '<', '>');
 			args->long_command = ft_substr(temp, 0, i);
 		}
@@ -115,7 +100,6 @@ void	clean_arglist(t_args *args)
 	}
 	else
 		args->long_command = ft_strdup(temp);
-//	printf("longboi:%s\n", args->long_command);
 }
 
 void	tokenize_args(t_args *args)
@@ -126,7 +110,6 @@ void	tokenize_args(t_args *args)
 
 	i = 0;
 	temp = args->arglist;
-//	printf("Inside tokenize args: %s\n", args->arglist);
 	if (args->redir_count)
 	{
 		args->redirects = ft_calloc(1, sizeof(t_redir *));
@@ -143,18 +126,3 @@ void	tokenize_args(t_args *args)
 		}
 	}
 }
-
-/* the logic so far is:
-  * delimiters go in delimset, need to determine if << or >
-  * regardless of case of double or single delims:
-  * strndup the delims
-  * skip the whitespace if any
-  * strndup the word following the delimset
-  * ft_strjoin_flex both and free the remainder
-  * then check for further delims ands go agane
-  * after there are no more delim - word sets
-  * rest of the input is a cmd or an argument for the cmd
-  * those will then get split and sent to execve, need to maybe trim 
-  * quotes from those but that should not be an issue 
-  *  
-*/

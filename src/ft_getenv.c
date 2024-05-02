@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:13:37 by plang             #+#    #+#             */
-/*   Updated: 2024/04/29 18:10:26 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/02 13:20:12 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_env	*getenv_node(t_env **envs, char *str)
 {
 	t_env	*temp;
+
 	if (!*envs)
 		return (NULL);
 	temp = *envs;
@@ -55,13 +56,12 @@ char	*get_env_str(t_env *complete_env)
 	return (extracted);
 }
 
-char    *ft_getenv(t_env **envs, char *str)
+char	*ft_getenv(t_env **envs, char *str)
 {
-    t_env    *node;
-    char    *env_str;
-//	printf("Address of envs in ft_getenv:%p\n", envs);
-//	printf("Address of envs dereferenced in ft_getenv:%p\n", *envs);
-    node = getenv_node(envs, str);
-    env_str = get_env_str(node);
-    return (env_str);
+	t_env	*node;
+	char	*env_str;
+
+	node = getenv_node(envs, str);
+	env_str = get_env_str(node);
+	return (env_str);
 }

@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/29 18:07:23 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/02 17:05:42 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_args
 	pid_t			*pids;
 	t_env			**envlist;
 	int				is_builtin;
+	int				**pipes;
 }	t_args;
 
 typedef struct s_input
@@ -67,6 +68,8 @@ typedef struct s_input
 	t_args	**arg_struct;
 	pid_t	*pids;
 	t_env	**envlist;
+	int		**pipes;
+	int		pid_index;
 }	t_input;
 
 void	make_redirect_node(t_redir **redir, char *str, int len);
@@ -102,4 +105,6 @@ int		valid_pipes(char *str);
 int		valid_chars(char *str);
 int		valid_redirect(char *str);
 char	**copy_env(char **ep, t_env **env);
+void	store_env_title_n_info(t_env **env);
+void rl_replace_line (const char *text, int clear_undo);
 #endif

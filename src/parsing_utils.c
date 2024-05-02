@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 18:17:30 by plang             #+#    #+#             */
-/*   Updated: 2024/04/30 11:07:50 by plang            ###   ########.fr       */
+/*   Updated: 2024/04/30 13:37:14 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,33 @@ void	store_env_title_n_info(t_env **env)
 		if (!temp->info)
 			return ;
 		temp = temp->next;
+	}
+}
+
+void	add_env_to_back(t_env **env, char *data, int index)
+{
+	t_env	*last_node;
+	t_env	*new_node;
+	t_env	*temp;
+
+	temp = *env;
+	new_node = malloc(sizeof(t_env));
+	if (!new_node)
+		return ;
+	new_node->env_element = ft_strdup(data);
+	new_node->index = index;
+	if (!new_node->env_element)
+		return ;
+	new_node->next = NULL;
+	if (!*env)
+	{
+		new_node->prev = NULL;
+		*env = new_node;
+	}
+	else
+	{
+		last_node = get_last_node(*env);
+		last_node->next = new_node;
+		new_node->prev = last_node;
 	}
 }
