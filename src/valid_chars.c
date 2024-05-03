@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:42:20 by plang             #+#    #+#             */
-/*   Updated: 2024/04/29 16:51:33 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/03 11:42:24 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,10 @@ int	valid_chars(char *str)
 	if (not_supported_chars(str, '!'))
 		return (1);
 	if (not_supported_chars(str, ';'))
+		return (1);
+	if (not_supported_chars(str, '('))
+		return (1);
+	if (not_supported_chars(str, ')'))
 		return (1);
 	return (0);
 }
