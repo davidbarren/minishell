@@ -1,24 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   valid_syntax_check.c                               :+:      :+:    :+:   */
+/*   valid_sequence.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/25 17:27:49 by plang             #+#    #+#             */
-/*   Updated: 2024/05/03 14:14:34 by plang            ###   ########.fr       */
+/*   Created: 2024/05/03 11:44:26 by plang             #+#    #+#             */
+/*   Updated: 2024/05/03 11:46:54 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	valid_syntax_check(char	*line)
+void	ft_skip_quotes(char **str)
 {
-	if (valid_quotes(line)
-		|| valid_redirect(line)
-		|| valid_pipes(line)
-		|| valid_chars(line)
-		|| valid_sequence(line, '<', '>', '|'))// what ever three chars we want to check
-		return (1);
+	char	c;
+
+	c = **str;
+	(*str)++;
+	while (**str && **str != c)
+	{
+		(*str)++;
+	}
+}
+
+int	valid_sequence(char *str, char a, char b, char c)
+{
+	while (*str != '\0')
+	{
+		if (*str == '"' || *str == '\'')
+			ft_skip_quotes(str);
+		if (*str == a || *str == b)
+		{
+			str++;
+			ft_skip_chars(&str, ' ');
+			if (*str == c)
+				return (1);
+		}
+		str++;
+	}
 	return (0);
 }
