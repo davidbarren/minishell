@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/02 14:06:07 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/03 11:26:16 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,14 @@ void	prep_input(char *line, t_input *input)
 	int		i;
 
 	i = 0;
+	printf("Line from readline:%s\n", line);
 	temp = ft_quotesplit(line, '|');
+	printf("quotesplit index 0 in prepinput:%s\n", temp[0]);
 	input->pipe_count = ft_arrlen(temp);
 	input->input = ft_calloc(input->pipe_count + 1, sizeof(char *));
 	while (temp[i])
 	{
-		input->input[i] = trim_input(temp[i], ' ');
+		input->input[i] = ft_strdup(temp[i]);
 		i++;
 	}
 	free_2d(temp);
@@ -76,6 +78,7 @@ void	clean_arglist(t_args *args)
 	delimset = NULL;
 	i = 0;
 	temp = args->arglist;
+	printf("arglist inside clean arglist before cleaning:%s\n", args->arglist);
 	ft_skip_chars(&temp, ' ');
 	if (args->redir_count)
 	{
