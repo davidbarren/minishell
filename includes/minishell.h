@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/02 17:05:42 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/02 17:26:10 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_redir
 	int				index;
 	int				fd_out;
 	int				fd_in;
+	int				fd_status;
 	char			*str;
 	char			*filename;
 	char			*cmd;
