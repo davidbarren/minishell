@@ -6,13 +6,13 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:44:26 by plang             #+#    #+#             */
-/*   Updated: 2024/05/03 11:46:54 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/03 17:35:10 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	ft_skip_quotes(char **str)
+static void	ft_skip_quotes(char **str)
 {
 	char	c;
 
@@ -29,7 +29,7 @@ int	valid_sequence(char *str, char a, char b, char c)
 	while (*str != '\0')
 	{
 		if (*str == '"' || *str == '\'')
-			ft_skip_quotes(str);
+			ft_skip_quotes(&str);
 		if (*str == a || *str == b)
 		{
 			str++;

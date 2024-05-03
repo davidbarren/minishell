@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 17:27:49 by plang             #+#    #+#             */
-/*   Updated: 2024/05/03 14:14:34 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/03 17:34:50 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	valid_syntax_check(char	*line)
 		|| valid_redirect(line)
 		|| valid_pipes(line)
 		|| valid_chars(line)
-		|| valid_sequence(line, '<', '>', '|'))// what ever three chars we want to check
+		|| valid_sequence(line, '<', '>', '|'))
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: plang <plang@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 14:15:56 by dbarrene          #+#    #+#              #
-#    Updated: 2024/05/03 14:57:12 by dbarrene         ###   ########.fr        #
+#    Updated: 2024/05/03 17:26:04 by plang            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ CSRCS = $(SRCDIR)/parsing.c\
 		$(SRCDIR)/valid_quotes.c\
 		$(SRCDIR)/valid_redirect.c\
 		$(SRCDIR)/valid_pipes.c\
+		$(SRCDIR)/valid_sequence.c\
 		$(SRCDIR)/valid_syntax_check.c\
 		$(SRCDIR)/parsing_utils.c\
 		$(SRCDIR)/child_spawning.c\
