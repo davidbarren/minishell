@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/02 17:26:10 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/03 14:44:43 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,6 @@ int		valid_redirect(char *str);
 char	**copy_env(char **ep, t_env **env);
 void	store_env_title_n_info(t_env **env);
 void rl_replace_line (const char *text, int clear_undo);
+void	free_content(t_env *env);
+void	free_list(t_env **env);
 #endif

@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:34:45 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/02 17:32:27 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/03 10:51:08 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ char	*get_file_filename_last(char *str)
 void	file_opening(t_redir *redir, t_args *args)
 {
 	t_redir *temp;
-
+	int macaco = 0;
+	if (args)
+		macaco = 1;
 	temp = redir;
 
 //	if (!temp->index || redir->index == args->redir_count)

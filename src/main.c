@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/02 16:59:49 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/03 14:42:06 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ int	main(int argc, char **argv, char **envp)
 		prep_input(line, &input);
 		free(line);
 	}
+	free_list(input.envlist);
 	return (69);
 }

@@ -6,7 +6,7 @@
 #    By: plang <plang@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 10:40:52 by dbarrene          #+#    #+#              #
-#    Updated: 2024/04/24 14:39:48 by dbarrene         ###   ########.fr        #
+#    Updated: 2024/05/03 14:22:27 by dbarrene         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,7 @@ $(NAME): $(OBJ)
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(OBJ_DIR)
-	cc $(CFLAGS) $(INCFLAGS) -c $< -o $@
+	@cc $(CFLAGS) $(INCFLAGS) -c $< -o $@
 
 -include $(DEP)
 

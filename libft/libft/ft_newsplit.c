@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:09:25 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/11 19:20:04 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/03 14:19:57 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ char **ft_newsplit(const char *s, char c)
 			temp = s[j];
 //			ft_skip_delims(&s, temp);
 //			 ft_skip_delims(&s, c);
-			 s+= 1;
+//			 s+= 1;
 			printf("Temp char: %c\n", temp);
-			j+= ft_quotelen(s + j,  temp);
+			j+= ft_quotelen(s + j + 1,  temp);
 			while (s[j] && str[j] != c)
 				j++;
 			array[i++] = ft_subs(str, 0, j);
@@ -116,8 +116,8 @@ void	ft_splitmaker(const char *s, char c, t_qsplit *p)
 		if (s[p->j] == '\'' || s[p->j] == '\"')
 		{
 			p->temp = s[p->j];
-			s += 1;
-			p->j += ft_quotelen((s + p->j), p->temp);
+//			s += 1;
+			p->j += ft_quotelen((s + p->j + 1), p->temp);
 			while (s[p->j] && s[p->j] != c)
 				p->j++;
 			p->arr[p->i++] = ft_substr(s, 0, p->j);
@@ -137,9 +137,11 @@ void	ft_splitmaker(const char *s, char c, t_qsplit *p)
 
 char	**ft_quotesplit(const char *s, char c)
 {
-	static t_qsplit	splitter;
-	static t_wordc	wordc;
+	t_qsplit	splitter;
+	t_wordc	wordc;
 
+	ft_bzero(&splitter, sizeof(t_qsplit));
+	ft_bzero(&wordc, sizeof(t_wordc));
 	if (!s)
 		return (NULL);
 	splitter.arr = ft_calloc(1 + word_count(s, c, &wordc), sizeof(char *));
