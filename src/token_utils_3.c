@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:34:45 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/03 10:51:08 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/04 22:01:53 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,16 @@ char	*get_cmd_filename_last(char *str)
 		i++;
 	while (str[i] != ' ')
 		i--;
-	return (ft_strndup(str, i));
+	return (ft_strndup(str, i, 1));
 }
 
 char	*get_file_filename_last(char *str)
 {
 	int	i;
 	int	j;
+	char *temp;
 
+	temp = str;
 	i = 0;
 	j = 0;
 	while (str[i] && str[i] != '<' && str[i] != '>')
@@ -36,15 +38,16 @@ char	*get_file_filename_last(char *str)
 	while (str[i] != ' ')
 		i--;
 	str += i;
+	free(temp);
+	printf("address of str in getfilenamelast:%p\n", str);
+	printf("address of temp in getfilenamelast:%p\n", temp);
 	return (ft_strdup(str));
 }
 
 void	file_opening(t_redir *redir, t_args *args)
 {
+	(void) args;
 	t_redir *temp;
-	int macaco = 0;
-	if (args)
-		macaco = 1;
 	temp = redir;
 
 //	if (!temp->index || redir->index == args->redir_count)

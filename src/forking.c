@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:00:26 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/03 15:24:36 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/04 20:18:10 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,17 @@ void	prep_child_command(t_args *args)
 
 	ep = NULL;
 	i = 0;
-	printf("Long command: %s\n", args->long_command);
-	args->split_cmds = ft_quotesplit(args->long_command, ' '); //should be splitquotes to preserve
-														  //arguments inside a quote
+//	printf("Long command: %s\n", args->long_command);
+	args->split_cmds = ft_quotesplit(args->long_command, ' '); //should be splitquotes to preserve													  //arguments inside a quote
 														  //e.g. grep -e "Hello world"
 														  //hello world has to be 1 argument
 														  //instead of 2
 //	printf("%s\n", args->split_cmds[0]);
-	int j = 0;
-	printf("ei men sorri man\n");
-	while (args->split_cmds[j])
+//	printf("ei men sorri man\n");
+	while (args->split_cmds[i])
 	{
-		args->split_cmds[j] = trim_input(args->split_cmds[j], '\"');
-		printf("Split cmds:%s\n", args->split_cmds[j++]);
+		args->split_cmds[i] = trim_input(args->split_cmds[i], '\"');
+		i++;
 	}
 	path = ft_getenv(args->envlist, "PATH");
 	split_path = ft_split(path, ':');
@@ -48,7 +46,7 @@ void	prep_child_command(t_args *args)
 //	}
 	while (split_path[i])
 	{
-		printf("Address of split path: %p", &split_path[i]);
+//		printf("Address of split path: %p", &split_path[i]);
 		split_path[i] = ft_strjoin_sep(split_path[i], args->split_cmds[0], '/');
 		if (access(split_path[i], F_OK))
 			i++;
@@ -57,10 +55,10 @@ void	prep_child_command(t_args *args)
 			free(args->long_command);
 			args->long_command = ft_strdup(split_path[i]);
 			free_2d(split_path);
-			printf("Path in prepchild: %s\n", args->long_command);
-			int k = 0;
-			while (args->split_cmds[k])
-				printf("Command in prepchild: %s\n", args->split_cmds[k++]);
+//			printf("Path in prepchild: %s\n", args->long_command);
+//			int k = 0;
+//			while (args->split_cmds[k])
+//				printf("Command in prepchild: %s\n", args->split_cmds[k++]);
 			execve(args->long_command, args->split_cmds, ep);
 			printf("execve has failed!\n");
 		}

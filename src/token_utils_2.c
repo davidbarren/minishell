@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:26:05 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/30 13:38:08 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/04 22:01:39 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	make_redirect_node(t_redir **redir, char *str, int len)
 		return ;
 	new->index = 0;
 	new->next = NULL;
-	new->str = ft_strndup(str, len);
+	new->str = ft_strndup(str, len, 1);
 	if (!new->str)
 		return ;
 	if (!*redir)

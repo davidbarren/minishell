@@ -6,13 +6,13 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:05:53 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/29 17:16:07 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/04 22:00:45 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char	*ft_strndup(char *str, size_t n)
+char	*ft_strndup(char *str, size_t n, int flag)
 {
 	size_t	len;
 	char	*ret;
@@ -33,6 +33,8 @@ char	*ft_strndup(char *str, size_t n)
 		i++;
 	}
 	ret[i] = 0;
+	if (flag == 1)
+		free(str);
 	return (ret);
 }
 
