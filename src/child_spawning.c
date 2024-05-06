@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:56:38 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/03 15:34:36 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/06 13:07:26 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	prep_pids(t_input *input)
 	if (!input->pids)
 		ft_printerror("allocation for PID array failed\n");
 		//free shit and exit or something
-	while (input->pid_index < input->pipe_count + 1)
+	printf("Current pipecount in prep_pids:%d\n", input->pipe_count);
+	while (input->pid_index < input->pipe_count)
 	{
 		input->pids[input->pid_index] = fork();
 		if (input->pids[input->pid_index] == -1)
@@ -75,21 +76,27 @@ void	prep_pids(t_input *input)
 		}
 		if (input->pids[input->pid_index] == 0)
 		{
-			printf("Child process does its thing here");
-			break;
+			printf("Hello from child at index:%d\n", input->pid_index);
+			prep_child_command(input->arg_struct[input->pid_index]);
+			exit (69);
+			break ;
 		}
+		printf("Contents of struct:%s\n at index:%d\n", input->arg_struct[input->pid_index]->long_command, input->pid_index);
 		input->pid_index++;
 	}
+	wait_for_children(input);
+	/*forking is somewhat functional, still scared to test more atm but seems to be going well with multiple
+	cmds*/
 }
 
 void	wait_for_children(t_input *input)
 {
 	int	i;
-	int status;
+	int	status;
 
 	status = 0;
 	i = 0;
 	while (i < input->pid_index)
-		waitpid(input->pids[i], &status, 0);
+		waitpid(input->pids[i++], &status, 0);
 	// probably need to start freeing here;
 }

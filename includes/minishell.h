@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/03 17:27:52 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/04 22:00:55 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	build_struct(t_input *input);
 void	tokenize_args(t_args *args);
 int		ft_is_redirect(char *str);
 int		count_redirects(char *str);
-char	*ft_strndup(char *str, size_t n);
+char	*ft_strndup(char *str, size_t n, int flag);
 void	clean_arglist(t_args *args);
 void	update_redirs(t_args *args);
 void	extract_cmds(t_args *args);
@@ -108,7 +108,12 @@ int		valid_redirect(char *str);
 int		valid_sequence(char *str, char a, char b, char c);
 char	**copy_env(char **ep, t_env **env);
 void	store_env_title_n_info(t_env **env);
-void rl_replace_line (const char *text, int clear_undo);
+void	rl_replace_line(const char *text, int clear_undo);
 void	free_content(t_env *env);
 void	free_list(t_env **env);
+void	prep_pids(t_input *input);
+void	wait_for_children(t_input *input);
+void	free_struct_content(t_args *args);
+void	free_structs(t_args **structs, int pipecount);
+void	free_input(t_input *input);
 #endif

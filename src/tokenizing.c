@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/03 11:26:16 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/06 13:43:39 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,21 @@ void	prep_input(char *line, t_input *input)
 	free_2d(temp);
 	build_struct(input);
 	i = 0;
+	printf("pipecount in input:%d\n", input->pipe_count);
 	while (i < input->pipe_count)
 	{
+		printf("Iteration number:%d\n", i);
 		clean_arglist(input->arg_struct[i]);
 		tokenize_args(input->arg_struct[i]);
 		extract_cmds(input->arg_struct[i]);
 		if (input->arg_struct[i]->redir_count)
 			clean_redir_node(input->arg_struct[i]->redirects,
 				input->arg_struct[i]->long_command);
-		prep_child_command(input->arg_struct[i++]);
+		printf("iteration number:%d with pipecount:%d\n", i, input->pipe_count);
+		i++;
+//		prep_child_command(input->arg_struct[i++]);
 	}
+		prep_pids(input);
 }
 
 void	build_struct(t_input *input)
@@ -48,7 +53,7 @@ void	build_struct(t_input *input)
 	int	i;
 
 	i = 0;
-	input->arg_struct = malloc (input->pipe_count * sizeof(t_args *));
+	input->arg_struct = ft_calloc ((input->pipe_count) , sizeof(t_args *));
 	if (!input->arg_struct)
 		return ;
 	while (i < input->pipe_count)
@@ -75,21 +80,21 @@ void	clean_arglist(t_args *args)
 	char	*temp;
 	int		i;
 
+	printf("address of args struct:%p\n", args);
 	delimset = NULL;
 	i = 0;
 	temp = args->arglist;
-	printf("arglist inside clean arglist before cleaning:%s\n", args->arglist);
 	ft_skip_chars(&temp, ' ');
 	if (args->redir_count)
 	{
 		if (*temp == '<' || *temp == '>')
 		{
-			delimset = ft_strndup(temp, 1);
+			delimset = ft_strndup(temp, 1, 1);
 			temp += 1;
 			ft_skip_chars(&temp, ' ');
 			while (temp[i] != ' ')
 				i++;
-			word_after = ft_strndup(temp, i);
+			word_after = ft_strndup(temp, i, 1);
 			temp += i;
 			args->tokenized_args = ft_strjoin_flex(delimset, word_after, 3);
 			i = strlen_delim_double(temp, '<', '>');
@@ -103,6 +108,7 @@ void	clean_arglist(t_args *args)
 	}
 	else
 		args->long_command = ft_strdup(temp);
+	printf("long_command:%s\n", args->long_command);
 }
 
 void	tokenize_args(t_args *args)
