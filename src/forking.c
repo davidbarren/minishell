@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:00:26 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/04 20:18:10 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/06 11:55:31 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	prep_child_command(t_args *args)
 	ep = copy_env(ep, args->envlist);
 	i = 0;
 	free (path);
+	printf("We really out here with cmd:%s\n", args->split_cmds[0]);
 //	int saatana = 0;
 //	while (ep[saatana])
 //	{

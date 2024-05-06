@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/04 22:01:16 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/06 13:43:39 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,21 @@ void	prep_input(char *line, t_input *input)
 	free_2d(temp);
 	build_struct(input);
 	i = 0;
+	printf("pipecount in input:%d\n", input->pipe_count);
 	while (i < input->pipe_count)
 	{
+		printf("Iteration number:%d\n", i);
 		clean_arglist(input->arg_struct[i]);
 		tokenize_args(input->arg_struct[i]);
 		extract_cmds(input->arg_struct[i]);
 		if (input->arg_struct[i]->redir_count)
 			clean_redir_node(input->arg_struct[i]->redirects,
 				input->arg_struct[i]->long_command);
-		prep_pids(input);
+		printf("iteration number:%d with pipecount:%d\n", i, input->pipe_count);
 		i++;
 //		prep_child_command(input->arg_struct[i++]);
 	}
+		prep_pids(input);
 }
 
 void	build_struct(t_input *input)
@@ -77,6 +80,7 @@ void	clean_arglist(t_args *args)
 	char	*temp;
 	int		i;
 
+	printf("address of args struct:%p\n", args);
 	delimset = NULL;
 	i = 0;
 	temp = args->arglist;
@@ -104,6 +108,7 @@ void	clean_arglist(t_args *args)
 	}
 	else
 		args->long_command = ft_strdup(temp);
+	printf("long_command:%s\n", args->long_command);
 }
 
 void	tokenize_args(t_args *args)
