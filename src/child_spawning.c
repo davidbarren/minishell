@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:56:38 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/06 13:07:26 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/06 14:29:38 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	prep_pids(t_input *input)
 	if (!input->pids)
 		ft_printerror("allocation for PID array failed\n");
 		//free shit and exit or something
-	printf("Current pipecount in prep_pids:%d\n", input->pipe_count);
+//	printf("Current pipecount in prep_pids:%d\n", input->pipe_count);
 	while (input->pid_index < input->pipe_count)
 	{
 		input->pids[input->pid_index] = fork();
@@ -81,7 +81,7 @@ void	prep_pids(t_input *input)
 			exit (69);
 			break ;
 		}
-		printf("Contents of struct:%s\n at index:%d\n", input->arg_struct[input->pid_index]->long_command, input->pid_index);
+//		printf("Contents of struct:%s\n at index:%d\n", input->arg_struct[input->pid_index]->long_command, input->pid_index);
 		input->pid_index++;
 	}
 	wait_for_children(input);
@@ -97,6 +97,11 @@ void	wait_for_children(t_input *input)
 	status = 0;
 	i = 0;
 	while (i < input->pid_index)
-		waitpid(input->pids[i++], &status, 0);
+	{
+		waitpid(input->pids[i], &status, 0);
+		printf("Status:%d\n", status);
+		i++;
+	}
 	// probably need to start freeing here;
 }
+

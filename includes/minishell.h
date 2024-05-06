@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/04 22:00:55 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:02:24 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,4 +116,5 @@ void	wait_for_children(t_input *input);
 void	free_struct_content(t_args *args);
 void	free_structs(t_args **structs, int pipecount);
 void	free_input(t_input *input);
+void	file_opening(t_redir *redir, t_args *args);
 #endif
