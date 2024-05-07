@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/06 15:25:17 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:35:14 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	prep_input(char *line, t_input *input)
 			clean_redir_node(input->arg_struct[i]->redirects,
 					input->arg_struct[i]->long_command);
 			file_opening(*input->arg_struct[i]->redirects, input->arg_struct[i]);
+//			redir_fd_modifying(input->arg_struct[i]->redirects);
 		}
 //		printf("iteration number:%d with pipecount:%d\n", i, input->pipe_count);
 		i++;
@@ -129,6 +130,7 @@ void	tokenize_args(t_args *args)
 		args->redirects = ft_calloc(1, sizeof(t_redir *));
 		if (!args->redirects)
 			return ;
+		printf("Temp in tokenize args:%s\n", temp);
 		while (*temp)
 		{
 			len = strlen_delim_double(temp + 1, '>', '<');
