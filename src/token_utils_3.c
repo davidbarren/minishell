@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:34:45 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/07 16:55:47 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:51:05 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,21 @@ void	file_opening(t_redir *redir, t_args *args)
 	while (temp)
 	{
 		if (temp->redir_type == 2)
-			temp->fd_status = open(temp->filename, O_CREAT, 0644);
+			temp->fd_status = open(temp->filename, O_CREAT | O_APPEND | O_RDWR, 0644); 
 		else
-			temp->fd_status = open(temp->filename, O_CREAT | O_TRUNC, 0644);
+			temp->fd_status = open(temp->filename, O_CREAT | O_TRUNC | O_RDWR, 0644);
 		if (temp->fd_status == -1)
 			ft_printerror("Error creating file");
-		/* this if statment makes it hang, need to fix
-//		if (temp == output_node)
-//		{
-//			dup2(temp->fd_status, STDOUT_FILENO);
-//			close (temp->fd_status);
-//		}*/
+		if (temp == output_node)
+		{
+			printf("Found our match! with filename:%s\n and fd:%d\n", temp->filename, temp->fd_status);
+			if (dup2(temp->fd_status, STDOUT_FILENO) == -1)
+			{
+				ft_printerror("dup failed you baboon!\n");
+				exit (1);
+			}
+			close (temp->fd_status);
+		}
 		else
 			close (temp->fd_status);
 		temp = temp->next;
