@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:26:05 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/06 16:29:33 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/07 15:29:31 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_arrlen(char **arr)
 	return (i);
 }
 
-static t_redir	*get_last_redir(t_redir *redir)
+t_redir	*get_last_redir(t_redir *redir)
 {
 	t_redir	*temp;
 
@@ -90,7 +90,7 @@ void	clean_redir_node(t_redir **redir, char *cmd)
 		}
 		while (*iter == '<' || *iter == '>' || *iter == ' ')
 			iter++;
-		temp->filename = ft_strdup(iter);
+		temp->filename = ft_strndup(iter,ft_strlen_mod(iter,' ') - 1, 0);
 		while (*iter && (*iter != '>' && *iter != '<'))
 			iter++;
 		temp->cmd = ft_strdup(cmd);

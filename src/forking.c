@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:00:26 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/06 15:04:24 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/08 15:21:48 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	prep_child_command(t_args *args)
 
 	ep = NULL;
 	i = 0;
-	printf("Long command: %s\n", args->long_command);
+//	printf("Long command: %s\n", args->long_command);
 	args->split_cmds = ft_quotesplit(args->long_command, ' ');
-	printf("%s\n", args->split_cmds[0]);
+//	ft_printerror("Command from pcc:%s\n", args->split_cmds[0]);
 	while (args->split_cmds[i])
 	{
 		args->split_cmds[i] = trim_input(args->split_cmds[i], '\"');
@@ -51,7 +51,7 @@ void	prep_child_command(t_args *args)
 			}
 		}
 	}
-	printf("Command not found!\n");
+	ft_printerror("Command not found!\n");
 	free_2d(ep);
 	if (split_path)
 		free_2d(split_path);
