@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:25:49 by plang             #+#    #+#             */
-/*   Updated: 2024/04/29 16:51:57 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/07 11:35:39 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_check_flags(char **words)
 	return (i);
 }
 
-void	ft_echo(char **words)
+int	ft_echo(char **words)
 {
 	int	i;
 	int	flag_index;
@@ -62,7 +62,6 @@ void	ft_echo(char **words)
 		i++;
 	}
 	if (flag_index == 1)
-	{
 		printf("\n");
-	}
+	return (0); //EXIT_SUCCESS
 }
