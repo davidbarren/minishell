@@ -6,11 +6,21 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:54:49 by plang             #+#    #+#             */
-/*   Updated: 2024/05/04 16:59:29 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/08 15:18:30 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	export_validation(char *args)
+{
+	
+	if (args[0] == '=')
+		return (1);
+	if (!ft_isalpha(args[0]))
+		return (1);
+	return (0);
+}
 
 int	export_no_args(t_env **envs)
 {
@@ -141,7 +151,7 @@ void	add_export_to_list(t_env **envs, char *str)
 		only_export_title(envs, str);
 }
 
-void	ft_export(t_env **envs, char **cmd_args)
+int	ft_export(t_env **envs, char **cmd_args)
 {
 	t_env	*temp;
 	int		i;
@@ -151,7 +161,7 @@ void	ft_export(t_env **envs, char **cmd_args)
 	temp = *envs;
 	flag = 0;
 	if (!cmd_args[1] && export_no_args(envs))
-		return ;
+		return (0); //EXIT_SUCCESS
 	i = 1;
 	while (cmd_args[i])
 	{
@@ -170,26 +180,27 @@ void	ft_export(t_env **envs, char **cmd_args)
 			add_export_to_list(envs, cmd_args[i]);
 		i++;
 	}
+	return (0); //EXIT_SUCCESS
 }
 
-void print_export_list(t_env *envs)
-{
-	t_env	*temp;
+// void print_export_list(t_env *envs)
+// {
+// 	t_env	*temp;
 
-	temp = envs;
-	while (temp != NULL)
-	{
-		if (temp->title != NULL && temp->info != NULL)
-		{
-			printf("declare -x %s", temp->title);
-			printf("=\"%s\"\n", temp->info);
-		}
-		else if (temp->title != NULL && temp->info == NULL)
-		{
-			printf("declare -x %s\n", temp->title);
-		}
-		else if (temp->env_element != NULL)
-			printf("declare -x %s\n", temp->env_element);
-		temp = temp->next;
-	}
-}
+// 	temp = envs;
+// 	while (temp != NULL)
+// 	{
+// 		if (temp->title != NULL && temp->info != NULL)
+// 		{
+// 			printf("declare -x %s", temp->title);
+// 			printf("=\"%s\"\n", temp->info);
+// 		}
+// 		else if (temp->title != NULL && temp->info == NULL)
+// 		{
+// 			printf("declare -x %s\n", temp->title);
+// 		}
+// 		else if (temp->env_element != NULL)
+// 			printf("declare -x %s\n", temp->env_element);
+// 		temp = temp->next;
+// 	}
+// }
