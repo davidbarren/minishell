@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:09:25 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/03 14:19:57 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/04 20:09:47 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ void	ft_splitmaker(const char *s, char c, t_qsplit *p)
 		if (s[p->j] == '\'' || s[p->j] == '\"')
 		{
 			p->temp = s[p->j];
-//			s += 1;
 			p->j += ft_quotelen((s + p->j + 1), p->temp);
 			while (s[p->j] && s[p->j] != c)
 				p->j++;
@@ -138,7 +137,7 @@ void	ft_splitmaker(const char *s, char c, t_qsplit *p)
 char	**ft_quotesplit(const char *s, char c)
 {
 	t_qsplit	splitter;
-	t_wordc	wordc;
+	t_wordc		wordc;
 
 	ft_bzero(&splitter, sizeof(t_qsplit));
 	ft_bzero(&wordc, sizeof(t_wordc));

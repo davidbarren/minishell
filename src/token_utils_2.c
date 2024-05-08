@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:26:05 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/30 13:38:08 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:29:33 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	extract_cmds(t_args *args)
 	{
 		if (ft_strnstr(temp->str, args->long_command, ft_strlen(temp->str)))
 		{
-			free (temp->str);
+//			free (temp->str);
 			temp->str = ft_strdup(args->tokenized_args);
 		}
 		temp = temp->next;
@@ -60,7 +60,7 @@ void	make_redirect_node(t_redir **redir, char *str, int len)
 		return ;
 	new->index = 0;
 	new->next = NULL;
-	new->str = ft_strndup(str, len);
+	new->str = ft_strndup(str, len, 0);
 	if (!new->str)
 		return ;
 	if (!*redir)
