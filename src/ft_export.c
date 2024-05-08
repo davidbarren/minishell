@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:54:49 by plang             #+#    #+#             */
-/*   Updated: 2024/05/08 15:18:30 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/08 15:45:20 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,45 @@ void	add_export_to_list(t_env **envs, char *str)
 		only_export_title(envs, str);
 }
 
+void	clean_from_quotes(char **str)
+{
+	char	*copy;
+	char	*start;
+	int		i;
+	int		equal;
+	
+	i = 0;
+	equal = 0;
+	while ((*str)[equal] != '=')
+		equal++;
+	copy = ft_strdup(*str);
+	if (!copy)
+		return ;
+	start = copy;
+	while (*copy)
+	{
+		if (*copy != '"' && *copy != '\'')
+			(*str)[i++] = *copy;
+		else if (i > equal)
+			(*str)[i++] = *copy;
+		copy++;
+	}
+	(*str)[i] = '\0';
+	free(start);
+}
+
+void	ft_export_clean(char **cmd_args)
+{
+	int	i;
+
+	i = 1;
+	while (cmd_args[i])
+	{
+		clean_from_quotes(&cmd_args[i]);
+		i++;
+	}
+}
+
 int	ft_export(t_env **envs, char **cmd_args)
 {
 	t_env	*temp;
@@ -160,24 +199,34 @@ int	ft_export(t_env **envs, char **cmd_args)
 
 	temp = *envs;
 	flag = 0;
+	ft_export_clean(cmd_args);
 	if (!cmd_args[1] && export_no_args(envs))
 		return (0); //EXIT_SUCCESS
 	i = 1;
 	while (cmd_args[i])
 	{
-		while (temp != NULL)
+		if (!export_validation(cmd_args[i]))
 		{
-			what_env = 0;
-			while (cmd_args[i][what_env] != '=')
-				what_env++;
-			if (!check_duplicate_env(temp->title, cmd_args[i], what_env))
-				flag = 1;
-			temp = temp->next;
+			while (temp != NULL)
+			{
+				what_env = 0;
+				while (cmd_args[i][what_env] != '=')
+					what_env++;
+				if (!check_duplicate_env(temp->title, cmd_args[i], what_env))
+					flag = 1;
+				temp = temp->next;
+			}
+			temp = *envs;
+			if (flag == 1)
+			{
+				change_lists_content(envs, cmd_args[i]);
+				flag = 0;
+			}
+			else if (flag == 0)
+				add_export_to_list(envs, cmd_args[i]);
 		}
-		if (flag == 1)
-			change_lists_content(envs, cmd_args[i]);
-		else if (flag == 0)
-			add_export_to_list(envs, cmd_args[i]);
+		else
+			printf("bash: export: `%s': not a valid identifier\n", cmd_args[i]);
 		i++;
 	}
 	return (0); //EXIT_SUCCESS
