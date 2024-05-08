@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:54:49 by plang             #+#    #+#             */
-/*   Updated: 2024/05/08 15:45:20 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/08 17:13:24 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,48 @@ int	export_validation(char *args)
 }
 
 int	export_no_args(t_env **envs)
+ {
+ 	t_env	*temp;
+
+ 	temp = *envs;
+ 	while (temp)
+ 	{
+		printf("Address of temp:%p\n", temp);
+ 		if (temp->title != NULL && temp->info != NULL)
+ 		{
+ 			printf("declare -x %s", temp->title);
+ 			printf("=\"%s\"\n", temp->info);
+ 		}
+ 		else if (temp->title != NULL && temp->info == NULL)
+ 		{
+ 			printf("declare -x %s\n", temp->title);
+ 		}
+ 		else if (temp->env_element != NULL)
+ 			printf("declare -x %s\n", temp->env_element);
+ 		temp = temp->next;
+ 	}
+	return (1);
+ }
+/*
+int	export_no_args(t_env **envs)
 {
 	t_env	*temp;
 
 	temp = *envs;
 	while (temp != NULL)
 	{
-		printf("declare -x %s=\"%s\"\n", temp->title, temp->info);
+		printf("address of title:%p\n address of info:%p\n address of envelement:%p\n",temp->title, temp->info, temp->env_element);
+//		if (temp->title && temp->info)
+//			printf("declare -x %s=\"%s\"\n", temp->title, temp->info);
+//		else if (temp->title)
+//			printf("declare -x %s=\"\n", temp->title);
+//		else if (temp->info)
+//			printf("declare -x %s=\"\n", temp->info);
 		temp = temp->next;
 	}
 	return (1);
 }
-
+*/
 int	check_duplicate_env(char *env_list_str, char *export_str, int what_env)
 {
 	int	i;
@@ -55,7 +85,7 @@ t_env	*store_export_title_n_info(t_env *new_node, char *str)
 	new_node->env_element = ft_substr(str, 0, ft_strlen(str));
 	if (!new_node->env_element)
 		return (NULL);
-	while (str[title_len] != '=')
+	while (str[title_len] != '=' && str[title_len])
 		title_len++;
 	new_node->title = ft_substr(str, 0, (title_len));
 	if (!new_node->title)
@@ -76,7 +106,7 @@ void	change_lists_content(t_env **envs, char *new_env_str)
 	while (temp != NULL)
 	{
 		what_env = 0;
-		while (new_env_str[what_env] != '=')
+		while (new_env_str[what_env] != '=' && new_env_str[what_env])
 			what_env++;
 		if (!check_duplicate_env(temp->env_element, new_env_str, what_env))
 		{
@@ -160,7 +190,7 @@ void	clean_from_quotes(char **str)
 	
 	i = 0;
 	equal = 0;
-	while ((*str)[equal] != '=')
+	while ((*str)[equal] != '=' && (*str)[equal])
 		equal++;
 	copy = ft_strdup(*str);
 	if (!copy)
@@ -203,6 +233,7 @@ int	ft_export(t_env **envs, char **cmd_args)
 	if (!cmd_args[1] && export_no_args(envs))
 		return (0); //EXIT_SUCCESS
 	i = 1;
+
 	while (cmd_args[i])
 	{
 		if (!export_validation(cmd_args[i]))
@@ -210,7 +241,7 @@ int	ft_export(t_env **envs, char **cmd_args)
 			while (temp != NULL)
 			{
 				what_env = 0;
-				while (cmd_args[i][what_env] != '=')
+				while (cmd_args[i][what_env] != '=' && cmd_args[i][what_env])
 					what_env++;
 				if (!check_duplicate_env(temp->title, cmd_args[i], what_env))
 					flag = 1;
@@ -226,30 +257,9 @@ int	ft_export(t_env **envs, char **cmd_args)
 				add_export_to_list(envs, cmd_args[i]);
 		}
 		else
-			printf("bash: export: `%s': not a valid identifier\n", cmd_args[i]);
+			printf("baboonshell: export: `%s': not a valid identifier\n", cmd_args[i]);
 		i++;
 	}
 	return (0); //EXIT_SUCCESS
 }
 
-// void print_export_list(t_env *envs)
-// {
-// 	t_env	*temp;
-
-// 	temp = envs;
-// 	while (temp != NULL)
-// 	{
-// 		if (temp->title != NULL && temp->info != NULL)
-// 		{
-// 			printf("declare -x %s", temp->title);
-// 			printf("=\"%s\"\n", temp->info);
-// 		}
-// 		else if (temp->title != NULL && temp->info == NULL)
-// 		{
-// 			printf("declare -x %s\n", temp->title);
-// 		}
-// 		else if (temp->env_element != NULL)
-// 			printf("declare -x %s\n", temp->env_element);
-// 		temp = temp->next;
-// 	}
-// }

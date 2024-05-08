@@ -6,7 +6,7 @@
 #    By: plang <plang@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 14:15:56 by dbarrene          #+#    #+#              #
-#    Updated: 2024/05/08 15:17:09 by dbarrene         ###   ########.fr        #
+#    Updated: 2024/05/08 17:19:22 by dbarrene         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ LIBFTPATH = libft
 READUTILS = -I ~/.brew/Cellar/readline/8.2.10/include
 
 READLINE = -L ~/.brew/Cellar/readline/8.2.10/lib/ -lreadline 
+
+HEADERS = -I ./includes
 
 LIBFT = $(LIBFTPATH)/libft.a
 
@@ -64,7 +66,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 
 $(NAME): $(LIBFT) $(OBJDIR) $(COBJS) $(OBJS)
 	@echo $(NAME) is being compiled...
-	@$(CC) $(CFLAGS) $(OBJS) $(COBJS) -L$(LIBFTPATH) $(READUTILS) $(READLINE) -lft -o $(NAME) 
+	@$(CC) $(CFLAGS) $(OBJS) $(COBJS) -L$(LIBFTPATH) $(HEADERS) $(READUTILS) $(READLINE) -lft -o $(NAME) 
 
 $(LIBFT):
 	@make -C $(LIBFTPATH)

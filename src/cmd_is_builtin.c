@@ -6,16 +6,16 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:03:25 by plang             #+#    #+#             */
-/*   Updated: 2024/05/08 15:21:35 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/08 16:54:46 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../includes/builtins.h"
 
 int	ft_strcmp_up_lo(char *s1, char *s2)
 {
 	int	i;
-
+//	dprintf(2,"we out here SON!\n");
 	i = 0;
 	while ((s1[i] == s2[i] || s1[i] == s2[i] - 32 || s1[i] + 32 == s2[i])
 		&& s1[i] != '\0' && s2[i] != '\0')
@@ -25,6 +25,10 @@ int	ft_strcmp_up_lo(char *s1, char *s2)
 
 int	cmd_is_builtin(t_env **envs, char **args)
 {
+//	printf("Address of t_envs:%p\n", envs);
+//	printf("Address of t_envs head:%p\n", *envs);
+//	printf("Address of args:%p\n", args);
+//	printf("Address of args head:%p\n", *args);
 	if(ft_strcmp_up_lo("pwd", args[0]) == 0)
 		return (ft_pwd());
 	if(ft_strcmp_up_lo("echo", args[0]) == 0)
@@ -39,6 +43,7 @@ int	cmd_is_builtin(t_env **envs, char **args)
 	// 	return (ft_env(envs));
 	if(ft_strncmp("export", args[0], ft_strlen(args[0])) == 0)
 		return (ft_export(envs, args));
+	dprintf(2, "moro!\n");
 	if(ft_strncmp("unset", args[0], ft_strlen(args[0])) == 0)
 		return (ft_unset(envs, args));
 	// if(ft_strncmp("cd", args[0], ft_strlen(args[0])) == 0)

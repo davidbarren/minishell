@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/07 16:28:49 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/08 16:09:52 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include "../libft/includes/libft.h"
+//# include "builtins.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -119,4 +120,5 @@ void	free_input(t_input *input);
 void	file_opening(t_redir *redir, t_args *args);
 t_redir	*get_last_redir(t_redir *redir);
 void	redir_fd_modifying(t_redir **redir);
+int	cmd_is_builtin(t_env **envs, char **args);
 #endif

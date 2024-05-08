@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/08 14:31:55 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/08 16:34:08 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int	main(int argc, char **argv, char **envp)
 //		printf("Address of line from rl:%p\n", line);
 		free(line);
 //		printf("About to free my structs!\n");
-		free_structs(input.arg_struct, input.pipe_count);
-		free_input(&input);
+//		free_structs(input.arg_struct, input.pipe_count);
+//		free_input(&input);
 	}
 //	free_list(input.envlist);
 	return (69);
