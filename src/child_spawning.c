@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:56:38 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/08 14:54:55 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/09 18:04:37 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,7 @@ void	prep_pids(t_input *input)
 		{
 			printf("Hello from child at index:%d\n", input->pid_index);
 			if (input->arg_struct[input->pid_index]->redir_count)
-				file_opening(*input->arg_struct[input->pid_index]->redirects, 
-					input->arg_struct[input->pid_index]);
+				file_opening(*input->arg_struct[input->pid_index]->redirects);
 			prep_child_command(input->arg_struct[input->pid_index]);
 			exit (69);
 			break ;
@@ -107,4 +106,3 @@ void	wait_for_children(t_input *input)
 	}
 	// probably need to start freeing here;
 }
-

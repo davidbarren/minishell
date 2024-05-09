@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/16 11:57:26 by plang             #+#    #+#             */
-/*   Updated: 2024/05/09 15:36:28 by dbarrene         ###   ########.fr       */
+/*   Created: 2024/05/08 15:56:39 by dbarrene          #+#    #+#             */
+/*   Updated: 2024/05/08 16:04:15 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#ifndef BUILTINS_H
+# define BUILTINS_H
+# include "minishell.h"
 
-int	ft_pwd(void)
-{
-	char	pwd[1024];
-
-	if (getcwd(pwd, sizeof(pwd)) != NULL)
-	{
-		printf("%s\n", pwd);
-		return (0); //EXIT_SUCCESS
-	}
-	else
-		return (1); //EXIT_FAILURE
-}
+int	ft_pwd(void);
+int	ft_echo(char **words);
+int	ft_env(t_env **env);
+int	ft_export(t_env **envs, char **cmd_args);
+int	ft_unset(t_env **env, char **cm_ar);
+#endif
