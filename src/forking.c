@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:00:26 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/08 17:29:17 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/09 18:00:55 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	prep_child_command(t_args *args)
 			free_2d(split_path);
 			if (execve(args->long_command, args->split_cmds, ep) == -1)
 			{
-				printf("execve has failed!\n");	
+				printf("execve has failed!\n");
 				exit (127);
 			}
 		}

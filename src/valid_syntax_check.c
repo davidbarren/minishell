@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 17:27:49 by plang             #+#    #+#             */
-/*   Updated: 2024/05/07 12:04:00 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/09 17:49:40 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,3 @@ int	valid_syntax_check(char	*line)
 		return (1);
 	return (0);
 }
-
-
-//work on this with the printing of the correct message and add all the changes from the work_minishell

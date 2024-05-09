@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 13:54:24 by plang             #+#    #+#             */
-/*   Updated: 2024/05/08 17:16:41 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/09 15:35:22 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_env(t_env **env)
 	{
 		while (temp)
 		{
-			if (temp->env_element)
+			if (temp->info)
 				printf("%s\n", temp->env_element);
 			temp = temp->next;
 		}

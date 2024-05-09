@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:54:49 by plang             #+#    #+#             */
-/*   Updated: 2024/05/08 17:13:24 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/09 17:59:38 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	export_validation(char *args)
 {
-	
 	if (args[0] == '=')
 		return (1);
 	if (!ft_isalpha(args[0]))
@@ -23,53 +22,35 @@ int	export_validation(char *args)
 }
 
 int	export_no_args(t_env **envs)
- {
- 	t_env	*temp;
-
- 	temp = *envs;
- 	while (temp)
- 	{
-		printf("Address of temp:%p\n", temp);
- 		if (temp->title != NULL && temp->info != NULL)
- 		{
- 			printf("declare -x %s", temp->title);
- 			printf("=\"%s\"\n", temp->info);
- 		}
- 		else if (temp->title != NULL && temp->info == NULL)
- 		{
- 			printf("declare -x %s\n", temp->title);
- 		}
- 		else if (temp->env_element != NULL)
- 			printf("declare -x %s\n", temp->env_element);
- 		temp = temp->next;
- 	}
-	return (1);
- }
-/*
-int	export_no_args(t_env **envs)
 {
 	t_env	*temp;
 
 	temp = *envs;
-	while (temp != NULL)
+	while (temp)
 	{
-		printf("address of title:%p\n address of info:%p\n address of envelement:%p\n",temp->title, temp->info, temp->env_element);
-//		if (temp->title && temp->info)
-//			printf("declare -x %s=\"%s\"\n", temp->title, temp->info);
-//		else if (temp->title)
-//			printf("declare -x %s=\"\n", temp->title);
-//		else if (temp->info)
-//			printf("declare -x %s=\"\n", temp->info);
+		if (temp->title != NULL && temp->info != NULL)
+		{
+			printf("declare -x %s", temp->title);
+			printf("=\"%s\"\n", temp->info);
+		}
+		else if (temp->title != NULL && temp->info == NULL)
+		{
+			printf("declare -x %s\n", temp->title);
+		}
+		else if (temp->env_element != NULL)
+			printf("declare -x %s\n", temp->env_element);
 		temp = temp->next;
 	}
 	return (1);
 }
-*/
+
 int	check_duplicate_env(char *env_list_str, char *export_str, int what_env)
 {
 	int	i;
 
 	i = 0;
+	if (!export_str || !env_list_str)
+		return (0);
 	if (ft_strncmp(env_list_str, export_str, what_env))
 		return (1);
 	return (0);
@@ -90,7 +71,7 @@ t_env	*store_export_title_n_info(t_env *new_node, char *str)
 	new_node->title = ft_substr(str, 0, (title_len));
 	if (!new_node->title)
 		return (NULL);
-	new_node->info = ft_substr(str, (title_len + 1), \
+	new_node->info = ft_substring(str, (title_len + 1), \
 	(ft_strlen(str) - title_len));
 	if (!new_node->info)
 		return (NULL);
@@ -106,6 +87,8 @@ void	change_lists_content(t_env **envs, char *new_env_str)
 	while (temp != NULL)
 	{
 		what_env = 0;
+		if (!ft_strchr(new_env_str, '='))
+			return ;
 		while (new_env_str[what_env] != '=' && new_env_str[what_env])
 			what_env++;
 		if (!check_duplicate_env(temp->env_element, new_env_str, what_env))
@@ -134,28 +117,56 @@ int	find_equal_sign(char *data)
 	return (0);
 }
 
-void	only_export_title(t_env **envs, char *str)
+void	create_titleonly_node(t_env **envs, char *str, int flag)
 {
-	t_env	*last_node;
 	t_env	*new_node;
+	t_env	*last_node;
 
 	new_node = malloc(sizeof(t_env));
 	if (!new_node)
 		return ;
+	new_node->info = NULL;
+	new_node->env_element = NULL;
+	new_node->next = NULL;
 	new_node->title = ft_strdup(str);
 	if (!new_node->title)
 		return ;
-	new_node->next = NULL;
-	last_node = get_last_node(*envs);
-	last_node->next = new_node;
-	new_node->prev = last_node;
+	if (!flag)
+	{
+		last_node = get_last_node(*envs);
+		last_node->next = new_node;
+		new_node->prev = last_node;
+	}
+	else
+	{
+		new_node->prev = NULL;
+		*envs = new_node;
+	}
+}
+
+void	only_export_title(t_env **envs, char *str)
+{
+	t_env	*temp;
+
+	temp = *envs;
+	if (!temp)
+		create_titleonly_node(envs, str, 1);
+	while (temp)
+	{
+		if (ft_strcmp(temp->title, str))
+		{
+			create_titleonly_node(envs, str, 0);
+			break ;
+		}
+		temp = temp->next;
+	}
 }
 
 void	add_export_to_list(t_env **envs, char *str)
 {
 	t_env	*last_node;
 	t_env	*new_node;
-	
+
 	if (find_equal_sign(str))
 	{
 		new_node = malloc(sizeof(t_env));
@@ -187,7 +198,7 @@ void	clean_from_quotes(char **str)
 	char	*start;
 	int		i;
 	int		equal;
-	
+
 	i = 0;
 	equal = 0;
 	while ((*str)[equal] != '=' && (*str)[equal])
@@ -233,7 +244,6 @@ int	ft_export(t_env **envs, char **cmd_args)
 	if (!cmd_args[1] && export_no_args(envs))
 		return (0); //EXIT_SUCCESS
 	i = 1;
-
 	while (cmd_args[i])
 	{
 		if (!export_validation(cmd_args[i]))
@@ -257,9 +267,8 @@ int	ft_export(t_env **envs, char **cmd_args)
 				add_export_to_list(envs, cmd_args[i]);
 		}
 		else
-			printf("baboonshell: export: `%s': not a valid identifier\n", cmd_args[i]);
+			printf("🐒: export: `%s': not a valid identifier\n", cmd_args[i]);
 		i++;
 	}
 	return (0); //EXIT_SUCCESS
 }
-

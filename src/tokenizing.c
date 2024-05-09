@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/08 16:33:24 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/09 18:02:40 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,21 @@ void	prep_input(char *line, t_input *input)
 		clean_arglist(input->arg_struct[i]);
 		tokenize_args(input->arg_struct[i]);
 		extract_cmds(input->arg_struct[i]);
-		printf("Info inside arg_struct:\n");
-		printf("Arglist:%s\n",input->arg_struct[i]->arglist);
+//		printf("Info inside arg_struct:\n");
+//		printf("Arglist:%s\n",input->arg_struct[i]->arglist);
 //		printf("Split_cmds:%s\n",input->arg_struct[i]->split_cmds[0]);
-		printf("envlist:%p\n",input->arg_struct[i]->envlist);
+//		printf("envlist:%p\n",input->arg_struct[i]->envlist);
 		if (input->arg_struct[i]->redir_count)
 		{
 			clean_redir_node(input->arg_struct[i]->redirects,
-					input->arg_struct[i]->long_command);
+				input->arg_struct[i]->long_command);
 //			file_opening(*input->arg_struct[i]->redirects, input->arg_struct[i]);
 //			redir_fd_modifying(input->arg_struct[i]->redirects);
 		}
 		input->arg_struct[i]->split_cmds = ft_quotesplit(input->arg_struct[i]->long_command, ' ');
-		printf("contents of split cmds:%s", input->arg_struct[i]->split_cmds[0]);
+//		printf("contents of split cmds:%s", input->arg_struct[i]->split_cmds[0]);
 		if (!cmd_is_builtin(input->arg_struct[i]->envlist, input->arg_struct[i]->split_cmds))
-			printf("lol\nlol\n");
+			printf("");
 //		printf("iteration number:%d with pipecount:%d\n", i, input->pipe_count);
 		i++;
 //		prep_child_command(input->arg_struct[i++]);
@@ -65,7 +65,7 @@ void	build_struct(t_input *input)
 	int	i;
 
 	i = 0;
-	input->arg_struct = ft_calloc ((input->pipe_count) , sizeof(t_args *));
+	input->arg_struct = ft_calloc ((input->pipe_count), sizeof(t_args *));
 	if (!input->arg_struct)
 		return ;
 	while (i < input->pipe_count)

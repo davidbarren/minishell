@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:34:45 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/08 15:51:05 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/09 18:03:28 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,8 @@ char	*get_file_filename_last(char *str)
 	return (ft_strdup(str));
 }
 
-void	file_opening(t_redir *redir, t_args *args)
+void	file_opening(t_redir *redir) 
 {
-	(void) args;
 	t_redir *temp;
 	t_redir *output_node;
 
@@ -55,7 +54,7 @@ void	file_opening(t_redir *redir, t_args *args)
 	while (temp)
 	{
 		if (temp->redir_type == 2)
-			temp->fd_status = open(temp->filename, O_CREAT | O_APPEND | O_RDWR, 0644); 
+			temp->fd_status = open(temp->filename, O_CREAT | O_APPEND | O_RDWR, 0644);
 		else
 			temp->fd_status = open(temp->filename, O_CREAT | O_TRUNC | O_RDWR, 0644);
 		if (temp->fd_status == -1)
@@ -96,7 +95,6 @@ void	redir_fd_modifying(t_redir **redir)
 //	close(input_node->fd_status);
 	dup2(output_node->fd_status, STDOUT_FILENO);
 	close(output_node->fd_status);
-
 }
 /* only thing that gets dup'ed should be stdout being replaced by the fd
  * of the last redir node's file's fd
