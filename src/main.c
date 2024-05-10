@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/09 13:46:27 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/09 18:22:32 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	free_struct_content(t_args *args)
 {
 	if (args->arglist)
 	{
-//		printf("Address of arglist:%p\n", args->arglist);
 		free(args->arglist);
 	}
 	if (args->long_command)

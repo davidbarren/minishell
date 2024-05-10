@@ -6,13 +6,13 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:00:26 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/09 18:00:55 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/10 16:00:00 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	prep_child_command(t_args *args)
+/*void	prep_child_command(t_args *args)
 {
 	char	**ep;
 	char	**split_path;
@@ -23,10 +23,12 @@ void	prep_child_command(t_args *args)
 	i = 0;
 //	printf("Long command: %s\n", args->long_command);
 	args->split_cmds = ft_quotesplit(args->long_command, ' ');
+	
 //	ft_printerror("Command from pcc:%s\n", args->split_cmds[0]);
 	while (args->split_cmds[i])
 	{
 		args->split_cmds[i] = trim_input(args->split_cmds[i], '\"');
+		printf("Elements of split cmds:%s at index:%i\n", args->split_cmds[i], i);
 		i++;
 	}
 	path = ft_getenv(args->envlist, "PATH");
@@ -56,7 +58,7 @@ void	prep_child_command(t_args *args)
 	if (split_path)
 		free_2d(split_path);
 }
-
+*/
 static	int	get_env_len(t_env *env)
 {
 	t_env	*temp;
