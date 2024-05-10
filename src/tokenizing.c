@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/09 18:02:40 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:56:40 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,15 +49,20 @@ void	prep_input(char *line, t_input *input)
 //			file_opening(*input->arg_struct[i]->redirects, input->arg_struct[i]);
 //			redir_fd_modifying(input->arg_struct[i]->redirects);
 		}
-		input->arg_struct[i]->split_cmds = ft_quotesplit(input->arg_struct[i]->long_command, ' ');
+		prep_and_split_command(input->arg_struct[i]);
+//		input->arg_struct[i]->split_cmds = ft_quotesplit(input->arg_struct[i]->long_command, ' ');
 //		printf("contents of split cmds:%s", input->arg_struct[i]->split_cmds[0]);
-		if (!cmd_is_builtin(input->arg_struct[i]->envlist, input->arg_struct[i]->split_cmds))
-			printf("");
+//		if (!cmd_is_builtin(input->arg_struct[i]->envlist, input->arg_struct[i]->split_cmds))
+//			printf("");
+//		free_2d(input->arg_struct[i]->split_cmds);
 //		printf("iteration number:%d with pipecount:%d\n", i, input->pipe_count);
 		i++;
 //		prep_child_command(input->arg_struct[i++]);
 	}
-//		prep_pids(input);
+	printf("builtin status:%d\n", input->arg_struct[0]->is_builtin);
+		if (input->pipe_count == 1 && input->arg_struct[0]->is_builtin)
+			return;
+		prep_pids(input);
 }
 
 void	build_struct(t_input *input)
@@ -74,6 +79,8 @@ void	build_struct(t_input *input)
 		if (!input->arg_struct[i])
 			return ;
 		input->arg_struct[i]->arglist = ft_strdup(input->input[i]);
+		input->arg_struct[i]->pipecount = input->pipe_count;
+		input->arg_struct[i]->is_builtin = 0;
 		if (!input->arg_struct[i]->arglist)
 			return ;
 		update_redirs(input->arg_struct[i]);

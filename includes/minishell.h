@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/09 18:03:59 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:45:16 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,10 @@ typedef struct s_args
 	t_env			**envlist;
 	int				is_builtin;
 	int				**pipes;
+	int				pipecount;
+	char			**split_path;
+	char			*execpath;
+	char			**envcpy;
 }	t_args;
 
 typedef struct s_input
@@ -121,4 +125,7 @@ void	file_opening(t_redir *redir);
 t_redir	*get_last_redir(t_redir *redir);
 void	redir_fd_modifying(t_redir **redir);
 int		cmd_is_builtin(t_env **envs, char **args);
+int		ft_strcmp_up_lo(char *s1, char *s2);
+void	check_path_access(t_args *args);
+void	prep_and_split_command(t_args *args);
 #endif
