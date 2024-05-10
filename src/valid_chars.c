@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:42:20 by plang             #+#    #+#             */
-/*   Updated: 2024/05/03 11:42:24 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/10 14:55:39 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,30 @@ int	first_or_last(char *str, char c)
 
 int	valid_chars(char *str)
 {
-	if (first_or_last(str, '&'))
-		return (1);
-	if (first_or_last(str, ';'))
-		return (1);
-	if (first_or_last(str, '!'))
-		return (1);
-	if (not_supported_chars(str, '&'))
-		return (1);
-	if (not_supported_chars(str, '!'))
-		return (1);
-	if (not_supported_chars(str, ';'))
-		return (1);
+	if (first_or_last(str, '&') || not_supported_chars(str, '&'))
+	{
+		ft_putstr_fd("🐒: syntax error near unexpected token `&'\n", 2);
+		return (4);
+	}
+	if (first_or_last(str, ';') || not_supported_chars(str, ';'))
+	{
+		ft_putstr_fd("🐒: syntax error near unexpected token `;'\n", 2);
+		return (4);
+	}
+	if (first_or_last(str, '!') || not_supported_chars(str, '!'))
+		{
+		ft_putstr_fd("🐒: syntax error near unexpected token `!'\n", 2);
+		return (4);
+	}
 	if (not_supported_chars(str, '('))
-		return (1);
+	{
+		ft_putstr_fd("🐒: syntax error near unexpected token `('\n", 2);
+		return (4);
+	}
 	if (not_supported_chars(str, ')'))
-		return (1);
+	{
+		ft_putstr_fd("🐒: syntax error near unexpected token `)'\n", 2);
+		return (4);
+	}
 	return (0);
 }
