@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:47:32 by plang             #+#    #+#             */
-/*   Updated: 2024/05/03 14:14:01 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/10 15:41:08 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ int	we_have_redirect(char *str, int *i)
 	}
 	if (str[*i] == '>' && str[*i + 1] == '<')
 	{
-		ft_skip_chars(&str, ' ');
-		if (str[*i] == '\0')
-			return (1);
+		return (1);// return (2);
 	}
 	if (str[*i + 1] == ' ' )
 	{
@@ -66,13 +64,15 @@ int	valid_redirect(char *str)
 		if ((str[i] == '>') || (str[i] == '<'))
 			check = we_have_redirect(str, &i);
 		if (check == 1)
-			return (1);
+			return (2);
+		// if (check == 2)
+		// 	return (6);
 		i++;
 	}
 	i--;
 	while (str[i] == ' ')
 		i--;
 	if (str[i] == '>' || str[i] == '<')
-		return (1);
+		return (2);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:44:26 by plang             #+#    #+#             */
-/*   Updated: 2024/05/03 17:35:10 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/10 14:39:21 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	valid_sequence(char *str, char a, char b, char c)
 			str++;
 			ft_skip_chars(&str, ' ');
 			if (*str == c)
-				return (1);
+				return (5);
 		}
 		str++;
 	}
