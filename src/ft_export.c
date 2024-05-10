@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:54:49 by plang             #+#    #+#             */
-/*   Updated: 2024/05/09 17:59:38 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/10 13:18:53 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,12 @@ int	check_duplicate_env(char *env_list_str, char *export_str, int what_env)
 	int	i;
 
 	i = 0;
+	while (env_list_str[i] != '=' && env_list_str[i])
+		i++;
 	if (!export_str || !env_list_str)
 		return (0);
+	if (i != what_env)
+		return (1);
 	if (ft_strncmp(env_list_str, export_str, what_env))
 		return (1);
 	return (0);
@@ -231,15 +235,39 @@ void	ft_export_clean(char **cmd_args)
 	}
 }
 
-int	ft_export(t_env **envs, char **cmd_args)
+void	export_is_valid(t_env **envs, char **cmd_args, int *i)
 {
 	t_env	*temp;
-	int		i;
 	int		what_env;
 	int		flag;
 
 	temp = *envs;
 	flag = 0;
+	while (temp != NULL)
+	{
+		what_env = 0;
+		while (cmd_args[*i][what_env] != '=' && cmd_args[*i][what_env])
+			what_env++;
+		if (!check_duplicate_env(temp->title, cmd_args[*i], what_env))
+			flag = 1;
+		temp = temp->next;
+	}
+	temp = *envs;
+	if (flag == 1)
+	{
+		change_lists_content(envs, cmd_args[*i]);
+		flag = 0;
+	}
+	else if (flag == 0)
+		add_export_to_list(envs, cmd_args[*i]);
+}
+
+int	ft_export(t_env **envs, char **cmd_args)
+{
+	t_env	*temp;
+	int		i;
+
+	temp = *envs;
 	ft_export_clean(cmd_args);
 	if (!cmd_args[1] && export_no_args(envs))
 		return (0); //EXIT_SUCCESS
@@ -248,23 +276,7 @@ int	ft_export(t_env **envs, char **cmd_args)
 	{
 		if (!export_validation(cmd_args[i]))
 		{
-			while (temp != NULL)
-			{
-				what_env = 0;
-				while (cmd_args[i][what_env] != '=' && cmd_args[i][what_env])
-					what_env++;
-				if (!check_duplicate_env(temp->title, cmd_args[i], what_env))
-					flag = 1;
-				temp = temp->next;
-			}
-			temp = *envs;
-			if (flag == 1)
-			{
-				change_lists_content(envs, cmd_args[i]);
-				flag = 0;
-			}
-			else if (flag == 0)
-				add_export_to_list(envs, cmd_args[i]);
+			export_is_valid(envs, cmd_args, &i);
 		}
 		else
 			printf("🐒: export: `%s': not a valid identifier\n", cmd_args[i]);

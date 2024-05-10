@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 10:37:22 by plang             #+#    #+#             */
-/*   Updated: 2024/05/09 17:52:25 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/10 13:14:00 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	unset_last_node(t_env *temp)
 		free(unset->title);
 	if (unset->info)
 		free(unset->info);
-	free(unset);
+	if (unset)
+		free(unset);
 }
 
 void	unset_subsequent_node(t_env *temp)
@@ -74,6 +75,17 @@ void	unset_subsequent_node(t_env *temp)
 		free(unset);
 }
 
+void	unset_key_found(t_env **env, t_env *temp, int *flag)
+{
+	if (temp->prev == NULL)
+		unset_first_node(env, temp);
+	else if (!temp->next)
+		unset_last_node(temp);
+	else
+		unset_subsequent_node(temp);
+	*flag = 1;
+}
+
 int	ft_unset(t_env **env, char **cm_ar)
 {
 	t_env	*temp;
@@ -81,28 +93,20 @@ int	ft_unset(t_env **env, char **cm_ar)
 	int		flag;
 
 	flag = 0;
-	temp = *env;
-	while (temp != NULL)
+	i = 1;
+	while (cm_ar[i])
 	{
-		i = 1;
-		while (cm_ar[i])
+		temp = *env;
+		while (temp != NULL)
 		{
-			if (!ft_strncmp(temp->title, cm_ar[i], ft_strlen(cm_ar[i])))
+			if (!ft_strcmp(temp->title, cm_ar[i]))
 			{
-				if (temp->prev == NULL)
-					unset_first_node(env, temp);
-				else if (!temp->next)
-					unset_last_node(temp);
-				else
-					unset_subsequent_node(temp);
-				flag = 1;
+				unset_key_found(env, temp, &flag);
 				break ;
 			}
-			i++;
+			temp = temp->next;
 		}
-		if (flag)
-			break ;
-		temp = temp->next;
+		i++;
 	}
 	return (0);//EXIT_SUCCESS
 }
