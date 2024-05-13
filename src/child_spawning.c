@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:56:38 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/10 16:06:36 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:27:23 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ void	prep_and_split_command(t_args *args)
 	i = 0;
 	args->envcpy = copy_env(args->envcpy, args->envlist);
 	args->split_cmds = ft_quotesplit(args->long_command, ' ');
+	args->is_builtin = flag_for_builtin(args->split_cmds);
 	while (args->split_cmds[i])
 	{
 		args->split_cmds[i] = trim_input(args->split_cmds[i], '\"');
@@ -165,12 +166,17 @@ void	prep_and_split_command(t_args *args)
 				return ;
 			}
 		args->execpath = ft_getenv(args->envlist, "PATH");
+		printf("\nexecpath:%s\n", args->execpath);
+		if (!args->execpath)
+			return ;
 		args->split_path = ft_split(args->execpath, ':');
 		check_path_access(args);
-//		execve(args->execpath, args->split_cmds, args->envcpy);
 	}
+//	else if (args->pipecount != 1)
+//		cmd_is_builtin(args->envlist, args->split_cmds);
 }
 
+//		execve(args->execpath, args->split_cmds, args->envcpy);
 
 void	check_path_access(t_args *args)
 {
@@ -217,10 +223,17 @@ void	prep_pids(t_input *input)
 			if (input->arg_struct[input->pid_index]->redir_count)
 				file_opening(*input->arg_struct[input->pid_index]->redirects);
 //			prep_child_command(input->arg_struct[input->pid_index]);
+			if (input->arg_struct[input->pid_index]->is_builtin)
+			{
+				input->arg_struct[input->pid_index]->builtinstatus = 
+					(cmd_is_builtin(input->arg_struct[input->pid_index]->envlist,
+							input->arg_struct[input->pid_index]->split_cmds));
+				exit (input->arg_struct[input->pid_index]->builtinstatus);
+			}
 			execve(input->arg_struct[input->pid_index]->execpath,
 					input->arg_struct[input->pid_index]->split_cmds,
 					input->arg_struct[input->pid_index]->envcpy);
-			exit (69);
+			exit (127);
 			break ;
 		}
 //		printf("Contents of struct:%s\n at index:%d\n", input->arg_struct[input->pid_index]->long_command, input->pid_index);
