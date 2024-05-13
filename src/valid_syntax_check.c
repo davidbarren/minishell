@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 17:27:49 by plang             #+#    #+#             */
-/*   Updated: 2024/05/10 15:40:43 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/13 14:36:09 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ int	valid_syntax_check(char	*line)
 	error = valid_chars(line);
 	if (error)
 		return (error);
+	error = valid_chars2(line);
+	if (error)
+		return (error);
 	error = valid_sequence(line, '<', '>', '|');
 	if (error)
 		return (error);
@@ -44,13 +47,13 @@ int	syntax_validation(char *str)
 		if (check == 1)
 			ft_putstr_fd("🐒: syntax error, open quotes\n", 2);
 		if (check == 2)
-			ft_putstr_fd("🐒: syntax error near unexpected token `newline'\n", 2);
+			ft_putstr_fd("🐒: syntax error near unexpected token `nl'\n", 2);
 		if (check == 3)
 			ft_putstr_fd("🐒: syntax error near unexpected token `|'\n", 2);
 		if (check == 5)
 			ft_putstr_fd("🐒: syntax error, forbidden sequence\n", 2);
-		// if (check == 6)
-		// 	ft_putstr_fd("🐒: syntax error near unexpected token `<'\n", 2);
+		if (check == 6)
+			ft_putstr_fd("🐒: syntax error near unexpected token `<'\n", 2);
 		check = 258;
 	}
 	return (check);

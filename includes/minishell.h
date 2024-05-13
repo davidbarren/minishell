@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/13 14:10:38 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:01:57 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void	prep_child_command(t_args *args);
 int		valid_quotes(char *str);
 int		valid_pipes(char *str);
 int		valid_chars(char *str);
+int		valid_chars2(char *str);
 int		valid_redirect(char *str);
 int		valid_sequence(char *str, char a, char b, char c);
 char	**copy_env(char **ep, t_env **env);
@@ -129,5 +130,6 @@ int		cmd_is_builtin(t_env **envs, char **args);
 int		ft_strcmp_up_lo(char *s1, char *s2);
 void	check_path_access(t_args *args);
 void	prep_and_split_command(t_args *args);
+int		syntax_validation(char *str);
 int		flag_for_builtin(char **args);
 #endif

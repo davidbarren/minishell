@@ -6,7 +6,7 @@
 #    By: plang <plang@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 14:15:56 by dbarrene          #+#    #+#              #
-#    Updated: 2024/05/13 14:18:23 by dbarrene         ###   ########.fr        #
+#    Updated: 2024/05/13 14:06:18 by plang            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,8 @@ CSRCS = $(SRCDIR)/parsing.c\
 		$(SRCDIR)/ft_echo.c\
 		$(SRCDIR)/ft_env.c\
 		$(SRCDIR)/ft_export.c\
+		$(SRCDIR)/ft_export_utils1.c\
+		$(SRCDIR)/ft_export_utils2.c\
 		$(SRCDIR)/ft_pwd.c\
 		$(SRCDIR)/ft_unset.c\
 		$(SRCDIR)/valid_chars.c\
