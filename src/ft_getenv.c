@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:13:37 by plang             #+#    #+#             */
-/*   Updated: 2024/05/02 13:20:12 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:25:32 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ char	*ft_getenv(t_env **envs, char *str)
 	char	*env_str;
 
 	node = getenv_node(envs, str);
+	if (!node)
+		return (NULL);
 	env_str = get_env_str(node);
 	return (env_str);
 }

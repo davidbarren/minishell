@@ -62,6 +62,7 @@ typedef struct s_args
 	int				is_builtin;
 	int				**pipes;
 	int				pipecount;
+	int				builtinstatus;
 	char			**split_path;
 	char			*execpath;
 	char			**envcpy;
@@ -130,5 +131,5 @@ int		ft_strcmp_up_lo(char *s1, char *s2);
 void	check_path_access(t_args *args);
 void	prep_and_split_command(t_args *args);
 int		syntax_validation(char *str);
-
+int		flag_for_builtin(char **args);
 #endif
