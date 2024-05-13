@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/10 15:56:40 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:02:39 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ void	prep_input(char *line, t_input *input)
 	int		i;
 
 	i = 0;
-//	printf("Line from readline:%s\n", line);
 	temp = ft_quotesplit(line, '|');
-//	printf("quotesplit index 0 in prepinput:%s\n", temp[0]);
 	input->pipe_count = ft_arrlen(temp);
 	input->input = ft_calloc(input->pipe_count + 1, sizeof(char *));
 	while (temp[i])
@@ -31,33 +29,18 @@ void	prep_input(char *line, t_input *input)
 	free_2d(temp);
 	build_struct(input);
 	i = 0;
-//	printf("pipecount in input:%d\n", input->pipe_count);
 	while (i < input->pipe_count)
 	{
-//		printf("Iteration number:%d\n", i);
 		clean_arglist(input->arg_struct[i]);
 		tokenize_args(input->arg_struct[i]);
 		extract_cmds(input->arg_struct[i]);
-//		printf("Info inside arg_struct:\n");
-//		printf("Arglist:%s\n",input->arg_struct[i]->arglist);
-//		printf("Split_cmds:%s\n",input->arg_struct[i]->split_cmds[0]);
-//		printf("envlist:%p\n",input->arg_struct[i]->envlist);
 		if (input->arg_struct[i]->redir_count)
 		{
 			clean_redir_node(input->arg_struct[i]->redirects,
 				input->arg_struct[i]->long_command);
-//			file_opening(*input->arg_struct[i]->redirects, input->arg_struct[i]);
-//			redir_fd_modifying(input->arg_struct[i]->redirects);
 		}
 		prep_and_split_command(input->arg_struct[i]);
-//		input->arg_struct[i]->split_cmds = ft_quotesplit(input->arg_struct[i]->long_command, ' ');
-//		printf("contents of split cmds:%s", input->arg_struct[i]->split_cmds[0]);
-//		if (!cmd_is_builtin(input->arg_struct[i]->envlist, input->arg_struct[i]->split_cmds))
-//			printf("");
-//		free_2d(input->arg_struct[i]->split_cmds);
-//		printf("iteration number:%d with pipecount:%d\n", i, input->pipe_count);
 		i++;
-//		prep_child_command(input->arg_struct[i++]);
 	}
 	printf("builtin status:%d\n", input->arg_struct[0]->is_builtin);
 		if (input->pipe_count == 1 && input->arg_struct[0]->is_builtin)
