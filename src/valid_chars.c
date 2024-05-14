@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:42:20 by plang             #+#    #+#             */
-/*   Updated: 2024/05/13 13:37:25 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/14 11:37:00 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ int	valid_chars(char *str)
 		return (4);
 	}
 	if (first_or_last(str, '!') || not_supported_chars(str, '!'))
-		{
+	{
 		ft_putstr_fd("🐒: syntax error near unexpected token `!'\n", 2);
 		return (4);
-		}
+	}
 	return (0);
 }
 

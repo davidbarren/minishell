@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 18:17:30 by plang             #+#    #+#             */
-/*   Updated: 2024/04/30 13:37:14 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/14 11:36:23 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,30 @@ void	add_env_to_back(t_env **env, char *data, int index)
 		last_node->next = new_node;
 		new_node->prev = last_node;
 	}
+}
+
+void	free_list(t_env **env)
+{
+	t_env	*next;
+
+	next = *env;
+	if (!*env)
+		return ;
+	while (next)
+	{
+		next = next->next;
+		free_content(*env);
+		free (*env);
+		*env = next;
+	}
+}
+
+void	free_content(t_env *env)
+{
+	if (env->env_element)
+		free(env->env_element);
+	if (env->title)
+		free(env->title);
+	if (env->info)
+		free(env->info);
 }
