@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:34:45 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/09 18:03:28 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/14 11:40:10 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,9 @@ char	*get_cmd_filename_last(char *str)
 
 char	*get_file_filename_last(char *str)
 {
-	int	i;
-	int	j;
-	char *temp;
-
-	printf("Address of str in get_file_filename last %p\n", str);
+	int		i;
+	int		j;
+	char	*temp;
 
 	temp = str;
 	i = 0;
@@ -40,14 +38,13 @@ char	*get_file_filename_last(char *str)
 	while (str[i] != ' ')
 		i--;
 	str += i;
-//	free(temp);
 	return (ft_strdup(str));
 }
 
-void	file_opening(t_redir *redir) 
+void	file_opening(t_redir *redir)
 {
-	t_redir *temp;
-	t_redir *output_node;
+	t_redir	*temp;
+	t_redir	*output_node;
 
 	output_node = get_last_redir(redir);
 	temp = redir;
@@ -61,7 +58,6 @@ void	file_opening(t_redir *redir)
 			ft_printerror("Error creating file");
 		if (temp == output_node)
 		{
-			printf("Found our match! with filename:%s\n and fd:%d\n", temp->filename, temp->fd_status);
 			if (dup2(temp->fd_status, STDOUT_FILENO) == -1)
 			{
 				ft_printerror("dup failed you baboon!\n");
@@ -74,31 +70,16 @@ void	file_opening(t_redir *redir)
 		temp = temp->next;
 	}
 }
-/*
- * currently the filenames contain extra spaces and the linkedlist creates
- * an empty node at first, probably should fix that :DDD
-we  should open every single "passenger" fd and create the file and then ignore;
- * content from the first file in the redir linked list should be passed to
- * the LAST element in the redir LL directly thru dup2() of stdin and stdout
-*/
 
 void	redir_fd_modifying(t_redir **redir)
 {
-	t_redir *input_node;
-	t_redir *output_node;
+	t_redir	*input_node;
+	t_redir	*output_node;
 
 	input_node = *redir;
 	output_node = get_last_redir(*redir);
 	printf("contents of input node:%s\n", input_node->filename);
 	printf("contents of output node:%s\n", output_node->filename);
-//	dup2(input_node->fd_status, STDIN_FILENO);
-//	close(input_node->fd_status);
 	dup2(output_node->fd_status, STDOUT_FILENO);
 	close(output_node->fd_status);
 }
-/* only thing that gets dup'ed should be stdout being replaced by the fd
- * of the last redir node's file's fd
- * right?
- *
- * currently it hangs and doesn't copy the info properly :(
- */

@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:26:05 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/09 18:01:40 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/14 11:38:15 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	extract_cmds(t_args *args)
 	{
 		if (ft_strnstr(temp->str, args->long_command, ft_strlen(temp->str)))
 		{
-//			free (temp->str);
 			temp->str = ft_strdup(args->tokenized_args);
 		}
 		temp = temp->next;
