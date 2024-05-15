@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:32:09 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/14 11:42:04 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/15 11:56:59 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,3 +53,8 @@ void	close_pipes(t_input *input)
 		free(input->pipes[i++]);
 	}
 }
+/*
+void	child_generic(t_input *input)
+{
+
+}*/

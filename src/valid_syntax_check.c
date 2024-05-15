@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 17:27:49 by plang             #+#    #+#             */
-/*   Updated: 2024/05/13 14:36:09 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/14 12:25:10 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	syntax_validation(char *str)
 {
 	int	check;
 
+	if (!*str)
+		return (-1);
 	check = valid_syntax_check(str);
 	if (check > 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/14 11:37:50 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/15 11:28:17 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	prep_input(char *line, t_input *input)
 	char	**temp;
 	int		i;
 
+	if (!*line)
+		return ;
 	i = 0;
 	temp = ft_quotesplit(line, '|');
 	input->pipe_count = ft_arrlen(temp);
@@ -28,20 +30,7 @@ void	prep_input(char *line, t_input *input)
 	}
 	free_2d(temp);
 	build_struct(input);
-	i = 0;
-	while (i < input->pipe_count)
-	{
-		clean_arglist(input->arg_struct[i]);
-		tokenize_args(input->arg_struct[i]);
-		extract_cmds(input->arg_struct[i]);
-		if (input->arg_struct[i]->redir_count)
-		{
-			clean_redir_node(input->arg_struct[i]->redirects,
-				input->arg_struct[i]->long_command);
-		}
-		prep_and_split_command(input->arg_struct[i]);
-		i++;
-	}
+	sanitize_input(input);
 	printf("builtin status:%d\n", input->arg_struct[0]->is_builtin);
 	if (input->pipe_count == 1 && input->arg_struct[0]->is_builtin)
 		return ;
@@ -134,5 +123,23 @@ void	tokenize_args(t_args *args)
 				temp += 1;
 			i++;
 		}
+	}
+}
+
+void	sanitize_input(t_input *input)
+{
+	int	i;
+
+	i = 0;
+	while (i < input->pipe_count)
+	{
+		clean_arglist(input->arg_struct[i]);
+		tokenize_args(input->arg_struct[i]);
+		extract_cmds(input->arg_struct[i]);
+		if (input->arg_struct[i]->redir_count)
+			clean_redir_node(input->arg_struct[i]->redirects,
+				input->arg_struct[i]->long_command);
+		prep_and_split_command(input->arg_struct[i]);
+		i++;
 	}
 }
