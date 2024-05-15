@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/14 11:44:31 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/15 13:33:35 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_env	*envs;
 	t_input	input;
-	char	*line;
-	int		status;
 
 	(void) argc;
 	(void) argv;
@@ -26,6 +24,16 @@ int	main(int argc, char **argv, char **envp)
 	using_history();
 	parse_input(envp, &envs);
 	input.envlist = &envs;
+	baboonloop(&input);
+	free_list(input.envlist);
+	return (69);
+}
+
+void	baboonloop(t_input *input)
+{
+	char	*line;
+	int		status;
+
 	while (1)
 	{
 		line = NULL;
@@ -34,18 +42,16 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		add_history(line);
 		status = syntax_validation(line);
+		printf("status:%d\n", status);
 		if (!status)
 		{
-			prep_input(line, &input);
-			free_structs(input.arg_struct, input.pipe_count);
+			prep_input(line, input);
+			free_structs(input->arg_struct, input->pipe_count);
 		}
 		else if (status)
 			printf("value of status:%d\n", status);
 		free(line);
-		free_input(&input);
 	}
-	free_list(input.envlist);
-	return (69);
 }
 
 void	free_input(t_input *input)

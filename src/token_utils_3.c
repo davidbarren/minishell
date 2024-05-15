@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:34:45 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/14 11:40:10 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/15 11:35:51 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,7 @@ void	file_opening(t_redir *redir)
 	temp = redir;
 	while (temp)
 	{
-		if (temp->redir_type == 2)
-			temp->fd_status = open(temp->filename, O_CREAT | O_APPEND | O_RDWR, 0644);
-		else
-			temp->fd_status = open(temp->filename, O_CREAT | O_TRUNC | O_RDWR, 0644);
-		if (temp->fd_status == -1)
-			ft_printerror("Error creating file");
-		if (temp == output_node)
-		{
-			if (dup2(temp->fd_status, STDOUT_FILENO) == -1)
-			{
-				ft_printerror("dup failed you baboon!\n");
-				exit (1);
-			}
-			close (temp->fd_status);
-		}
-		else
-			close (temp->fd_status);
+		create_files(temp, output_node);
 		temp = temp->next;
 	}
 }
@@ -80,6 +64,27 @@ void	redir_fd_modifying(t_redir **redir)
 	output_node = get_last_redir(*redir);
 	printf("contents of input node:%s\n", input_node->filename);
 	printf("contents of output node:%s\n", output_node->filename);
-	dup2(output_node->fd_status, STDOUT_FILENO);
-	close(output_node->fd_status);
+	dup2(output_node->fd, STDOUT_FILENO);
+	close(output_node->fd);
+}
+
+void	create_files(t_redir *temp, t_redir *output_node)
+{
+	if (temp->redir_type == 2)
+		temp->fd = open(temp->filename, O_CREAT | O_APPEND | O_RDWR, 0644);
+	else
+		temp->fd = open(temp->filename, O_CREAT | O_TRUNC | O_RDWR, 0644);
+	if (temp->fd == -1)
+		ft_printerror("Error creating file");
+	if (temp == output_node)
+	{
+		if (dup2(temp->fd, STDOUT_FILENO) == -1)
+		{
+			ft_printerror("dup failed you baboon!\n");
+			exit (1);
+		}
+		close (temp->fd);
+	}
+	else
+		close (temp->fd);
 }

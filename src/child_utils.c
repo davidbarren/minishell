@@ -1,48 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   forking.c                                          :+:      :+:    :+:   */
+/*   child_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/24 14:00:26 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/15 11:05:02 by dbarrene         ###   ########.fr       */
+/*   Created: 2024/05/15 11:26:44 by dbarrene          #+#    #+#             */
+/*   Updated: 2024/05/15 11:27:23 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static	int	get_env_len(t_env *env)
+void	wait_for_children(t_input *input)
 {
-	t_env	*temp;
-	int		i;
+	int	i;
+	int	status;
+	int	exit_code;
 
+	exit_code = 0;
+	status = 0;
 	i = 0;
-	temp = env;
-	while (temp)
+	while (i < input->pid_index)
 	{
-		temp = temp->next;
+		waitpid(input->pids[i], &status, 0);
+		if (WIFEXITED(status))
+		{
+			exit_code = WEXITSTATUS(status);
+			printf("Exit status of child:%d\n", exit_code);
+		}
 		i++;
 	}
-	return (i);
-}
-
-char	**copy_env(char **ep, t_env **env)
-{
-	int		len;
-	int		i;
-	t_env	*temp;
-
-	temp = *env;
-	i = 0;
-	len = get_env_len(*env);
-	ep = ft_calloc((len + 1), sizeof (char *));
-	while (temp)
-	{
-		ep[i] = ft_strdup(temp->env_element);
-		i++;
-		temp = temp->next;
-	}
-	ep[i] = NULL;
-	return (ep);
 }
