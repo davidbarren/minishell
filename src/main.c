@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/15 13:33:35 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/17 13:43:10 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,26 @@ int	main(int argc, char **argv, char **envp)
 void	baboonloop(t_input *input)
 {
 	char	*line;
-	int		status;
 
+	input->exit_status = 0;
 	while (1)
 	{
 		line = NULL;
 		line = readline("🐒baboonshell> ");
 		if (!line)
 			break ;
-		add_history(line);
-		status = syntax_validation(line);
-		printf("status:%d\n", status);
-		if (!status)
+		if (*line)
 		{
-			prep_input(line, input);
-			free_structs(input->arg_struct, input->pipe_count);
+			add_history(line);
+			input->exit_status = syntax_validation(line);
+			if (!input->exit_status)
+			{
+				prep_input(line, input);
+				free_structs(input->arg_struct, input->pipe_count);
+			}
+			else if (input->exit_status)
+				printf("value of status:%d\n", input->exit_status);
 		}
-		else if (status)
-			printf("value of status:%d\n", status);
 		free(line);
 	}
 }
@@ -84,4 +86,18 @@ void	free_struct_content(t_args *args)
 	{
 		free(args->long_command);
 	}
+//	if (args->execpath)
+//	{
+//		free(args->execpath);
+//	}
+//	if (args->split_path)
+//	{
+//		free_2d(args->split_path);
+//	}
+//	ft_printerror("address of execpath:%p\n", args->execpath);
+//	ft_printerror("content of execpath:%s\n", args->execpath);
+//	if (args->execpath)
+//	{
+//		free(args->execpath);
+//	}
 }
