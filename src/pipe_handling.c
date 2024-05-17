@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:32:09 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/15 11:56:59 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:26:00 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,15 @@ void	open_pipes(t_input *input)
 	int	fd;
 
 	i = 0;
-	input->pipes = ft_calloc(input->pipe_count + 1, sizeof (int *));
+	if (input->pipe_count == 1)
+		return ;
+	input->pipes = ft_calloc(input->pipe_count - 1, sizeof (int *));
 	if (!input->pipes)
 	{
+		return ;
 		perror("Minishell malloc fail");
 	}
-	while (i <= input->pipe_count)
+	while (i < input->pipe_count - 1)
 	{
 		input->pipes[i] = malloc(2 * sizeof (int));
 		fd = pipe(input->pipes[i]);
@@ -42,7 +45,9 @@ void	close_pipes(t_input *input)
 
 	i = 0;
 	status = 0;
-	while (input->pipe_count > i)
+	if (!input->pipe_count)
+		return ;
+	while (input->pipe_count - 1 > i)
 	{
 		status = close(input->pipes[i][0]);
 		if (status == -1)
@@ -53,8 +58,48 @@ void	close_pipes(t_input *input)
 		free(input->pipes[i++]);
 	}
 }
-/*
+
 void	child_generic(t_input *input)
 {
+	int	status;
+	int	limit;
 
-}*/
+	limit = input->pipe_count - 1;
+	if (input->pid_index == 0 && input->pipe_count != 1)
+	{
+		child_first(input);
+		return ;
+	}
+	else if (input->pid_index == limit && input->pipe_count != 1)
+	{
+		child_last(input);
+		return ;
+	}
+	else if (input->pipe_count > 1)
+	{
+		status = dup2(input->pipes[input->pid_index - 1][0], STDIN_FILENO);
+		if (status == -1)
+			ft_printerror("Error duping STDIN_FD\n");
+		status = dup2(input->pipes[input->pid_index][1], STDOUT_FILENO);
+		if (status == -1)
+			ft_printerror("Error duping STDOUT\n");
+	}
+}
+
+void	child_first(t_input *input)
+{
+	int	status;
+
+	status = dup2(input->pipes[0][1], STDOUT_FILENO);
+	if (status == -1)
+		ft_printerror("failed to dup pipe and stdout in child 0\n");
+}
+
+void	child_last(t_input *input)
+{
+	int	status;
+
+	status = dup2(input->pipes[input->pipe_count - 2][0], STDIN_FILENO);
+	if (status == -1)
+		ft_printerror("Failed to dup pipe and stdout in last child\n");
+}
