@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:56:38 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/17 11:09:49 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/17 13:34:52 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void	perms_check(t_args *args)
 		if (!args->execpath)
 			return ;
 		args->split_path = ft_split(args->execpath, ':');
+		free(args->execpath);
 		check_path_access(args);
 	}
 }

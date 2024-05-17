@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:32:09 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/17 11:26:00 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/17 16:12:35 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ void	open_pipes(t_input *input)
 		return ;
 	input->pipes = ft_calloc(input->pipe_count - 1, sizeof (int *));
 	if (!input->pipes)
-	{
 		return ;
-		perror("Minishell malloc fail");
-	}
 	while (i < input->pipe_count - 1)
 	{
 		input->pipes[i] = malloc(2 * sizeof (int));
