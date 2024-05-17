@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:56:38 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/15 11:27:41 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:09:49 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,13 @@ void	prep_and_split_command(t_args *args)
 	args->envcpy = copy_env(args->envcpy, args->envlist);
 	args->split_cmds = ft_quotesplit(args->long_command, ' ');
 	args->is_builtin = flag_for_builtin(args->split_cmds);
+	//expansion function goes here :)!
 	while (args->split_cmds[i])
 	{
-		args->split_cmds[i] = trim_input(args->split_cmds[i], '\"');
-		args->split_cmds[i] = trim_input(args->split_cmds[i], '\'');
-		printf("split command at index:%i is :%s\n", i, args->split_cmds[i]);
+		if (args->split_cmds[i][0] == '\"')
+			args->split_cmds[i] = trim_input(args->split_cmds[i], '\"');
+		else if (args->split_cmds[i][0] == '\'')
+			args->split_cmds[i] = trim_input(args->split_cmds[i], '\'');
 		i++;
 	}
 	if (args->pipecount == 1 && args->is_builtin)
@@ -58,6 +60,7 @@ void	check_path_access(t_args *args)
 
 void	prep_pids(t_input *input)
 {
+	open_pipes(input);
 	input->pid_index = 0;
 	input->pids = calloc(input->pipe_count + 1, sizeof (pid_t));
 	if (!input->pids)
@@ -72,17 +75,19 @@ void	prep_pids(t_input *input)
 		}
 		if (input->pids[input->pid_index] == 0)
 		{
+			child_generic(input);
+			close_pipes(input);
 			exec_child_cmd(input);
 			break ;
 		}
 		input->pid_index++;
 	}
+	close_pipes(input);
 	wait_for_children(input);
 }
 
 void	exec_child_cmd(t_input *input)
 {
-	printf("Hello from child at index:%d\n", input->pid_index);
 	if (input->arg_struct[input->pid_index]->redir_count)
 		file_opening(*input->arg_struct[input->pid_index]->redirects);
 	if (input->arg_struct[input->pid_index]->is_builtin)

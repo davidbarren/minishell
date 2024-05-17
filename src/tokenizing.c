@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/15 11:28:17 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:06:08 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	prep_input(char *line, t_input *input)
 	free_2d(temp);
 	build_struct(input);
 	sanitize_input(input);
-	printf("builtin status:%d\n", input->arg_struct[0]->is_builtin);
 	if (input->pipe_count == 1 && input->arg_struct[0]->is_builtin)
 		return ;
 	prep_pids(input);

@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/15 11:35:30 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/16 15:17:49 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,4 +137,9 @@ void	sanitize_input(t_input *input);
 void	perms_check(t_args *args);
 void	baboonloop(t_input *input);
 void	create_files(t_redir *temp, t_redir *output_node);
+void	child_generic(t_input *input);
+void	open_pipes(t_input *input);
+void	close_pipes(t_input *input);
+void	child_first(t_input *input);
+void	child_last(t_input *input);
 #endif
