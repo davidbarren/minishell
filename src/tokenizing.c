@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/13 14:02:39 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/17 16:12:52 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	prep_input(char *line, t_input *input)
 	char	**temp;
 	int		i;
 
+	if (!*line)
+		return ;
 	i = 0;
 	temp = ft_quotesplit(line, '|');
 	input->pipe_count = ft_arrlen(temp);
@@ -28,24 +30,10 @@ void	prep_input(char *line, t_input *input)
 	}
 	free_2d(temp);
 	build_struct(input);
-	i = 0;
-	while (i < input->pipe_count)
-	{
-		clean_arglist(input->arg_struct[i]);
-		tokenize_args(input->arg_struct[i]);
-		extract_cmds(input->arg_struct[i]);
-		if (input->arg_struct[i]->redir_count)
-		{
-			clean_redir_node(input->arg_struct[i]->redirects,
-				input->arg_struct[i]->long_command);
-		}
-		prep_and_split_command(input->arg_struct[i]);
-		i++;
-	}
-	printf("builtin status:%d\n", input->arg_struct[0]->is_builtin);
-		if (input->pipe_count == 1 && input->arg_struct[0]->is_builtin)
-			return;
-		prep_pids(input);
+	sanitize_input(input);
+	if (input->pipe_count == 1 && input->arg_struct[0]->is_builtin)
+		return ;
+	prep_pids(input);
 }
 
 void	build_struct(t_input *input)
@@ -82,12 +70,10 @@ void	clean_arglist(t_args *args)
 	char	*temp;
 	int		i;
 
-//	printf("address of args struct:%p\n", args);
 	delimset = NULL;
 	i = 0;
 	temp = args->arglist;
 	ft_skip_chars(&temp, ' ');
-//	printf("arglist before pointer arithmetic:%p\n", args->arglist);
 	if (args->redir_count)
 	{
 		if (*temp == '<' || *temp == '>')
@@ -105,14 +91,12 @@ void	clean_arglist(t_args *args)
 		}
 		else
 		{
-//			printf("Temp before going into filename last:%p\n", temp);
 			args->long_command = get_cmd_filename_last(temp);
 			args->tokenized_args = get_file_filename_last(temp);
 		}
 	}
 	else
 		args->long_command = ft_strdup(temp);
-//	printf("long_command:%s\n", args->long_command);
 }
 
 void	tokenize_args(t_args *args)
@@ -138,5 +122,23 @@ void	tokenize_args(t_args *args)
 				temp += 1;
 			i++;
 		}
+	}
+}
+
+void	sanitize_input(t_input *input)
+{
+	int	i;
+
+	i = 0;
+	while (i < input->pipe_count)
+	{
+		clean_arglist(input->arg_struct[i]);
+		tokenize_args(input->arg_struct[i]);
+		extract_cmds(input->arg_struct[i]);
+		if (input->arg_struct[i]->redir_count)
+			clean_redir_node(input->arg_struct[i]->redirects,
+				input->arg_struct[i]->long_command);
+		prep_and_split_command(input->arg_struct[i]);
+		i++;
 	}
 }

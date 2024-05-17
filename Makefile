@@ -57,6 +57,8 @@ CSRCS = $(SRCDIR)/parsing.c\
 		$(SRCDIR)/valid_syntax_check.c\
 		$(SRCDIR)/parsing_utils.c\
 		$(SRCDIR)/child_spawning.c\
+		$(SRCDIR)/child_utils.c\
+		$(SRCDIR)/pipe_handling.c\
 
 OBJS= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 BOBJS= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(BSRCS))

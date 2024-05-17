@@ -46,8 +46,8 @@ int	cmd_is_builtin(t_env **envs, char **args)
 	return (1);
 }
 
- int	flag_for_builtin(char **args)
- {
+int	flag_for_builtin(char **args)
+{
  	if (ft_strcmp_up_lo("pwd", args[0]) == 0)
  		return (1);
  	if (ft_strcmp_up_lo("echo", args[0]) == 0)

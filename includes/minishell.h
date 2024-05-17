@@ -35,7 +35,7 @@ typedef struct s_redir
 	int				index;
 	int				fd_out;
 	int				fd_in;
-	int				fd_status;
+	int				fd;
 	char			*str;
 	char			*filename;
 	char			*cmd;
@@ -51,7 +51,7 @@ typedef struct s_args
 	int				is_hdoc;
 	char			*arglist;
 	char			**split_cmds;
-	int				cmd_index;
+	int				index;
 	char			*tokenized_args;
 	char			*long_command;
 	int				redir_count;
@@ -77,6 +77,7 @@ typedef struct s_input
 	t_env	**envlist;
 	int		**pipes;
 	int		pid_index;
+	int		exit_status;
 }	t_input;
 
 void	make_redirect_node(t_redir **redir, char *str, int len);
@@ -133,4 +134,15 @@ void	prep_and_split_command(t_args *args);
 int		syntax_validation(char *str);
 int		flag_for_builtin(char **args);
 int		ft_cd(t_env **envs, char **cmd_args);
+void	exec_child_cmd(t_input *input);
+void	sanitize_input(t_input *input);
+void	perms_check(t_args *args);
+void	baboonloop(t_input *input);
+void	create_files(t_redir *temp, t_redir *output_node);
+void	child_generic(t_input *input);
+void	open_pipes(t_input *input);
+void	close_pipes(t_input *input);
+void	child_first(t_input *input);
+void	child_last(t_input *input);
+void	error_messages(t_input *input, int status, int index);
 #endif

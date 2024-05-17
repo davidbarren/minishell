@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:15:18 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/03 14:56:44 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/14 11:35:41 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,36 +67,4 @@ int	count_redirects(char *str)
 			i++;
 	}
 	return (count);
-}
-
-void	free_list(t_env **env)
-{
-	t_env	*next;
-
-	next = *env;
-	if (!*env) 
-		return ;
-	while (next)
-	{
-		next = next->next;
-		free_content(*env);
-		free (*env);
-		*env = next;
-	}
-}
-
-void	free_content(t_env *env)
-{
-
-	if (env->env_element)
-		free(env->env_element);
-	if (env->title)
-		free(env->title);
-	if (env->info)
-		free(env->info);
-//	if (env->next)
-//		free(env->next);
-//	if (env->prev)
-//		free(env->prev);
-
 }
