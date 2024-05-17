@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:54:49 by plang             #+#    #+#             */
-/*   Updated: 2024/05/13 14:23:25 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/13 18:01:03 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,14 @@ void	export_is_valid(t_env **envs, char **cmd_args, int *i)
 			what_env++;
 		if (!check_duplicate_env(temp->title, cmd_args[*i], what_env))
 			flag = 1;
+		if (flag == 1)
+			break ;
 		temp = temp->next;
 	}
 	temp = *envs;
 	if (flag == 1)
 	{
 		change_lists_content(envs, cmd_args[*i]);
-		flag = 0;
 	}
 	else if (flag == 0)
 		add_export_to_list(envs, cmd_args[*i]);
