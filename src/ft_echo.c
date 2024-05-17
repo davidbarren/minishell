@@ -6,11 +6,57 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:25:49 by plang             #+#    #+#             */
-/*   Updated: 2024/05/09 17:54:55 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/14 13:39:41 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	clean_echo_from_quotes(char **str)
+{
+	char	*copy;
+	char	*start;
+	int		i;
+	char	c;
+	
+	i = 0;
+	c = 0;
+	copy = ft_strdup(*str);
+	if (!copy)
+		return ;
+	start = copy;
+	while (*copy)
+	{
+		// if (*copy == '"' || *copy == '\'')
+		// {
+		// 	c = *copy;
+		// 	copy++;
+		// 	while (*copy != c && *copy)
+		// 	{
+		// 		(*str)[i++] = *copy;
+		// 		copy++;
+		// 	}
+		// 	c = 0;
+		// }
+		if (*copy != '"' && *copy != '\'' && c == 0)
+			(*str)[i++] = *copy;
+		copy++;
+	}
+	(*str)[i] = '\0';
+	free(start);
+}
+
+void	ft_echo_clean(char **cmd_args)
+{
+	int	i;
+
+	i = 1;
+	while (cmd_args[i])
+	{
+		clean_echo_from_quotes(&cmd_args[i]);
+		i++;
+	}
+}
 
 int	check_flag_validity(char *str)
 {
@@ -50,6 +96,7 @@ int	ft_echo(char **words)
 	int	flag_index;
 
 	i = 0;
+	// ft_echo_clean(words);
 	flag_index = ft_check_flags(words);
 	i = flag_index;
 	while (words[i] != 0)
@@ -63,3 +110,5 @@ int	ft_echo(char **words)
 		printf("\n");
 	return (0); //EXIT_SUCCESS
 }
+
+// if the argument in quiestion has more then one quote ' ", we clean it from the one that is a pair

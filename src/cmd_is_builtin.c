@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:03:25 by plang             #+#    #+#             */
-/*   Updated: 2024/05/13 12:25:33 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/15 11:03:35 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	cmd_is_builtin(t_env **envs, char **args)
 		return (ft_export(envs, args));
 	if (ft_strncmp("unset", args[0], ft_strlen(args[0])) == 0)
 		return (ft_unset(envs, args));
+	if (ft_strncmp("cd", args[0], ft_strlen(args[0])) == 0)
+		return (ft_cd(envs, args));
 	return (1);
 }
 
@@ -56,5 +58,7 @@ int	cmd_is_builtin(t_env **envs, char **args)
  		return (1);
  	if (ft_strncmp("unset", args[0], ft_strlen(args[0])) == 0)
  		return (1);
+	if (ft_strncmp("cd", args[0], ft_strlen(args[0])) == 0)
+		return (1);
  	return (0);
  }

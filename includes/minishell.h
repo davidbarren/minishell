@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/13 14:01:57 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/15 10:59:09 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,4 +132,5 @@ void	check_path_access(t_args *args);
 void	prep_and_split_command(t_args *args);
 int		syntax_validation(char *str);
 int		flag_for_builtin(char **args);
+int		ft_cd(t_env **envs, char **cmd_args);
 #endif

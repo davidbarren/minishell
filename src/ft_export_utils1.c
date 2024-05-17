@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 10:51:45 by plang             #+#    #+#             */
-/*   Updated: 2024/05/13 14:08:27 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/13 18:00:33 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	change_lists_content(t_env **envs, char *new_env_str)
 			return ;
 		while (new_env_str[what_env] != '=' && new_env_str[what_env])
 			what_env++;
-		if (!check_duplicate_env(temp->env_element, new_env_str, what_env))
+		if (!check_duplicate_env(temp->title, new_env_str, what_env))
 		{
 			free(temp->env_element);
 			free(temp->title);
