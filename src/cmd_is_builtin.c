@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:03:25 by plang             #+#    #+#             */
-/*   Updated: 2024/05/15 11:03:35 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/20 11:12:00 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,16 @@ int	cmd_is_builtin(t_env **envs, char **args)
 
 int	flag_for_builtin(char **args)
 {
- 	if (ft_strcmp_up_lo("pwd", args[0]) == 0)
+	int	i;
+	int k = 0;
+	while (args[k])
+		dprintf(2,"content of args:%s\n", args[k++]);
+	i = 0;
+	if (!*args)
+		return (0);
+	if (ft_is_emptystr(args[0]))
+		return (0);
+	if (ft_strcmp_up_lo("pwd", args[0]) == 0)
  		return (1);
  	if (ft_strcmp_up_lo("echo", args[0]) == 0)
  		return (1);
@@ -60,5 +69,21 @@ int	flag_for_builtin(char **args)
  		return (1);
 	if (ft_strncmp("cd", args[0], ft_strlen(args[0])) == 0)
 		return (1);
- 	return (0);
+	return (0);
  }
+
+int	ft_is_emptystr(char *str)
+{
+	int	i;
+
+	if (!str)
+		return (1);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ' && str[i] != '\'' && str[i] != '\"')
+			return (0);
+		i++;
+	}
+	return (1);
+}

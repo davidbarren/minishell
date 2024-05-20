@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:54:36 by plang             #+#    #+#             */
-/*   Updated: 2024/05/15 14:45:52 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/18 18:18:20 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,18 @@ int	ft_cd(t_env **envs, char **cmd_args)
 {
 	char	cwd[2000];
 	char	*oldpwd;
+	char	*temp;
 
 	oldpwd = getcwd(cwd, sizeof(cwd));//ft_getenv(envs, "PWD");
 	if (!cmd_args[1])
 	{
-		chdir(ft_getenv(envs, "HOME"));
+		temp = ft_getenv(envs, "HOME");
+		printf("temp in ft_cd:%s\n", temp);
+		chdir(temp);
 		if (!ft_getenv(envs, "HOME"))
 			printf("🐒: cd: HOME not set\n");
+		free(temp);
+		temp = NULL;
 	}
 	else if (chdir(cmd_args[1]) == -1)
 	{

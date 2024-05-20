@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:32:09 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/17 16:12:35 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/20 11:06:18 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	open_pipes(t_input *input)
 		return ;
 	while (i < input->pipe_count - 1)
 	{
-		input->pipes[i] = malloc(2 * sizeof (int));
+		input->pipes[i] = ft_calloc(2, sizeof (int));
 		fd = pipe(input->pipes[i]);
 		if (fd == -1)
 		{

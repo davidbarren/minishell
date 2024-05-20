@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 13:43:48 by plang             #+#    #+#             */
-/*   Updated: 2024/05/17 16:18:37 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/18 20:28:23 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,40 @@ int	get_part_len(char *str, int i)
 	}
 	return (len);
 }
+void    clean_expand_quotes(char **str)
+{
+    char    *copy;
+    char    *start;
+    int        i;
+    char    c;
 
+    i = 0;
+    c = 0;
+    copy = ft_strdup(*str);
+    if (!copy)
+        return ;
+    start = copy;
+    while (*copy)
+    {
+        if (*copy == '"' || *copy == '\'')
+        {
+            c = *copy;
+            copy++;
+            while (*copy != c && *copy)
+            {
+                (*str)[i++] = *copy;
+                copy++;
+            }
+        }
+        else if (*copy != '"' && *copy != '\'')
+            (*str)[i++] = *copy;
+        copy++;
+    }
+    (*str)[i] = '\0';
+    free(start);
+}
+
+/*
 int	get_part_len(char *str, int i)
 {
 	int		len;
@@ -80,6 +113,7 @@ int	get_part_len(char *str, int i)
 	}
 	return (len);
 }
+*/
 
 char	*expand_key(t_env *node)
 {
@@ -161,7 +195,7 @@ void	expand_check_arguments(t_env **envs, char **arg)
 			expanded = is_expansion_valid(envs, *arg, i);
 			free(*arg);
 			if (!expanded)
-				*arg = ft_strdup("");
+				*arg = ft_strdup("");// = NULL;
 			else
 				*arg = expanded;
 			break ;
@@ -169,7 +203,8 @@ void	expand_check_arguments(t_env **envs, char **arg)
 		i++;
 	}
 }
-
+// but NULL breaks expansion of multiple env variables 
+// EMPTY STRING BREAKS ERROR MSGS
 void	expand_and_join(t_env **envs, char **split_cmds, char **part_array)
 {
 	int	j;
@@ -220,9 +255,11 @@ void	ft_expand(char **split_cmds, t_env **envlist)
 	int	j;
 
 	j = 0;
+//	printf("content of split_cmds:%s\n", split_cmds[0]);
 	while (split_cmds[j] != NULL)
 	{
-		find_expansion(envlist, &split_cmds[j]);
+		if (ft_strchr(split_cmds[j], '$'))
+			find_expansion(envlist, &split_cmds[j]);
 		j++;
 	}
 }

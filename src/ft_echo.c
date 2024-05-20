@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:25:49 by plang             #+#    #+#             */
-/*   Updated: 2024/05/14 13:39:41 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/18 15:23:57 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	check_flag_validity(char *str)
 {
 	int	i;
 
+	if (!str || !*str)
+		return (0);
 	i = 1;
 	if (str[i] == '\0')
 		return (1);
