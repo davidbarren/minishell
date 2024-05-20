@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:05:53 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/04 22:00:45 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/20 11:08:49 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*ft_strndup(char *str, size_t n, int flag)
 	len = ft_strlen(str);
 	if (len < n)
 		n = len;
-	ret = malloc (n + 2 * sizeof(char));
+	ret = ft_calloc (n + 2, sizeof(char));
 	if (!ret)
 		return (NULL);
 	while (i <= n)

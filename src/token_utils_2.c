@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:26:05 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/14 11:38:15 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/18 17:03:34 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	make_redirect_node(t_redir **redir, char *str, int len)
 	t_redir	*new;
 	t_redir	*last;
 
-	new = calloc (1, sizeof(t_redir));
+	new = ft_calloc (1, sizeof(t_redir));
 	if (!new)
 		return ;
 	new->index = 0;

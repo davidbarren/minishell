@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:13:37 by plang             #+#    #+#             */
-/*   Updated: 2024/05/13 14:25:32 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/18 17:00:16 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@ t_env	*getenv_node(t_env **envs, char *str)
 	temp = *envs;
 	while (temp != NULL)
 	{
-		if (!ft_strncmp(temp->env_element, str, ft_strlen(str)))
+		if (!ft_strcmp(temp->title, str))
 			break ;
 		temp = temp->next;
 	}
 	return (temp);
 }
+// on line 6: used to have: 
+// if (!ft_strncmp(temp->env_element, str, ft_strlen(str))
 
 char	*get_env_str(t_env *complete_env)
 {
@@ -42,7 +44,7 @@ char	*get_env_str(t_env *complete_env)
 	start++;
 	end = ft_strlen(complete_env->env_element);
 	len = end - start;
-	extracted = malloc((len + 1) * sizeof(char));
+	extracted = ft_calloc((len + 1), sizeof(char));
 	if (!extracted)
 		return (NULL);
 	i = 0;

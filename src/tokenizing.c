@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/17 16:12:52 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/18 18:43:33 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ void	prep_input(char *line, t_input *input)
 	char	**temp;
 	int		i;
 
-	if (!*line)
-		return ;
 	i = 0;
 	temp = ft_quotesplit(line, '|');
 	input->pipe_count = ft_arrlen(temp);
@@ -46,7 +44,7 @@ void	build_struct(t_input *input)
 		return ;
 	while (i < input->pipe_count)
 	{
-		input->arg_struct[i] = malloc (sizeof (t_args));
+		input->arg_struct[i] = ft_calloc (1, sizeof (t_args));
 		if (!input->arg_struct[i])
 			return ;
 		input->arg_struct[i]->arglist = ft_strdup(input->input[i]);
@@ -80,11 +78,13 @@ void	clean_arglist(t_args *args)
 		{
 			delimset = ft_strndup(temp, 1, 0);
 			temp += 1;
+			printf("address of temp:%p\n", temp);
 			ft_skip_chars(&temp, ' ');
 			while (temp[i] != ' ')
 				i++;
 			word_after = ft_strndup(temp, i, 0);
 			temp += i;
+			printf("address of temp:%p\n", temp);
 			args->tokenized_args = ft_strjoin_flex(delimset, word_after, 3);
 			i = strlen_delim_double(temp, '<', '>');
 			args->long_command = ft_substr(temp, 0, i);

@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/17 13:43:10 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/20 12:33:47 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,15 @@ int	main(int argc, char **argv, char **envp)
 	(void) argc;
 	(void) argv;
 	envs = NULL;
+	printf("address of input:%p\n", &input);
+	ft_bzero(&input, sizeof(t_input));
 	rl_bind_key('\t', rl_complete);
 	using_history();
 	parse_input(envp, &envs);
 	input.envlist = &envs;
 	baboonloop(&input);
 	free_list(input.envlist);
+//	free_input(&input);
 	return (69);
 }
 
@@ -44,6 +47,7 @@ void	baboonloop(t_input *input)
 		{
 			add_history(line);
 			input->exit_status = syntax_validation(line);
+			printf("value of exit status:%d\n", input->exit_status);
 			if (!input->exit_status)
 			{
 				prep_input(line, input);
@@ -51,15 +55,28 @@ void	baboonloop(t_input *input)
 			}
 			else if (input->exit_status)
 				printf("value of status:%d\n", input->exit_status);
+			free(line);
+			baboon_free(input->input);
 		}
-		free(line);
 	}
+}
+
+void	baboon_free(char **stackarr)
+{
+	int	i;
+	
+	i = 0;
+	if (stackarr)
+		while (stackarr[i])
+			free(stackarr[i++]);
 }
 
 void	free_input(t_input *input)
 {
 	if (input->pids)
 		free(input->pids);
+//	if (input->input)
+//		free_2d(input->input);
 }
 
 void	free_structs(t_args **structs, int pipecount)
@@ -79,25 +96,16 @@ void	free_structs(t_args **structs, int pipecount)
 void	free_struct_content(t_args *args)
 {
 	if (args->arglist)
-	{
 		free(args->arglist);
-	}
 	if (args->long_command)
-	{
 		free(args->long_command);
-	}
-//	if (args->execpath)
-//	{
-//		free(args->execpath);
-//	}
-//	if (args->split_path)
-//	{
-//		free_2d(args->split_path);
-//	}
-//	ft_printerror("address of execpath:%p\n", args->execpath);
-//	ft_printerror("content of execpath:%s\n", args->execpath);
-//	if (args->execpath)
-//	{
-//		free(args->execpath);
-//	}
+	if (args->envcpy)
+		free_2d(args->envcpy);
+	if (args->split_path)
+		free_2d(args->split_path);
+	if (args->execpath)
+		free(args->execpath);
+	if (args->split_cmds)
+		free_2d(args->split_cmds);
+//	printf("huh we here boi\n");
 }
