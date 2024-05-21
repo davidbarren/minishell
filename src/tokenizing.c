@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/18 18:43:33 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/21 19:49:07 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ void	build_struct(t_input *input)
 		input->arg_struct[i] = ft_calloc (1, sizeof (t_args));
 		if (!input->arg_struct[i])
 			return ;
-		input->arg_struct[i]->arglist = ft_strdup(input->input[i]);
 		input->arg_struct[i]->pipecount = input->pipe_count;
 		input->arg_struct[i]->is_builtin = 0;
+		input->arg_struct[i]->arglist = ft_strdup(input->input[i]);
 		if (!input->arg_struct[i]->arglist)
 			return ;
 		update_redirs(input->arg_struct[i]);
-		if (!ft_strncmp(input->arg_struct[i]->arglist, "<<", 3))
-			input->arg_struct[i]->is_hdoc = 1;
+//		if (!ft_strncmp(input->arg_struct[i]->arglist, "<<", 3))
+//			input->arg_struct[i]->is_hdoc = 1;
 		input->arg_struct[i]->envlist = input->envlist;
 		i++;
 	}
@@ -107,6 +107,7 @@ void	tokenize_args(t_args *args)
 
 	i = 0;
 	temp = args->arglist;
+	dprintf(2, "content of arglist in tokenize:%s\n", args->arglist);
 	if (args->redir_count)
 	{
 		args->redirects = ft_calloc(1, sizeof(t_redir *));
@@ -132,12 +133,14 @@ void	sanitize_input(t_input *input)
 	i = 0;
 	while (i < input->pipe_count)
 	{
-		clean_arglist(input->arg_struct[i]);
-		tokenize_args(input->arg_struct[i]);
-		extract_cmds(input->arg_struct[i]);
-		if (input->arg_struct[i]->redir_count)
-			clean_redir_node(input->arg_struct[i]->redirects,
-				input->arg_struct[i]->long_command);
+		token_splitting(input->arg_struct[i]);
+//		make_tokens(input->arg_struct[i]);
+//		clean_arglist(input->arg_struct[i]);
+//		tokenize_args(input->arg_struct[i]);
+//		extract_cmds(input->arg_struct[i]);
+//		if (input->arg_struct[i]->redir_count)
+//			clean_redir_node(input->arg_struct[i]->redirects,
+//				input->arg_struct[i]->long_command);
 		prep_and_split_command(input->arg_struct[i]);
 		i++;
 	}
