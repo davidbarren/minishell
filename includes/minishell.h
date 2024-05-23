@@ -159,4 +159,5 @@ void	redirs_iteration(t_redir **redirs);
 int		redir_check(char *element);
 void	space_insertion(char *prepped, char *source);
 void	find_command(t_args *args, char **tokenlist);
+char 	**ft_split_mod(char *str, char c);
 #endif

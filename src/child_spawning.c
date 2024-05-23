@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   child_spawning.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:56:38 by dbarrene          #+#    #+#             */
 /*   Updated: 2024/05/23 13:40:21 by dbarrene         ###   ########.fr       */
@@ -23,8 +23,8 @@ void	check_empty_and_split(t_args *args)
 	if (args->is_empty)
 		args->split_cmds = ft_split(args->long_command, '\"');
 	else
-		args->split_cmds = ft_quotesplit(args->long_command, ' ');
-	if (!args->split_cmds)
+		args->split_cmds = ft_split_mod(args->long_command, ' ');
+  	if (!args->split_cmds)
 		return ;
 	args->is_builtin = flag_for_builtin(args->split_cmds);
 }
@@ -33,6 +33,8 @@ void	prep_and_split_command(t_args *args)
 {
 	int	i;
 
+	// ft_expand(&args->arglist, args->envlist);
+	// dprintf(2, "content of arglist in prep split:%s\n", args->arglist);
 	i = 0;
 	check_empty_and_split(args);
 	if (!args->is_empty && args->long_command)

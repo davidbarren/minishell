@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:54:36 by plang             #+#    #+#             */
-/*   Updated: 2024/05/18 18:18:20 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/20 15:09:03 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	ft_cd(t_env **envs, char **cmd_args)
 	char	*temp;
 
 	oldpwd = getcwd(cwd, sizeof(cwd));//ft_getenv(envs, "PWD");
-	if (!cmd_args[1])
+	if (!cmd_args[1] || ft_strchr(cmd_args[1], '~'))
 	{
 		temp = ft_getenv(envs, "HOME");
 		printf("temp in ft_cd:%s\n", temp);

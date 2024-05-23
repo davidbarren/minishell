@@ -63,6 +63,7 @@ CSRCS = $(SRCDIR)/parsing.c\
 		$(SRCDIR)/token_test.c\
 		$(SRCDIR)/redir_utils.c\
 		$(SRCDIR)/tokenized_utils.c\
+		$(SRCDIR)/ft_split_mod.c\
 
 OBJS= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 BOBJS= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(BSRCS))

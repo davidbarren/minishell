@@ -1,0 +1,125 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split_mod.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/21 17:17:42 by plang             #+#    #+#             */
+/*   Updated: 2024/05/21 17:19:02 by plang            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../includes/minishell.h"
+
+typedef struct s_split_m
+{
+	char	**array;
+	int		ar_i;
+	int		i;
+	int		j;
+	char	temp;
+	int		str_len;
+	int		str_cnt;
+
+}	t_split_m;
+
+char	**ft_free(char **strings)
+{
+	int	i;
+
+	i = 0;
+	while (strings[i])
+	{
+		free(strings[i]);
+		i++;
+	}
+	free(strings);
+	return (0);
+}
+
+void	ft_get_start(char **s, char c)
+{
+	while (**s && **s == c)
+	{
+		(*s)++;
+	}
+}
+
+int	get_str_len(char *str, t_split_m *variables)
+{
+	int	x;
+	
+	x = 0;
+	variables->i = 0;
+	while (str[x] != '\0')
+	{
+		if (str[x] == ' ')
+			break ;
+		if (str[x] == '"' || str[x] == '\'')
+		{
+			variables->temp = str[x];
+			x++;
+			variables->i++;
+			while (str[x] != variables->temp && str[x])
+			{
+				x++;
+				variables->i++;
+			}
+		}
+		x++;
+		variables->i++;
+	}
+	return (variables->i);
+}
+
+int	get_str_count(char *str)
+{
+	int		count;
+	char	temp;
+
+	count = 0;
+	temp = 0;
+	while (*str != '\0')
+	{
+		count++;
+		while(*str != ' ' && *str)
+		{
+			if (*str == '"' || *str == '\'')
+			{
+				temp = *str;
+				str++;
+				while (*str != temp && *str)
+					str++;
+			}
+			str++;
+		}
+		ft_get_start(&str, ' ');
+	}
+	printf("count: %d\n", count);
+	return (count);
+}
+
+char **ft_split_mod(char *str, char c)
+{
+	t_split_m	t_d;
+
+	ft_memset(&t_d, 0, sizeof(t_d));
+	t_d.str_cnt = get_str_count(str);
+	t_d.array = malloc((t_d.str_cnt + 1) * sizeof(char *));
+	if (!t_d.array)
+		return (NULL);
+	while (t_d.str_cnt > t_d.ar_i)
+	{
+		ft_get_start(&str, c);
+		t_d.str_len = get_str_len(str, &t_d);
+		t_d.array[t_d.ar_i] = ft_substr(str, 0, t_d.str_len);
+		if (!t_d.array[t_d.ar_i])
+			return (ft_free(t_d.array));
+		str += t_d.str_len;
+		printf("argument at array =%s= of index %d\n", t_d.array[t_d.ar_i], t_d.ar_i);
+		t_d.ar_i++;
+	}
+	t_d.array[t_d.ar_i] = 0;
+	return (t_d.array);
+}

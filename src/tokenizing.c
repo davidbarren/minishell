@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/21 19:49:07 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/22 11:27:47 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,18 @@ void	prep_input(char *line, t_input *input)
 	int		i;
 
 	i = 0;
+	printf("content of line before expansion:%s\n", line);
 	temp = ft_quotesplit(line, '|');
+	// int	k = 0;
+	// while (temp[k])
+	// 	printf("content of temp:%s\n", temp[k++]);
 	input->pipe_count = ft_arrlen(temp);
 	input->input = ft_calloc(input->pipe_count + 1, sizeof(char *));
 	while (temp[i])
 	{
 		input->input[i] = ft_strdup(temp[i]);
+		ft_expand(input->input, input->envlist);
+		printf("content of input:%s\n", input->input[i]);
 		i++;
 	}
 	free_2d(temp);
