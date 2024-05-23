@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:56:38 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/20 11:13:50 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/23 13:40:21 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	check_empty_and_split(t_args *args)
 {
 	int	i;
 
+//	printf("value of long command in check empty and split:%s\n", args->long_command);
 	i = 0;
 	args->envcpy = copy_env(args->envcpy, args->envlist);
 	args->is_empty = ft_is_emptystr(args->long_command);
@@ -23,6 +24,8 @@ void	check_empty_and_split(t_args *args)
 		args->split_cmds = ft_split(args->long_command, '\"');
 	else
 		args->split_cmds = ft_quotesplit(args->long_command, ' ');
+	if (!args->split_cmds)
+		return ;
 	args->is_builtin = flag_for_builtin(args->split_cmds);
 }
 
@@ -32,7 +35,7 @@ void	prep_and_split_command(t_args *args)
 
 	i = 0;
 	check_empty_and_split(args);
-	if (!args->is_empty)
+	if (!args->is_empty && args->long_command)
 		ft_expand(args->split_cmds, args->envlist);
 	while (args->split_cmds[i])
 	{
@@ -110,7 +113,7 @@ void	prep_pids(t_input *input)
 void	exec_child_cmd(t_input *input)
 {
 	if (input->arg_struct[input->pid_index]->redir_count)
-		file_opening(*input->arg_struct[input->pid_index]->redirects);
+		redirs_iteration(input->arg_struct[input->pid_index]->redirects);
 	if (input->arg_struct[input->pid_index]->is_builtin)
 	{
 		input->arg_struct[input->pid_index]->builtinstatus

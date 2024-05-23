@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:37:46 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/24 14:39:14 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/23 13:18:16 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ char	*ft_strjoin_sep(char *s1, char *s2, char sep)
 	char	*joined;
 	int		i;
 
+	if (!s2)
+		return (ft_strdup(s1));
 	if (!s1 || !s2 || sep == '\0')
 		return (NULL);
 	i = 0;

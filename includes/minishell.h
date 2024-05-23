@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/18 19:51:46 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/23 13:35:15 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ typedef struct s_redir
 	char			*filename;
 	char			*cmd;
 	char			*permissions;
+	char			*input;
+	char			*output;
 	int				redir_type;
 	struct s_redir	*next;
 
@@ -67,8 +69,18 @@ typedef struct s_args
 	char			**split_path;
 	char			*execpath;
 	char			**envcpy;
+	char			*input;
+	char			*output;
 }	t_args;
 
+typedef struct s_token
+{
+	char	*token;
+	int		is_redir;
+	int		redir_type;
+	int		is_cmd;
+	char	*cmd_with_args;
+}	t_token;
 typedef struct s_input
 {
 	int		pipe_count;
@@ -81,7 +93,7 @@ typedef struct s_input
 	int		exit_status;
 }	t_input;
 
-void	make_redirect_node(t_redir **redir, char *str, int len);
+void	make_redirect_node(t_redir **redir, char *str, int type);
 void	prep_input(char *line, t_input *input);
 void	store_env(char **ep, t_env **env);
 t_env	*get_last_node(t_env *env);
@@ -149,4 +161,10 @@ void	error_messages(t_input *input, int status, int index);
 void	ft_expand(char **split_cmds, t_env **envlist);
 void	baboon_free(char **stackarr);
 int		ft_is_emptystr(char *str);
+void	make_tokens(t_args *args);
+void	token_splitting(t_args *args);
+void	redirs_iteration(t_redir **redirs);
+int		redir_check(char *element);
+void	space_insertion(char *prepped, char *source);
+void	find_command(t_args *args, char **tokenlist);
 #endif
