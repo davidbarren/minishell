@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 11:26:44 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/20 11:35:31 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/21 17:10:44 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	error_messages(t_input *input, int status, int index)
 		if (input->arg_struct[index]->split_cmds[0])
 			ft_printerror("Baboonshell: %s: command not found\n",
 			input->arg_struct[index]->split_cmds[0]);
-		else
-			ft_printerror("Baboonshell: : command not found\n");
+		// else
+			// ft_printerror("Baboonshell: : command not found\n");
 	}
 }

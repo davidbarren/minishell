@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/18 19:51:46 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/21 17:19:41 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,4 +149,5 @@ void	error_messages(t_input *input, int status, int index);
 void	ft_expand(char **split_cmds, t_env **envlist);
 void	baboon_free(char **stackarr);
 int		ft_is_emptystr(char *str);
+char 	**ft_split_mod(char *str, char c);
 #endif

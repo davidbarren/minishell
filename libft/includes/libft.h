@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 12:32:02 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/04/24 14:38:54 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/21 17:34:34 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }					t_list;
-/*typedef struct s_split
+typedef struct s_split
 {
 	char		**split_arr;
 	int			i;
 	int			j;
 	int			wc;
 }					t_split;
-*/
+
 typedef struct s_qsplit
 {
 	char		**arr;
@@ -90,7 +90,7 @@ char	*ft_substring(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
-//char	**split_quotes(const char *str, char delim, char q, t_split *st);
+char	**split_quotes(const char *str, char delim, char q, t_split *st);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f) (unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));

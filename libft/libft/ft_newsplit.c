@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_newsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:09:25 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/04 20:09:47 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/21 17:16:55 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,9 @@ int	ft_quotelen(const char *s, char c)
 	i = 0;
 	while (s[i] && s[i] != c)
 		i++;
-	return (i);
+	// if (s[i + 1] == c)
+	// 	i++;
+	return (i + 1);
 }
 /*
 char **ft_newsplit(const char *s, char c)
@@ -119,13 +121,13 @@ void	ft_splitmaker(const char *s, char c, t_qsplit *p)
 			p->j += ft_quotelen((s + p->j + 1), p->temp);
 			while (s[p->j] && s[p->j] != c)
 				p->j++;
-			p->arr[p->i++] = ft_substr(s, 0, p->j);
+			p->arr[p->i++] = ft_substring(s, 0, p->j);
 			if (!p->arr)
 				free_2d(p->arr);
 		}
 		else
 		{
-			p->arr[p->i++] = ft_substr(s, 0, p->j);
+			p->arr[p->i++] = ft_substring(s, 0, p->j);
 			if (!p->arr)
 				free_2d(p->arr);
 		}

@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 10:51:49 by plang             #+#    #+#             */
-/*   Updated: 2024/05/13 18:16:40 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/23 11:54:23 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ t_env	*store_export_title_n_info(t_env *new_node, char *str)
 		return (NULL);
 	new_node->info = ft_substring(str, (title_len + 1), \
 	(ft_strlen(str) - title_len));
+	clean_from_quotes(&new_node->info);
 	if (!new_node->info)
 		return (NULL);
 	return (new_node);
