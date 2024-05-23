@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/22 11:27:47 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/23 14:05:38 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	tokenize_args(t_args *args)
 		while (*temp)
 		{
 			len = strlen_delim_double(temp + 1, '>', '<');
-			make_redirect_node(args->redirects, temp, len);
+//			make_redirect_node(args->redirects, temp, len);
 			temp += len;
 			if (*temp)
 				temp += 1;
