@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:25:49 by plang             #+#    #+#             */
-/*   Updated: 2024/05/18 15:23:57 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/23 11:24:55 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	clean_echo_from_quotes(char **str)
 	char	*start;
 	int		i;
 	char	c;
-	
+
 	i = 0;
 	c = 0;
 	copy = ft_strdup(*str);
