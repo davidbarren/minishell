@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 13:43:48 by plang             #+#    #+#             */
-/*   Updated: 2024/05/23 11:44:20 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/23 13:35:27 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,26 +237,20 @@ void	find_expansion(t_env **envs, char **split_cmds)
 	int		parts;
 	char	**part_array;
 	int		j;
-	int		k; //start
+	int		start;
 	int		len;
 
 	j = 0;
-	k = 0;
-	dprintf(2, "content of string in find_expand %s\n", *split_cmds);
+	start = 0;
 	parts = how_many_parts(*split_cmds);
-	dprintf(2, "parts in string:%d\n", parts);
 	part_array = malloc((parts + 1) * sizeof(char *));
 	if (!part_array)
 		return ;
 	while (parts > j)
 	{
-		dprintf(2, "start position of len:%d\n", k);
-		len = get_part_len(*split_cmds, k);//, &k
-		dprintf(2, "len of part:%d\n", len);
-		part_array[j] = ft_substr(*split_cmds, k, len);
-		dprintf(2, "content of string in part_array =%s=\n", part_array[j]);
-		k += ft_strlen(part_array[j]);
-		dprintf(2, "k after strdup:%d\n", k);
+		len = get_part_len(*split_cmds, start);//, &k
+		part_array[j] = ft_substr(*split_cmds, start, len);
+		start += ft_strlen(part_array[j]);
 		j++;
 	}
 	part_array[j] = 0;
@@ -268,11 +262,8 @@ void	ft_expand(char **split_cmds, t_env **envlist)
 	int	j;
 
 	j = 0;
-	dprintf(2, "address of split cmds head:%p\n", split_cmds);
 	while (split_cmds[j] != NULL)
 	{
-		dprintf(2, "address of string in ft_expand at index:%d %p\n", j, split_cmds[j]);
-		dprintf(2, "content of string in ft_expand at index:%d %s\n", j, split_cmds[j]);
 		if (ft_strchr(split_cmds[j], '$'))
 			find_expansion(envlist, &split_cmds[j]);
 		j++;

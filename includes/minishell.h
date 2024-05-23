@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/21 17:19:41 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/23 13:27:26 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,18 @@ typedef struct s_input
 	int		pid_index;
 	int		exit_status;
 }	t_input;
+
+typedef struct s_split_m
+{
+	char	**array;
+	int		ar_i;
+	int		i;
+	int		j;
+	char	temp;
+	int		str_len;
+	int		str_cnt;
+
+}	t_split_m;
 
 void	make_redirect_node(t_redir **redir, char *str, int len);
 void	prep_input(char *line, t_input *input);
