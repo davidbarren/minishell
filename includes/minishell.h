@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/23 13:27:26 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/24 02:13:43 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ typedef struct s_args
 	char			**envcpy;
 	char			*input;
 	char			*output;
+	int				original_stdout;
+	int				original_stdin;
 }	t_args;
 
 typedef struct s_input
@@ -152,7 +154,7 @@ int		syntax_validation(char *str);
 int		flag_for_builtin(char **args);
 int		ft_cd(t_env **envs, char **cmd_args);
 void	exec_child_cmd(t_input *input);
-void	sanitize_input(t_input *input);
+void	tokenize_input(t_input *input);
 void	perms_check(t_args *args);
 void	baboonloop(t_input *input);
 void	create_files(t_redir *temp, t_redir *output_node);
@@ -167,9 +169,14 @@ void	baboon_free(char **stackarr);
 int		ft_is_emptystr(char *str);
 void	make_tokens(t_args *args);
 void	token_splitting(t_args *args);
-void	redirs_iteration(t_redir **redirs);
+void	redirs_iteration(t_redir **redirs, int has_cmd);
 int		redir_check(char *element);
-void	space_insertion(char *prepped, char *source);
+void	space_insertion(char *prepped, char *s, int i, int k);
 void	find_command(t_args *args, char **tokenlist);
 char 	**ft_split_mod(char *str, char c);
+void	store_original_fds(t_args *args);
+void	restore_fds(t_args *args);
+void	fd_routine_no_cmd(t_args *args);
+void	run_builtin(t_args *args);
+void	baboon_free(char **stackarr);
 #endif
