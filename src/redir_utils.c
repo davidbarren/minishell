@@ -6,77 +6,82 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:44:23 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/23 13:37:27 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/24 01:46:37 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	files_and_dups(t_redir *node)
+void	store_original_fds(t_args *args)
+{
+	args->original_stdin = dup(STDIN_FILENO);
+	args->original_stdout = dup(STDOUT_FILENO);
+}
+
+void	files_and_dups(t_redir *node, int has_cmd)
 {
 	if (node->redir_type == 4)
 		node->fd = open(node->str, O_CREAT | O_APPEND | O_RDWR, 0644);
 	else if (node->redir_type != 1)
 		node->fd = open(node->str, O_CREAT | O_TRUNC | O_RDWR, 0644);
 	else if (node->redir_type == 1)
-		node->fd = open(node->str, O_CREAT | O_RDONLY, 0644);
+	{
+		if (access(node->str, O_RDONLY))
+		{
+			ft_printerror("🐒:%s: No such file or directory\n", node->str);
+			return ;
+		}
+		node->fd = open(node->str, O_RDONLY, 0644);
+	}
 	if (node->fd == -1)
 		dprintf(2, "error creating file in node:%s\n", node->str);
-	if (node->redir_type == 1)
+	if (node->redir_type == 1 && has_cmd)
 	{
 		if (dup2(node->fd, STDIN_FILENO) == -1)
 			dprintf(2, "error duping STDIN in node :%s\n", node->str);
 	}
 	else
-	{
 		if (dup2(node->fd, STDOUT_FILENO) == -1)
 			dprintf(2, "error duping STDOUT in node :%s\n", node->str);
-	}
 	close(node->fd);
 }
 
-void	redirs_iteration(t_redir **redirs)
+void	redirs_iteration(t_redir **redirs, int has_cmd)
 {
 	t_redir	*temp;
 
 	temp = *redirs;
 	while (temp)
 	{
-		files_and_dups(temp);
+		files_and_dups(temp, has_cmd);
 		temp = temp->next;
 	}
 }
 
-void	space_insertion(char *prepped, char *source)
+void	space_insertion(char *prepped, char *s, int i, int k)
 {
-	int	k;
-	int	i;
-
-	k = 0;
-	i = 0;
-	while (source[i])
+	while (s[i])
 	{
-		if (!ft_strncmp(source + i, ">>", 2))
+		if (!ft_strncmp(s + i, ">>", 2))
 		{
 			prepped[k + i] = ' ';
-			prepped[k + i + 1] = source[i];
-			prepped[k + i + 2] = source[i];
+			prepped[k + i + 1] = s[i];
+			prepped[k + i + 2] = s[i];
 			prepped[k + i + 3] = ' ';
 			k += 2;
 			i += 2;
 		}
-		else if ((source[i] == '<' || source[i] == '>')
-			&& (ft_strncmp(source + i, ">>", 3)))
+		else if ((s[i] == '<' || s[i] == '>') && (ft_strncmp(s + i, ">>", 3)))
 		{
 			prepped[k + i] = ' ';
-			prepped[k + i + 1] = source[i];
+			prepped[k + i + 1] = s[i];
 			prepped[k + i + 2] = ' ';
 			k += 2;
 			i++;
 		}
 		else
 		{
-			prepped[k + i] = source[i];
+			prepped[k + i] = s[i];
 			i++;
 		}
 	}

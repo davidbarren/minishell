@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:44:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/23 14:08:41 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/24 01:59:25 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	create_redir_node(char **tokenlist, t_redir **redirs, t_args *args)
 			make_redirect_node(redirs, tokenlist[i + 1], 2);
 		else if (redir_check(tokenlist[i]) == 3)
 			make_redirect_node(redirs, tokenlist[i + 1], 3);
-		else if (redir_check(tokenlist[i]) == 3)
-			make_redirect_node(redirs, tokenlist[i + 1], 3);
+		else if (redir_check(tokenlist[i]) == 4)
+			make_redirect_node(redirs, tokenlist[i + 1], 4);
 		i++;
 	}
 }
@@ -77,14 +77,31 @@ void	make_redirect_node(t_redir **redir, char *str, int type)
 	}
 }
 
+char	*prep_tokenizer(char *arglist, int redir_count)
+{
+	char	*ret;
+	size_t	len;
+
+	len = ft_strlen(arglist);
+	ret = ft_calloc(1, len + (2 * redir_count) + 1);
+	if (!ret)
+		return (NULL);
+	space_insertion(ret, arglist, 0, 0);
+//	free(arglist);
+	return (ret);
+}
+
 void	token_splitting(t_args *args)
 {
 	char	**tokenlist;
 	int		i;
 	t_redir	*temp;
+	char	*parsed_string;
 
+	dprintf(2, "contnet of arglist in token_split:%s\n", args->arglist);
+	parsed_string = prep_tokenizer(args->arglist, args->redir_count);
 	i = 0;
-	tokenlist = ft_quotesplit(args->arglist, ' ');
+	tokenlist = ft_quotesplit(parsed_string, ' ');
 	args->token_count = ft_arrlen(tokenlist);
 	if (args->redir_count)
 	{
