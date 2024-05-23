@@ -3,26 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_mod.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
+/*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:17:42 by plang             #+#    #+#             */
-/*   Updated: 2024/05/21 17:19:02 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/23 13:31:47 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-typedef struct s_split_m
-{
-	char	**array;
-	int		ar_i;
-	int		i;
-	int		j;
-	char	temp;
-	int		str_len;
-	int		str_cnt;
-
-}	t_split_m;
 
 char	**ft_free(char **strings)
 {
@@ -49,7 +37,7 @@ void	ft_get_start(char **s, char c)
 int	get_str_len(char *str, t_split_m *variables)
 {
 	int	x;
-	
+
 	x = 0;
 	variables->i = 0;
 	while (str[x] != '\0')
@@ -83,7 +71,7 @@ int	get_str_count(char *str)
 	while (*str != '\0')
 	{
 		count++;
-		while(*str != ' ' && *str)
+		while (*str != ' ' && *str)
 		{
 			if (*str == '"' || *str == '\'')
 			{
@@ -96,11 +84,10 @@ int	get_str_count(char *str)
 		}
 		ft_get_start(&str, ' ');
 	}
-	printf("count: %d\n", count);
 	return (count);
 }
 
-char **ft_split_mod(char *str, char c)
+char	**ft_split_mod(char *str, char c)
 {
 	t_split_m	t_d;
 
@@ -117,7 +104,6 @@ char **ft_split_mod(char *str, char c)
 		if (!t_d.array[t_d.ar_i])
 			return (ft_free(t_d.array));
 		str += t_d.str_len;
-		printf("argument at array =%s= of index %d\n", t_d.array[t_d.ar_i], t_d.ar_i);
 		t_d.ar_i++;
 	}
 	t_d.array[t_d.ar_i] = 0;

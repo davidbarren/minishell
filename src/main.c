@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/20 12:33:47 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/23 13:32:27 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	baboonloop(t_input *input)
 void	baboon_free(char **stackarr)
 {
 	int	i;
-	
+
 	i = 0;
 	if (stackarr)
 		while (stackarr[i])

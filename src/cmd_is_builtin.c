@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:03:25 by plang             #+#    #+#             */
-/*   Updated: 2024/05/21 16:54:37 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/23 13:40:28 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,30 +48,22 @@ int	cmd_is_builtin(t_env **envs, char **args)
 
 int	flag_for_builtin(char **args)
 {
-	// int k = 0;
-	// while (args[k])
-	// {
-	// 	dprintf(2,"content of args:%s\n", args[k]); //remove
-	// 	k++;
-	// }
 	if (!*args)
 		return (0);
-	// if (ft_is_emptystr(args[0]))
-		// return (0);
 	if (ft_strcmp_up_lo("pwd", args[0]) == 0)
- 		return (1);
- 	if (ft_strcmp_up_lo("echo", args[0]) == 0)
- 		return (1);
- 	if (ft_strcmp_up_lo("env", args[0]) == 0)
- 		return (1);
- 	if (ft_strncmp("export", args[0], ft_strlen(args[0])) == 0)
- 		return (1);
- 	if (ft_strncmp("unset", args[0], ft_strlen(args[0])) == 0)
- 		return (1);
+		return (1);
+	if (ft_strcmp_up_lo("echo", args[0]) == 0)
+		return (1);
+	if (ft_strcmp_up_lo("env", args[0]) == 0)
+		return (1);
+	if (ft_strncmp("export", args[0], ft_strlen(args[0])) == 0)
+		return (1);
+	if (ft_strncmp("unset", args[0], ft_strlen(args[0])) == 0)
+		return (1);
 	if (ft_strncmp("cd", args[0], ft_strlen(args[0])) == 0)
 		return (1);
 	return (0);
- }
+}
 
 int	ft_is_emptystr(char *str)
 {

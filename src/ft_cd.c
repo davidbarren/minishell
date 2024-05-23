@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:54:36 by plang             #+#    #+#             */
-/*   Updated: 2024/05/20 15:09:03 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/23 13:38:01 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void	change_oldpwd_pwd(t_env **envs, char *title_n_path)
 		temp = temp->next;
 	}
 }
-
 
 void	update_paths(t_env **envs, char *path, char *title)
 {
