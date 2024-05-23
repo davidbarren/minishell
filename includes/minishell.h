@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/23 13:35:15 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/23 13:42:29 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,6 @@ typedef struct s_args
 	char			*output;
 }	t_args;
 
-typedef struct s_token
-{
-	char	*token;
-	int		is_redir;
-	int		redir_type;
-	int		is_cmd;
-	char	*cmd_with_args;
-}	t_token;
 typedef struct s_input
 {
 	int		pipe_count;
