@@ -6,13 +6,13 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:44:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/21 20:52:02 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:08:41 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	redir_validation(char *element)
+int	redir_check(char *element)
 {
 	char	*tokens[5];
 	int		status;
@@ -43,13 +43,13 @@ void	create_redir_node(char **tokenlist, t_redir **redirs, t_args *args)
 	i = 0;
 	while (i < args->token_count - 1)
 	{
-		if (redir_validation(tokenlist[i]) == 1)
+		if (redir_check(tokenlist[i]) == 1)
 			make_redirect_node(redirs, tokenlist[i + 1], 1);
-		else if (redir_validation(tokenlist[i]) == 2)
+		else if (redir_check(tokenlist[i]) == 2)
 			make_redirect_node(redirs, tokenlist[i + 1], 2);
-		else if (redir_validation(tokenlist[i]) == 3)
+		else if (redir_check(tokenlist[i]) == 3)
 			make_redirect_node(redirs, tokenlist[i + 1], 3);
-		else if (redir_validation(tokenlist[i]) == 3)
+		else if (redir_check(tokenlist[i]) == 3)
 			make_redirect_node(redirs, tokenlist[i + 1], 3);
 		i++;
 	}
@@ -77,54 +77,6 @@ void	make_redirect_node(t_redir **redir, char *str, int type)
 	}
 }
 
-void	command_extraction(t_args *args, char **tokenlist)
-{
-	int		i;
-	char	*longboi;
-
-	i = 1;
-	while (i < args->token_count - 1)
-	{
-		if (!redir_validation(tokenlist[i]) && !redir_validation(tokenlist[i - 1]))
-		{
-			longboi = ft_strdup(tokenlist[i]);
-			i++;
-			while (!redir_validation(tokenlist[i]))
-			{
-				longboi = ft_strjoin_sep(longboi, tokenlist[i], ' ');
-				i++;
-			}
-		}
-		i++;
-	}
-	args->long_command = ft_strdup(longboi);
-}
-
-void	find_command(t_args *args, char **tokenlist)
-{
-	int		i;
-	char	*longboi;
-
-	i = 0;
-	if (!tokenlist)
-		return ;
-	if (!redir_validation(tokenlist[0]))
-	{
-		i = 1;
-		longboi = ft_strdup(tokenlist[0]);
-		while (!redir_validation(tokenlist[i]) && i <= args->token_count - 1)
-		{
-			printf("joining strings:%s and :%s\n", longboi, tokenlist[i]);
-			longboi = ft_strjoin_sep(longboi, tokenlist[i], ' ');
-			i++;
-		}
-		args->long_command = ft_strdup(longboi);
-	}
-	else
-		command_extraction(args, tokenlist);
-	printf("long command:%s\n", args->long_command);
-}
-
 void	token_splitting(t_args *args)
 {
 	char	**tokenlist;
@@ -134,12 +86,6 @@ void	token_splitting(t_args *args)
 	i = 0;
 	tokenlist = ft_quotesplit(args->arglist, ' ');
 	args->token_count = ft_arrlen(tokenlist);
-	printf("token count:%d\n", args->token_count);
-	printf("content of tokenlist at index 0 :%s\n", tokenlist[0]);
-	printf("value of redir count:%d\n", args->redir_count);
-	int	k = 0;
-	while (tokenlist[k])
-		printf("Value of tokenlist:%s\n", tokenlist[k++]);
 	if (args->redir_count)
 	{
 		args->redirects = ft_calloc(1, sizeof(t_redir *));
