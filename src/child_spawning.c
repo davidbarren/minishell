@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:56:38 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/23 13:40:21 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/24 13:54:48 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	check_empty_and_split(t_args *args)
 {
 	int	i;
 
-//	printf("value of long command in check empty and split:%s\n", args->long_command);
 	i = 0;
 	args->envcpy = copy_env(args->envcpy, args->envlist);
 	args->is_empty = ft_is_emptystr(args->long_command);
@@ -33,12 +32,8 @@ void	prep_and_split_command(t_args *args)
 {
 	int	i;
 
-	// ft_expand(&args->arglist, args->envlist);
-	// dprintf(2, "content of arglist in prep split:%s\n", args->arglist);
 	i = 0;
 	check_empty_and_split(args);
-	if (!args->is_empty && args->long_command)
-		ft_expand(args->split_cmds, args->envlist);
 	while (args->split_cmds[i])
 	{
 		if (args->is_empty)
