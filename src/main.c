@@ -61,16 +61,6 @@ void	baboonloop(t_input *input)
 	}
 }
 
-void	baboon_free(char **stackarr)
-{
-	int	i;
-
-	i = 0;
-	if (stackarr)
-		while (stackarr[i])
-			free(stackarr[i++]);
-}
-
 void	free_input(t_input *input)
 {
 	if (input->pids)
@@ -107,5 +97,4 @@ void	free_struct_content(t_args *args)
 		free(args->execpath);
 	if (args->split_cmds)
 		free_2d(args->split_cmds);
-//	printf("huh we here boi\n");
 }

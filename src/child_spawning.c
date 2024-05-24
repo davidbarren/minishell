@@ -12,6 +12,12 @@
 
 #include "../includes/minishell.h"
 
+void	restore_fds(t_args *args)
+{
+	dup2(args->original_stdin, STDIN_FILENO);
+	dup2(args->original_stdout, STDOUT_FILENO);
+}
+
 void	check_empty_and_split(t_args *args)
 {
 	int	i;
@@ -23,8 +29,6 @@ void	check_empty_and_split(t_args *args)
 		args->split_cmds = ft_split(args->long_command, '\"');
 	else
 		args->split_cmds = ft_split_mod(args->long_command, ' ');
-  	if (!args->split_cmds)
-		return ;
 	args->is_builtin = flag_for_builtin(args->split_cmds);
 }
 
@@ -33,6 +37,9 @@ void	prep_and_split_command(t_args *args)
 	int	i;
 
 	i = 0;
+	dprintf(2, "content of long cmd:%s\n", args->long_command);
+	if (!args->long_command)
+		return ;
 	check_empty_and_split(args);
 	while (args->split_cmds[i])
 	{
@@ -44,39 +51,10 @@ void	prep_and_split_command(t_args *args)
 			args->split_cmds[i] = trim_input(args->split_cmds[i], '\'');
 		i++;
 	}
-	if (args->pipecount == 1 && args->is_builtin)
-	{
-		args->split_path = NULL;
-		args->execpath = NULL;
-		cmd_is_builtin(args->envlist, args->split_cmds);
-	}
-	if (!args->is_builtin)
+	if (args->pipecount == 1 && args->is_builtin && args->long_command)
+		run_builtin(args);
+	if (!args->is_builtin && args->long_command)
 		perms_check(args);
-}
-
-void	check_path_access(t_args *args)
-{
-	int	i;
-
-	i = 0;
-	while (args->split_path[i])
-	{
-		args->split_path[i] = ft_strjoin_sep(args->split_path[i],
-				args->split_cmds[0], '/');
-		if (!access(args->split_path[i], F_OK))
-		{
-			if (!access(args->split_path[i], X_OK))
-			{
-				args->execpath = ft_strdup(args->split_path[i]);
-				return ;
-			}
-		}
-		if (access(args->split_path[i], F_OK))
-			i++;
-	}
-	free_2d(args->split_path);
-	args->split_path = NULL;
-	args->execpath = NULL;
 }
 
 void	prep_pids(t_input *input)
@@ -109,8 +87,16 @@ void	prep_pids(t_input *input)
 
 void	exec_child_cmd(t_input *input)
 {
+	int	flag;
+
+	flag = 1;
+	store_original_fds(input->arg_struct[input->pid_index]);
+	if (!input->arg_struct[input->pid_index]->long_command)
+		flag = 0;
 	if (input->arg_struct[input->pid_index]->redir_count)
-		redirs_iteration(input->arg_struct[input->pid_index]->redirects);
+		redirs_iteration(input->arg_struct[input->pid_index]->redirects, flag);
+	if (!input->arg_struct[input->pid_index]->long_command)
+		return ;
 	if (input->arg_struct[input->pid_index]->is_builtin)
 	{
 		input->arg_struct[input->pid_index]->builtinstatus
@@ -125,25 +111,4 @@ void	exec_child_cmd(t_input *input)
 			input->arg_struct[input->pid_index]->envcpy);
 	}
 	exit (127);
-}
-
-void	perms_check(t_args *args)
-{
-	if (!args->is_builtin)
-	{
-		if (!access(args->split_cmds[0], F_OK))
-		{
-			if (!access(args->split_cmds[0], X_OK))
-			{
-				args->execpath = ft_strdup(args->split_cmds[0]);
-				return ;
-			}
-		}
-		args->execpath = ft_getenv(args->envlist, "PATH");
-		if (!args->execpath)
-			return ;
-		args->split_path = ft_split(args->execpath, ':');
-		free(args->execpath);
-		check_path_access(args);
-	}
 }

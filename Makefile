@@ -6,7 +6,7 @@
 #    By: plang <plang@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 14:15:56 by dbarrene          #+#    #+#              #
-#    Updated: 2024/05/24 13:55:02 by plang            ###   ########.fr        #
+#    Updated: 2024/05/24 02:03:11 by dbarrene         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,8 +62,10 @@ CSRCS = $(SRCDIR)/parsing.c\
 		$(SRCDIR)/ft_expand.c\
 		$(SRCDIR)/token_test.c\
 		$(SRCDIR)/redir_utils.c\
+		$(SRCDIR)/redir_utils_2.c\
 		$(SRCDIR)/tokenized_utils.c\
 		$(SRCDIR)/ft_split_mod.c\
+		$(SRCDIR)/general_utils.c\
 
 OBJS= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 BOBJS= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(BSRCS))
