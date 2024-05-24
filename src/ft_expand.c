@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 13:43:48 by plang             #+#    #+#             */
-/*   Updated: 2024/05/23 13:35:27 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/24 13:50:49 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	how_many_parts(char *str)
 		if (ft_isalnum(str[i]) && !ft_isalnum(str[i + 1])
 			&& str[i + 1 != '\0'])
 			parts++;
-		else if (str[i] == ' ')
+		else if (str[i] == ' ' )
 		{
 			while (str[i] == ' ' && str[i + 1] != '\0')
 				i++;
@@ -42,6 +42,7 @@ int	how_many_parts(char *str)
 		}
 		i++;
 	}
+	dprintf(2, "parts: %d\n", parts);
 	return (parts);
 }
 
@@ -225,7 +226,7 @@ void	expand_and_join(t_env **envs, char **split_cmds, char **part_array)
 	*split_cmds = part_array[j];
 	while (part_array[j + 1] != NULL)
 	{
-		clean_expand_quotes(split_cmds);
+		// clean_expand_quotes(split_cmds);
 		(*split_cmds) = ft_strjoin(*split_cmds, part_array[j + 1]);
 		j++;
 	}
