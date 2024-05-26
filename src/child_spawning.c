@@ -37,7 +37,7 @@ void	prep_and_split_command(t_args *args)
 	int	i;
 
 	i = 0;
-	dprintf(2, "content of long cmd:%s\n", args->long_command);
+//	dprintf(2, "content of long cmd:%s\n", args->long_command);
 	if (!args->long_command)
 		return ;
 	check_empty_and_split(args);

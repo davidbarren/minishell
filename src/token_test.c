@@ -104,6 +104,8 @@ void	token_splitting(t_args *args)
 	tokenlist = ft_quotesplit(parsed_string, ' ');
 	free(parsed_string);
 	args->token_count = ft_arrlen(tokenlist);
+	while (tokenlist[i])
+		dprintf(2, "contents of tokenlist:%s\n", tokenlist[i++]);
 	if (args->redir_count)
 	{
 		args->redirects = ft_calloc(1, sizeof(t_redir *));

@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:44:23 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/24 01:46:37 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/26 14:22:20 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,18 @@ void	files_and_dups(t_redir *node, int has_cmd)
 	close(node->fd);
 }
 
+void	vibe_check(t_redir *temp)
+{
+	if (!access(temp->str, F_OK))
+	{
+		if (access(temp->str, O_RDWR))
+		{
+			ft_printerror("🐒baboonshell: %s: Permission denied", temp->str);
+			exit (1);
+		}
+	}
+}
+
 void	redirs_iteration(t_redir **redirs, int has_cmd)
 {
 	t_redir	*temp;
@@ -53,7 +65,13 @@ void	redirs_iteration(t_redir **redirs, int has_cmd)
 	temp = *redirs;
 	while (temp)
 	{
-		files_and_dups(temp, has_cmd);
+		if (temp->redir_type != 2)
+		{
+			vibe_check(temp);
+			files_and_dups(temp, has_cmd);
+		}
+//		else
+//			heredoc_shit(temp);
 		temp = temp->next;
 	}
 }
@@ -62,7 +80,7 @@ void	space_insertion(char *prepped, char *s, int i, int k)
 {
 	while (s[i])
 	{
-		if (!ft_strncmp(s + i, ">>", 2))
+		if (!ft_strncmp(s + i, ">>", 2) || (!ft_strncmp(s + i, "<<", 2)))
 		{
 			prepped[k + i] = ' ';
 			prepped[k + i + 1] = s[i];
