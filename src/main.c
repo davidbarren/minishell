@@ -56,7 +56,7 @@ void	baboonloop(t_input *input)
 			else if (input->exit_status)
 				printf("value of status:%d\n", input->exit_status);
 			free(line);
-			baboon_free(input->input);
+//			baboon_free(input->input);
 		}
 	}
 }

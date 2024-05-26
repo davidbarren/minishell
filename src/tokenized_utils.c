@@ -56,6 +56,7 @@ void	find_command(t_args *args, char **tokenlist)
 			i++;
 		}
 		args->long_command = ft_strdup(longboi);
+		free(longboi);
 	}
 	else
 		command_extraction(args, tokenlist);
