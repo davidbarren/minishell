@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:56:38 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/24 02:12:06 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/24 13:31:22 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	prep_and_split_command(t_args *args)
 	int	i;
 
 	i = 0;
-	dprintf(2, "content of long cmd:%s\n", args->long_command);
+//	dprintf(2, "content of long cmd:%s\n", args->long_command);
 	if (!args->long_command)
 		return ;
 	check_empty_and_split(args);

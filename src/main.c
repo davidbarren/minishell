@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/24 01:36:28 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/24 13:31:48 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	baboonloop(t_input *input)
 		{
 			add_history(line);
 			input->exit_status = syntax_validation(line);
-			printf("value of exit status:%d\n", input->exit_status);
+//			printf("value of exit status:%d\n", input->exit_status);
 			if (!input->exit_status)
 			{
 				prep_input(line, input);

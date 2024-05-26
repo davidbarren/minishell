@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 13:43:48 by plang             #+#    #+#             */
-/*   Updated: 2024/05/23 13:35:27 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/24 12:31:54 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ int	how_many_parts(char *str)
 		}
 		i++;
 	}
-	return (parts);
+	dprintf(2, "value of parts in ft_expand:%d\n", parts);
+	return (parts + 1); // parts + 1 is added but baboonfix, hope it didnt
+						// break errythang!
 }
 
 int	get_part_len(char *str, int i)//, int *wordstart

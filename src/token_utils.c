@@ -6,12 +6,23 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:05:53 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/20 11:08:49 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/26 13:05:08 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+void	update_hdoc_status(t_args *args)
+{
+	if (args->arglist)
+	{
+		if (ft_strnstr(args->arglist, "<<", ft_strlen(args->arglist)))
+		{
+			args->is_hdoc = 1;
+			dprintf(2, "Hdoc found in update status!\n");
+		}
+	}
+}
 char	*ft_strndup(char *str, size_t n, int flag)
 {
 	size_t	len;
@@ -78,4 +89,5 @@ void	update_redirs(t_args *args)
 			i++;
 	}
 	args->redir_count = count;
+	update_hdoc_status(args);
 }
