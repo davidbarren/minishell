@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/24 13:51:45 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/26 21:46:46 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	baboonloop(t_input *input)
 			else if (input->exit_status)
 				printf("value of status:%d\n", input->exit_status);
 			free(line);
-			baboon_free(input->input);
+//			baboon_free(input->input);
 		}
 	}
 }

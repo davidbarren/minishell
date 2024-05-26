@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:44:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/24 01:59:25 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/26 21:14:12 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,11 @@ void	token_splitting(t_args *args)
 	t_redir	*temp;
 	char	*parsed_string;
 
-	dprintf(2, "contnet of arglist in token_split:%s\n", args->arglist);
 	parsed_string = prep_tokenizer(args->arglist, args->redir_count);
-	i = 0;
+	free(args->arglist);
+	args->arglist = NULL;
 	tokenlist = ft_quotesplit(parsed_string, ' ');
+	free(parsed_string);
 	args->token_count = ft_arrlen(tokenlist);
 	if (args->redir_count)
 	{
