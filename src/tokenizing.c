@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/26 13:31:16 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/27 11:19:27 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ void	prep_input(char *line, t_input *input)
 	free_2d(temp);
 	build_struct(input);
 	tokenize_input(input);
+//	dprintf(2, "address of input ptr:%p\n", input->input);
+	free_2d(input->input);
+	input->input = NULL;
 	if (input->pipe_count == 1 && input->arg_struct[0]->is_builtin)
 		return ;
 	if (input->pipe_count == 1 && !input->arg_struct[0]->long_command)

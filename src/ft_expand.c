@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 13:43:48 by plang             #+#    #+#             */
-/*   Updated: 2024/05/24 12:31:54 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/27 11:12:34 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,9 +228,10 @@ void	expand_and_join(t_env **envs, char **split_cmds, char **part_array)
 	while (part_array[j + 1] != NULL)
 	{
 		// clean_expand_quotes(split_cmds);
-		(*split_cmds) = ft_strjoin(*split_cmds, part_array[j + 1]);
+		(*split_cmds) = ft_strjoin_flex(*split_cmds, part_array[j + 1], 3);
 		j++;
 	}
+	free(part_array);
 }
 //ft_strjoin_flex(on part_array);
 
