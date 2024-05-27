@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:44:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/26 22:00:02 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/27 10:22:53 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ char	*prep_tokenizer(char *arglist, int redir_count)
 void	token_splitting(t_args *args)
 {
 	char	**tokenlist;
-	int		i;
 	t_redir	*temp;
 	char	*parsed_string;
 

@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:44:23 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/26 14:22:20 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/27 10:45:05 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	redirs_iteration(t_redir **redirs, int has_cmd)
 {
 	t_redir	*temp;
 
+	if (!redirs)
+		return ;
 	temp = *redirs;
 	while (temp)
 	{
@@ -70,7 +72,8 @@ void	redirs_iteration(t_redir **redirs, int has_cmd)
 			vibe_check(temp);
 			files_and_dups(temp, has_cmd);
 		}
-//		else
+		else
+			printf("voi vittu!\n");
 //			heredoc_shit(temp);
 		temp = temp->next;
 	}

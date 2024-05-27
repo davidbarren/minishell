@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 01:01:28 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/26 13:42:11 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/27 11:18:27 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	fd_routine_no_cmd(t_args *args)
 	redirs_iteration(args->redirects, 0);
 	restore_fds(args);
 }
-
+/*
 void	condition_hdoc(t_args *args)
 {
 	char	**tokenlist;
@@ -30,3 +30,28 @@ void	condition_hdoc(t_args *args)
 	tokenlist = ft_quotesplit(parsed_string, ' ');
 	args->token_count = ft_arrlen(tokenlist);
 }
+*/
+
+void	free_redir_cont(t_redir *redir)
+{
+	if (redir->str)
+		free(redir->str);
+}
+
+void	free_redirs(t_redir **redirs)
+{
+	t_redir	*next;
+
+	if (!*redirs)
+		return ;
+	next = *redirs;
+	while (next)
+	{
+		next = next->next;
+		free_redir_cont(*redirs);
+		free (*redirs);
+		*redirs = next;
+	}
+	free(redirs);
+}
+
