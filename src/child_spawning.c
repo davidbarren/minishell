@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:56:38 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/24 13:54:48 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/28 10:38:47 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,16 @@ void	prep_and_split_command(t_args *args)
 	if (!args->long_command)
 		return ;
 	check_empty_and_split(args);
-	while (args->split_cmds[i])
-	{
-		if (args->is_empty)
-			args->split_cmds[i] = ft_strdup("");
-		if (args->split_cmds[i][0] == '\"' && !args->is_empty)
-			args->split_cmds[i] = trim_input(args->split_cmds[i], '\"');
-		else if (args->split_cmds[i][0] == '\'' && !args->is_empty)
-			args->split_cmds[i] = trim_input(args->split_cmds[i], '\'');
-		i++;
-	}
+	// while (args->split_cmds[i])
+	// {
+	// 	if (args->is_empty)
+	// 		args->split_cmds[i] = ft_strdup("");
+	// 	if (args->split_cmds[i][0] == '\"' && !args->is_empty)
+	// 		args->split_cmds[i] = trim_input(args->split_cmds[i], '\"');
+	// 	else if (args->split_cmds[i][0] == '\'' && !args->is_empty)
+	// 		args->split_cmds[i] = trim_input(args->split_cmds[i], '\'');
+	// 	i++;
+	// }
 	if (args->pipecount == 1 && args->is_builtin && args->long_command)
 		run_builtin(args);
 	if (!args->is_builtin && args->long_command)

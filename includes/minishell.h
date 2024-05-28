@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/24 02:13:43 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/27 15:39:15 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,4 +179,5 @@ void	restore_fds(t_args *args);
 void	fd_routine_no_cmd(t_args *args);
 void	run_builtin(t_args *args);
 void	baboon_free(char **stackarr);
+int		quote_count(char *str, char c);
 #endif
