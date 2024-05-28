@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/27 15:39:15 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/27 11:18:50 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,4 +180,6 @@ void	fd_routine_no_cmd(t_args *args);
 void	run_builtin(t_args *args);
 void	baboon_free(char **stackarr);
 int		quote_count(char *str, char c);
+char	*prep_tokenizer(char *arglist, int redir_count);
+void	free_redirs(t_redir **redirs);
 #endif

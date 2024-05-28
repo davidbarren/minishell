@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/24 13:51:45 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/27 12:48:34 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	baboonloop(t_input *input)
 		{
 			add_history(line);
 			input->exit_status = syntax_validation(line);
-			printf("value of exit status:%d\n", input->exit_status);
+//			printf("value of exit status:%d\n", input->exit_status);
 			if (!input->exit_status)
 			{
 				prep_input(line, input);
@@ -56,7 +56,7 @@ void	baboonloop(t_input *input)
 			else if (input->exit_status)
 				printf("value of status:%d\n", input->exit_status);
 			free(line);
-			baboon_free(input->input);
+//			baboon_free(input->input);
 		}
 	}
 }
@@ -97,4 +97,6 @@ void	free_struct_content(t_args *args)
 		free(args->execpath);
 	if (args->split_cmds)
 		free_2d(args->split_cmds);
+	if (args->redirects)
+		free_redirs(args->redirects);
 }
