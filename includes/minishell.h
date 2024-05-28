@@ -179,6 +179,7 @@ void	restore_fds(t_args *args);
 void	fd_routine_no_cmd(t_args *args);
 void	run_builtin(t_args *args);
 void	baboon_free(char **stackarr);
+int		quote_count(char *str, char c);
 char	*prep_tokenizer(char *arglist, int redir_count);
 void	free_redirs(t_redir **redirs);
 #endif

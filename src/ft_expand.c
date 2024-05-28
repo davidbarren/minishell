@@ -40,14 +40,23 @@ int	how_many_parts(char *str)
 				i++;
 			parts++;
 		}
+		if (str[i] == '>' || str[i] == '<')
+		{
+			temp = str[i];
+			i++;
+			while (str[i] != temp && str[i + 1] != '\0')
+				i++;
+			parts++;
+		}
+		if (str[i] == '$' && (str[i + 1] == ' '|| str[i + 1] == '\0'))
+			parts++;
 		i++;
 	}
-	dprintf(2, "value of parts in ft_expand:%d\n", parts);
-	return (parts + 1); // parts + 1 is added but baboonfix, hope it didnt
-						// break errythang!
+	dprintf(2, "parts: %d\n", parts);
+	return (parts + 1);
 }
 
-int	get_part_len(char *str, int i)//, int *wordstart
+int	get_part_len(char *str, int i)
 {
 	int		len;
 	char	c;
@@ -63,11 +72,11 @@ int	get_part_len(char *str, int i)//, int *wordstart
 		}
 		return (len);
 	}
-	// while (str[i] == ' ')
-	// {
-	// 	i++;
-	// 	(*wordstart)++;
-	// }
+	if (str[i] == '$' && (str[i + 1] == ' '|| str[i + 1] == '\0'))
+	{
+		i++;
+		return (1);
+	}
 	if (!ft_isalnum(str[i]) && str[i] != 0)
 	{
 		if (str[i] == '"' || str[i] == '\'')
@@ -134,6 +143,7 @@ char	*is_expansion_valid(t_env **envs, char *arg, int i)
 	int		len;
 	int		start;
 	t_env	*temp;
+	char	*rest;
 
 	len = 0;
 	start = i;
@@ -144,17 +154,20 @@ char	*is_expansion_valid(t_env **envs, char *arg, int i)
 		i++;
 	}
 	check = ft_substr(arg, start, len);
+	rest = ft_substr(arg, len + 1, (ft_strlen(arg) - i));
 	while (temp != NULL)
 	{
 		if (!ft_strcmp(temp->title, check))
 		{
 			free(check);
 			check = expand_key(temp);
+			check = ft_strjoin_flex(check, rest, 3);
 			return (check);
 		}
 		temp = temp->next;
 	}
-	return (NULL);
+	check = rest;
+	return (check);
 }
 
 int	get_qflag(char *arg)
@@ -181,29 +194,52 @@ int	get_qflag(char *arg)
 	return (flag);
 }
 
+char	*get_beginning(char *str)
+{
+	int		i;
+	char	*beginning;
+
+	i = 0;
+	while (str[i] != '$' && str[i])
+		i++;
+	beginning = ft_substr(str, 0, i);
+	if (!beginning)
+		return (NULL);
+	return (beginning);
+}
+
 void	expand_check_arguments(t_env **envs, char **arg)
 {
 	int		i;
 	char	*expanded;
 	int		qflag;
-	int		j;
+	char	*beginning;
 
 	i = 0;
-	j = 0;
 	qflag = get_qflag(*arg);
+	beginning = 0;
 	if (ft_strchr(*arg, '$'))
 		clean_expand_quotes(arg);
+	// dprintf(2, "in eca :%s\n", (*arg));
+	if ((*arg)[0] != '$' && ft_strchr((*arg), '$'))
+	{
+		beginning = get_beginning((*arg));
+		// printf("begin: %s\n", beginning);
+	}
 	while ((*arg)[i] != '\0')
 	{
-		if ((*arg)[i] == '$' && qflag < 2)
+		if ((*arg)[i] == '$' && qflag < 2  && (*arg)[i + 1] != '\0')
 		{
 			i++;
 			expanded = is_expansion_valid(envs, *arg, i);
 			free(*arg);
+			// dprintf(2, "Expand: %s\n", expanded);
 			if (!expanded)
 				*arg = ft_strdup("");// = NULL;
 			else
 				*arg = expanded;
+			if (beginning)
+				*arg = ft_strjoin_flex(beginning, expanded, 2);
 			break ;
 		}
 		i++;
@@ -227,13 +263,11 @@ void	expand_and_join(t_env **envs, char **split_cmds, char **part_array)
 	*split_cmds = part_array[j];
 	while (part_array[j + 1] != NULL)
 	{
-		// clean_expand_quotes(split_cmds);
 		(*split_cmds) = ft_strjoin_flex(*split_cmds, part_array[j + 1], 3);
 		j++;
 	}
 	free(part_array);
 }
-//ft_strjoin_flex(on part_array);
 
 void	find_expansion(t_env **envs, char **split_cmds)
 {
@@ -251,7 +285,8 @@ void	find_expansion(t_env **envs, char **split_cmds)
 		return ;
 	while (parts > j)
 	{
-		len = get_part_len(*split_cmds, start);//, &k
+		len = get_part_len(*split_cmds, start);
+		dprintf(2, "len: %d\n", len);
 		part_array[j] = ft_substr(*split_cmds, start, len);
 		start += ft_strlen(part_array[j]);
 		j++;
