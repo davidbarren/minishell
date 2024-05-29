@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 13:43:48 by plang             #+#    #+#             */
-/*   Updated: 2024/05/27 11:12:34 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:47:43 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	how_many_parts(char *str)
 		i++;
 	}
 	dprintf(2, "parts: %d\n", parts);
-	return (parts + 1);
+	return (parts);
 }
 
 int	get_part_len(char *str, int i)
@@ -153,8 +153,14 @@ char	*is_expansion_valid(t_env **envs, char *arg, int i)
 		len++;
 		i++;
 	}
+	printf("arg: %s\n", arg);
+	printf("len: %d %c\n", len, arg[len + 1]);
+	printf("i: %d %c\n", i, arg[i]);
+	printf("start: %d %c\n", start, arg[start]);
 	check = ft_substr(arg, start, len);
-	rest = ft_substr(arg, len + 1, (ft_strlen(arg) - i));
+	rest = ft_substr(arg, i, (ft_strlen(arg) - i));
+	dprintf(2, "content of check:%s\n", check);
+	dprintf(2, "content of rest:%s\n", rest);
 	while (temp != NULL)
 	{
 		if (!ft_strcmp(temp->title, check))
@@ -224,7 +230,7 @@ void	expand_check_arguments(t_env **envs, char **arg)
 	if ((*arg)[0] != '$' && ft_strchr((*arg), '$'))
 	{
 		beginning = get_beginning((*arg));
-		// printf("begin: %s\n", beginning);
+		printf("begin: %s\n", beginning);
 	}
 	while ((*arg)[i] != '\0')
 	{
@@ -233,7 +239,7 @@ void	expand_check_arguments(t_env **envs, char **arg)
 			i++;
 			expanded = is_expansion_valid(envs, *arg, i);
 			free(*arg);
-			// dprintf(2, "Expand: %s\n", expanded);
+			dprintf(2, "Expand: %s\n", expanded);
 			if (!expanded)
 				*arg = ft_strdup("");// = NULL;
 			else
@@ -286,7 +292,7 @@ void	find_expansion(t_env **envs, char **split_cmds)
 	while (parts > j)
 	{
 		len = get_part_len(*split_cmds, start);
-		dprintf(2, "len: %d\n", len);
+		// dprintf(2, "len: %d\n", len);
 		part_array[j] = ft_substr(*split_cmds, start, len);
 		start += ft_strlen(part_array[j]);
 		j++;

@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:17:42 by plang             #+#    #+#             */
-/*   Updated: 2024/05/23 13:31:47 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/28 16:23:01 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,11 @@ char	**ft_free(char **strings)
 
 void	ft_get_start(char **s, char c)
 {
+	printf("position on string: %c\n", **s);
+	printf("in get start: %s\n", (*s));
 	while (**s && **s == c)
 	{
+		printf("looping\n");
 		(*s)++;
 	}
 }
@@ -44,7 +47,7 @@ int	get_str_len(char *str, t_split_m *variables)
 	{
 		if (str[x] == ' ')
 			break ;
-		if (str[x] == '"' || str[x] == '\'')
+		if ((str[x] == '"' || str[x] == '\'') && (quote_count(str, str[x]) % 2 == 0))
 		{
 			variables->temp = str[x];
 			x++;
@@ -55,8 +58,11 @@ int	get_str_len(char *str, t_split_m *variables)
 				variables->i++;
 			}
 		}
-		x++;
-		variables->i++;
+		if (str[x])
+		{
+			x++;
+			variables->i++;
+		}
 	}
 	return (variables->i);
 }
@@ -73,14 +79,15 @@ int	get_str_count(char *str)
 		count++;
 		while (*str != ' ' && *str)
 		{
-			if (*str == '"' || *str == '\'')
+			if ((*str == '"' || *str == '\'') && (quote_count(str, *str) % 2 == 0))
 			{
 				temp = *str;
 				str++;
-				while (*str != temp && *str)
+				while (*str != temp && *str && (*str))
 					str++;
 			}
-			str++;
+			if (*str + 1)
+				str++;
 		}
 		ft_get_start(&str, ' ');
 	}
@@ -93,6 +100,7 @@ char	**ft_split_mod(char *str, char c)
 
 	ft_memset(&t_d, 0, sizeof(t_d));
 	t_d.str_cnt = get_str_count(str);
+	printf("str count: %d\n", t_d.str_cnt);
 	t_d.array = malloc((t_d.str_cnt + 1) * sizeof(char *));
 	if (!t_d.array)
 		return (NULL);
@@ -101,6 +109,7 @@ char	**ft_split_mod(char *str, char c)
 		ft_get_start(&str, c);
 		t_d.str_len = get_str_len(str, &t_d);
 		t_d.array[t_d.ar_i] = ft_substr(str, 0, t_d.str_len);
+		printf("split string: %s\n", t_d.array[t_d.ar_i]);
 		if (!t_d.array[t_d.ar_i])
 			return (ft_free(t_d.array));
 		str += t_d.str_len;

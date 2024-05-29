@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:25:49 by plang             #+#    #+#             */
-/*   Updated: 2024/05/27 17:31:41 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/28 17:16:22 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,26 @@ void	clean_echo_from_quotes(char **str)
 	if (!copy)
 		return ;
 	start = copy;
+	printf("string in clean echo: %s\n", *str);
 	while (*copy)
 	{
 		if (*copy == '"' || *copy == '\'')
 		{
 			c = *copy;
 			flag = quote_count((*str), c);
-			if (flag)
+			if (flag && copy[ft_strlen(copy) - 1] != c)
 			{
 				(*str)[i++] = *copy;
 				c = 0;
 			}
-			copy++;
-			while (*copy != c && *copy)
+			if(copy[ft_strlen(copy) - 1] == c)
 			{
-				(*str)[i++] = *copy;
 				copy++;
+				while (*copy != c && *copy)
+				{
+					(*str)[i++] = *copy;
+					copy++;
+				}
 			}
 			c = 0;
 		}
@@ -49,7 +53,7 @@ void	clean_echo_from_quotes(char **str)
 			(*str)[i++] = *copy;
 		copy++;
 	}
-	(*str)[i] = '\0';
+	(*str)[i] = 0;
 	free(start);
 }
 
@@ -60,9 +64,9 @@ void	ft_echo_clean(char **cmd_args)
 	i = 1;
 	while (cmd_args[i])
 	{
-		printf("before echo  clean: %s\n", cmd_args[i]);
+		// printf("before echo  clean: %s\n", cmd_args[i]);
 		clean_echo_from_quotes(&cmd_args[i]);
-		printf("after echo clean: %s\n", cmd_args[i]);
+		// printf("after echo clean: %s\n", cmd_args[i]);
 
 		i++;
 	}
