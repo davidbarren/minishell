@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 13:43:48 by plang             #+#    #+#             */
-/*   Updated: 2024/05/28 16:47:43 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/29 10:47:31 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,7 @@ char	*get_beginning(char *str)
 	return (beginning);
 }
 
-void	expand_check_arguments(t_env **envs, char **arg)
+void	expand_check_arguments(t_env **envs, char **arg, int eflag)
 {
 	int		i;
 	char	*expanded;
@@ -224,7 +224,7 @@ void	expand_check_arguments(t_env **envs, char **arg)
 	i = 0;
 	qflag = get_qflag(*arg);
 	beginning = 0;
-	if (ft_strchr(*arg, '$'))
+	if (ft_strchr(*arg, '$') && !eflag)
 		clean_expand_quotes(arg);
 	// dprintf(2, "in eca :%s\n", (*arg));
 	if ((*arg)[0] != '$' && ft_strchr((*arg), '$'))
@@ -257,11 +257,15 @@ void	expand_check_arguments(t_env **envs, char **arg)
 void	expand_and_join(t_env **envs, char **split_cmds, char **part_array)
 {
 	int	j;
+	int	eflag;
 
 	j = 0;
+	eflag = 0;
 	while (part_array[j] != NULL)
 	{
-		expand_check_arguments(envs, &part_array[j]);
+		if ((ft_strcmp_up_lo("echo", part_array[0]) == 0))
+			eflag = 1;
+		expand_check_arguments(envs, &part_array[j], eflag);
 		j++;
 	}
 	j = 0;
