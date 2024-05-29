@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:44:23 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/27 10:45:05 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/30 02:57:41 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,42 @@ void	store_original_fds(t_args *args)
 	args->original_stdin = dup(STDIN_FILENO);
 	args->original_stdout = dup(STDOUT_FILENO);
 }
+/*
+void	close_hdoc(t_redir *node)
+{
+}
+*/
+void	create_hdoc(t_redir *node)
+{
+	char	*line;
+
+//	dprintf(2, "current delim in hdoc:%s\n", node->str);
+	node->str = ft_strjoin_flex(node->str, "\n", 1);
+	node->fd = open(".hdoc", O_CREAT | O_WRONLY | O_TRUNC , 0644);
+	write(1, ">", 1);
+	line = get_next_line(0);
+	while (line)
+	{
+		write(1, ">", 1);
+//		dprintf(2,"content of line in hdoc test:%s\n", line);
+		if (!ft_strncmp(line, node->str, ft_strlen(node->str)))
+			break;
+		ft_putstr_fd(line, node->fd);
+		free(line);
+		line = get_next_line(0);
+	}
+	free (line);
+	close(node->fd);
+	node->fd = open(".hdoc", O_RDONLY, 0644);
+	dup2(node->fd, STDIN_FILENO);
+	close (node->fd);
+//	close_hdoc(node);
+}
+
 
 void	files_and_dups(t_redir *node, int has_cmd)
 {
+	dprintf(2, "we really out here duping boii\n");
 	if (node->redir_type == 4)
 		node->fd = open(node->str, O_CREAT | O_APPEND | O_RDWR, 0644);
 	else if (node->redir_type != 1)
@@ -69,12 +102,13 @@ void	redirs_iteration(t_redir **redirs, int has_cmd)
 	{
 		if (temp->redir_type != 2)
 		{
+			dprintf(2, "no hdoc yet\n");
 			vibe_check(temp);
 			files_and_dups(temp, has_cmd);
 		}
 		else
-			printf("voi vittu!\n");
-//			heredoc_shit(temp);
+			create_hdoc(temp);
+//			printf("voi vittu!\n");
 		temp = temp->next;
 	}
 }

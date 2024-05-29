@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/27 11:18:50 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/30 02:11:52 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ void	store_original_fds(t_args *args);
 void	restore_fds(t_args *args);
 void	fd_routine_no_cmd(t_args *args);
 void	run_builtin(t_args *args);
-void	baboon_free(char **stackarr);
 char	*prep_tokenizer(char *arglist, int redir_count);
 void	free_redirs(t_redir **redirs);
+void	create_hdoc(t_redir *node);
 #endif

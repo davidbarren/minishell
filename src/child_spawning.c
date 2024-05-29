@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:56:38 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/24 13:54:48 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/30 02:36:00 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void	restore_fds(t_args *args)
 {
 	dup2(args->original_stdin, STDIN_FILENO);
+	close(args->original_stdin);
 	dup2(args->original_stdout, STDOUT_FILENO);
+	close(args->original_stdout);
 }
 
 void	check_empty_and_split(t_args *args)
@@ -41,16 +43,16 @@ void	prep_and_split_command(t_args *args)
 	if (!args->long_command)
 		return ;
 	check_empty_and_split(args);
-	while (args->split_cmds[i])
-	{
-		if (args->is_empty)
-			args->split_cmds[i] = ft_strdup("");
-		if (args->split_cmds[i][0] == '\"' && !args->is_empty)
-			args->split_cmds[i] = trim_input(args->split_cmds[i], '\"');
-		else if (args->split_cmds[i][0] == '\'' && !args->is_empty)
-			args->split_cmds[i] = trim_input(args->split_cmds[i], '\'');
-		i++;
-	}
+//	while (args->split_cmds[i])
+//	{
+//		if (args->is_empty)
+//			args->split_cmds[i] = ft_strdup("");
+//		if (args->split_cmds[i][0] == '\"' && !args->is_empty)
+//			args->split_cmds[i] = trim_input(args->split_cmds[i], '\"');
+//		else if (args->split_cmds[i][0] == '\'' && !args->is_empty)
+//			args->split_cmds[i] = trim_input(args->split_cmds[i], '\'');
+//		i++;
+//	}
 	if (args->pipecount == 1 && args->is_builtin && args->long_command)
 		run_builtin(args);
 	if (!args->is_builtin && args->long_command)
@@ -94,7 +96,10 @@ void	exec_child_cmd(t_input *input)
 	if (!input->arg_struct[input->pid_index]->long_command)
 		flag = 0;
 	if (input->arg_struct[input->pid_index]->redir_count)
+	{
+		restore_fds(input->arg_struct[input->pid_index]);
 		redirs_iteration(input->arg_struct[input->pid_index]->redirects, flag);
+	}
 	if (!input->arg_struct[input->pid_index]->long_command)
 		return ;
 	if (input->arg_struct[input->pid_index]->is_builtin)

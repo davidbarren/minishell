@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/27 12:48:34 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/29 08:04:43 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int argc, char **argv, char **envp)
 	(void) argc;
 	(void) argv;
 	envs = NULL;
-	printf("address of input:%p\n", &input);
+//	printf("address of input:%p\n", &input);
 	ft_bzero(&input, sizeof(t_input));
 	rl_bind_key('\t', rl_complete);
 	using_history();

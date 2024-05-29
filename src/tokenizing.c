@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/27 11:19:27 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/30 01:58:30 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,14 @@ void	prep_input(char *line, t_input *input)
 	{
 		input->input[i] = ft_strdup(temp[i]);
 		if (!ft_strnstr(input->input[i], "<<", ft_strlen(input->input[i])))
-			ft_expand(input->input, input->envlist); // expand is breaking tokens
+			ft_expand(input->input, input->envlist);
 		else
-			dprintf(2, "oi gewaldo hdoc found in prep input and shit not expanded\n");
+			dprintf(2, "hdoc found in prep input and shit not expanded\n");
 		i++;
 	}
 	free_2d(temp);
 	build_struct(input);
 	tokenize_input(input);
-//	dprintf(2, "address of input ptr:%p\n", input->input);
 	free_2d(input->input);
 	input->input = NULL;
 	if (input->pipe_count == 1 && input->arg_struct[0]->is_builtin)
@@ -78,12 +77,13 @@ void	tokenize_input(t_input *input)
 	i = 0;
 	while (i < input->pipe_count)
 	{
-		dprintf(2, "Hdoc status of struct at index:%d ... status:%d\n", i, input->arg_struct[i]->is_hdoc);
-		if (input->arg_struct[i]->is_hdoc)
-			dprintf(2," we out here with hdoc motherfucker!\n");
+//		if (input->arg_struct[i]->is_hdoc)
+//		{
+//			dprintf(2, " we out here with hdoc motherfucker!\n");
 //			 condition_hdoc(input->arg_struct[i]);
-		else
-			token_splitting(input->arg_struct[i]);
+//		}
+//		else
+		token_splitting(input->arg_struct[i]);
 		prep_and_split_command(input->arg_struct[i]);
 		i++;
 	}

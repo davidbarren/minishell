@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 01:01:28 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/27 11:18:27 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:40:47 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,3 @@ void	free_redirs(t_redir **redirs)
 	}
 	free(redirs);
 }
-

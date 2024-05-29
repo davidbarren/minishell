@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:44:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/27 10:22:53 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/30 02:57:43 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ char	*prep_tokenizer(char *arglist, int redir_count)
 	if (!ret)
 		return (NULL);
 	space_insertion(ret, arglist, 0, 0);
-//	free(arglist);
 	return (ret);
 }
 
@@ -100,7 +99,7 @@ void	token_splitting(t_args *args)
 	parsed_string = prep_tokenizer(args->arglist, args->redir_count);
 	free(args->arglist);
 	args->arglist = NULL;
-	tokenlist = ft_quotesplit(parsed_string, ' ');
+	tokenlist = ft_split_mod(parsed_string, ' ');
 	free(parsed_string);
 	args->token_count = ft_arrlen(tokenlist);
 	if (args->redir_count)
@@ -112,8 +111,7 @@ void	token_splitting(t_args *args)
 		temp = *args->redirects;
 		while (temp)
 		{
-			printf("filename in temp:%s\n withtype:%d\n",
-				temp->str, temp->redir_type);
+			dprintf(2, "redir node with filename:%s and type:%i\n",temp->str, temp->redir_type);
 			temp = temp->next;
 		}
 	}
