@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:25:49 by plang             #+#    #+#             */
-/*   Updated: 2024/05/28 17:16:22 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/29 16:07:45 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ void	ft_echo_clean(char **cmd_args)
 	while (cmd_args[i])
 	{
 		// printf("before echo  clean: %s\n", cmd_args[i]);
-		clean_echo_from_quotes(&cmd_args[i]);
+		//clean_echo_from_quotes(&cmd_args[i]);
 		// printf("after echo clean: %s\n", cmd_args[i]);
-
+		clean_expand_quotes(&cmd_args[i]);
 		i++;
 	}
 }

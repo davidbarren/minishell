@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/27 11:18:50 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/29 18:15:25 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,4 +182,6 @@ void	baboon_free(char **stackarr);
 int		quote_count(char *str, char c);
 char	*prep_tokenizer(char *arglist, int redir_count);
 void	free_redirs(t_redir **redirs);
+void	clean_expand_quotes(char **str);
+void	clean_echo_from_quotes(char **str);
 #endif

@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:17:42 by plang             #+#    #+#             */
-/*   Updated: 2024/05/28 16:23:01 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/29 16:43:52 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,8 @@ char	**ft_free(char **strings)
 
 void	ft_get_start(char **s, char c)
 {
-	printf("position on string: %c\n", **s);
-	printf("in get start: %s\n", (*s));
 	while (**s && **s == c)
 	{
-		printf("looping\n");
 		(*s)++;
 	}
 }
@@ -79,7 +76,7 @@ int	get_str_count(char *str)
 		count++;
 		while (*str != ' ' && *str)
 		{
-			if ((*str == '"' || *str == '\'') && (quote_count(str, *str) % 2 == 0))
+			if ((*str == '"' || *str == '\'')) //&& (quote_count(str, *str) % 2 == 0))
 			{
 				temp = *str;
 				str++;
