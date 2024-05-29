@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:56:38 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/28 10:38:47 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/28 16:16:03 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ void	check_empty_and_split(t_args *args)
 		args->split_cmds = ft_split(args->long_command, '\"');
 	else
 		args->split_cmds = ft_split_mod(args->long_command, ' ');
+	int	k = 0;
+	while (args->split_cmds[k])
+	{
+		printf("in child spawn after split: %s\n", args->split_cmds[k]);
+		k++;
+	}
 	args->is_builtin = flag_for_builtin(args->split_cmds);
 }
 

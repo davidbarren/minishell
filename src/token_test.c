@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:44:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/27 10:22:53 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/28 14:59:47 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,9 @@ void	token_splitting(t_args *args)
 	parsed_string = prep_tokenizer(args->arglist, args->redir_count);
 	free(args->arglist);
 	args->arglist = NULL;
-	tokenlist = ft_quotesplit(parsed_string, ' '); // might need to be changed to split_mod, let's check it out :)
+	// printf("before qsplit in token split: %s\n", parsed_string);
+	// tokenlist = ft_quotesplit(parsed_string, ' ');
+	tokenlist = ft_split_mod(parsed_string, ' '); // might need to be changed to split_mod, let's check it out :)
 	free(parsed_string);
 	args->token_count = ft_arrlen(tokenlist);
 	if (args->redir_count)

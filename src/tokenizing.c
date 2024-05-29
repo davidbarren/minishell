@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/27 11:19:27 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/28 14:59:54 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	tokenize_input(t_input *input)
 	i = 0;
 	while (i < input->pipe_count)
 	{
-		dprintf(2, "Hdoc status of struct at index:%d ... status:%d\n", i, input->arg_struct[i]->is_hdoc);
+		// dprintf(2, "Hdoc status of struct at index:%d ... status:%d\n", i, input->arg_struct[i]->is_hdoc);
 		if (input->arg_struct[i]->is_hdoc)
 			dprintf(2," we out here with hdoc motherfucker!\n");
 //			 condition_hdoc(input->arg_struct[i]);
