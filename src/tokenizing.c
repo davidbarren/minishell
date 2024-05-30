@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/30 01:58:30 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/30 11:59:35 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	prep_input(char *line, t_input *input)
 	while (temp[i])
 	{
 		input->input[i] = ft_strdup(temp[i]);
-		if (!ft_strnstr(input->input[i], "<<", ft_strlen(input->input[i])))
+		if (!ft_strnstr(input->input[i], "<<", ft_strlen(input->input[i]))) // temp fix with strnstr in case someone passes << as arg for cmd
 			ft_expand(input->input, input->envlist);
 		else
 			dprintf(2, "hdoc found in prep input and shit not expanded\n");
