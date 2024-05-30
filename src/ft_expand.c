@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 13:43:48 by plang             #+#    #+#             */
-/*   Updated: 2024/05/29 18:26:15 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/30 11:48:32 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ char	*is_expansion_valid(t_env **envs, char *arg, int i)
 		}
 		temp = temp->next;
 	}
+	free(check);
 	check = rest;
 	return (check);
 }
@@ -215,6 +216,8 @@ char	*get_beginning(char *str)
 	i = 0;
 	while (str[i] != '$' && str[i])
 		i++;
+	dprintf(2, "value of i before substr:%d\n", i);
+	dprintf(2, "value of str before substr:%s\n", str);
 	beginning = ft_substr(str, 0, i);
 	if (!beginning)
 		return (NULL);
@@ -236,7 +239,7 @@ void	expand_check_arguments(t_env **envs, char **arg, int eflag)
 	// if (ft_strchr(*arg, '$') && eflag == 0)
 	// 	clean_expand_quotes(arg);
 	dprintf(2, "in eca :%s\n", (*arg));
-	if ((*arg)[0] != '$' && ft_strchr((*arg), '$'))
+	if ((*arg)[0] != '$' && ft_strchr((*arg), '$') && qflag < 2)
 	{
 		beginning = get_beginning((*arg));
 		printf("begin: %s\n", beginning);
@@ -255,7 +258,7 @@ void	expand_check_arguments(t_env **envs, char **arg, int eflag)
 			else
 				*arg = expanded;
 			if (beginning)
-				*arg = ft_strjoin_flex(beginning, expanded, 2);
+				*arg = ft_strjoin_flex(beginning, expanded, 3);
 			break ;
 		}
 		i++;

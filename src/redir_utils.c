@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:44:23 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/30 02:57:41 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/30 13:26:35 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	create_hdoc(t_redir *node)
 	node->fd = open(".hdoc", O_RDONLY, 0644);
 	dup2(node->fd, STDIN_FILENO);
 	close (node->fd);
+	unlink(".hdoc");
 //	close_hdoc(node);
 }
 
