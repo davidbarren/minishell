@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:05:53 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/26 13:05:08 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:39:47 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	update_hdoc_status(t_args *args)
 		}
 	}
 }
+
 char	*ft_strndup(char *str, size_t n, int flag)
 {
 	size_t	len;
