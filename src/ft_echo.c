@@ -6,13 +6,13 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:25:49 by plang             #+#    #+#             */
-/*   Updated: 2024/05/30 16:06:04 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/30 23:39:20 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	clean_echo_from_quotes(char **str)
+void	clean_echo_from_quotes(char *str)
 {
 	char	*copy;
 	char	*start;
@@ -22,20 +22,20 @@ void	clean_echo_from_quotes(char **str)
 
 	i = 0;
 	c = 0;
-	copy = ft_strdup(*str);
+	copy = ft_strdup(str);
 	if (!copy)
 		return ;
 	start = copy;
-	printf("string in clean echo: %s\n", *str);
+//	printf("string in clean echo: %s\n", *str);
 	while (*copy)
 	{
 		if (*copy == '"' || *copy == '\'')
 		{
 			c = *copy;
-			flag = quote_count((*str), c);
+			flag = quote_count((str), c);
 			if (flag && copy[ft_strlen(copy) - 1] != c)
 			{
-				(*str)[i++] = *copy;
+				(str)[i++] = *copy;
 				c = 0;
 			}
 			if(copy[ft_strlen(copy) - 1] == c)
@@ -43,17 +43,17 @@ void	clean_echo_from_quotes(char **str)
 				copy++;
 				while (*copy != c && *copy)
 				{
-					(*str)[i++] = *copy;
+					(str)[i++] = *copy;
 					copy++;
 				}
 			}
 			c = 0;
 		}
 		if (*copy != '"' && *copy != '\'' && c == 0)
-			(*str)[i++] = *copy;
+			(str)[i++] = *copy;
 		copy++;
 	}
-	(*str)[i] = 0;
+	(str)[i] = 0;
 	free(start);
 }
 
@@ -65,7 +65,7 @@ void	ft_echo_clean(char **cmd_args)
 	while (cmd_args[i])
 	{
 		// printf("before echo  clean: %s\n", cmd_args[i]);
-		clean_echo_from_quotes(&cmd_args[i]);
+		clean_echo_from_quotes(cmd_args[i]);
 		// printf("after echo clean: %s\n", cmd_args[i]);
 //		clean_expand_quotes(&cmd_args[i]);
 		i++;
