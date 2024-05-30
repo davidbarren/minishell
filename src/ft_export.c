@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:54:49 by plang             #+#    #+#             */
-/*   Updated: 2024/05/13 18:01:03 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/30 17:29:30 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,9 @@ int	ft_export(t_env **envs, char **cmd_args)
 	int		i;
 
 	temp = *envs;
+	int k = 0;
+	while (cmd_args[k])
+		dprintf(2, "contents of cmd args:%s\n", cmd_args[k++]);
 	ft_export_clean(cmd_args);
 	if (!cmd_args[1] && export_no_args(envs))
 		return (0); //EXIT_SUCCESS

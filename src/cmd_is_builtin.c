@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 18:03:25 by plang             #+#    #+#             */
-/*   Updated: 2024/05/24 00:42:56 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/30 23:35:55 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_strcmp_up_lo(char *s1, char *s2)
 }
 
 int	cmd_is_builtin(t_env **envs, char **args)
-{
+{	
 	if (ft_strcmp_up_lo("pwd", args[0]) == 0)
 		return (ft_pwd());
 	if (ft_strcmp_up_lo("echo", args[0]) == 0)

@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/29 18:15:25 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/30 16:15:20 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_args
 	char			**split_cmds;
 	int				index;
 	int				is_empty;
+	int				is_echo;
 	char			*tokenized_args;
 	char			*long_command;
 	int				redir_count;
