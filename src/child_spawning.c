@@ -23,11 +23,9 @@ void	restore_fds(t_args *args)
 
 int		cmd_is_echo(char *str)
 {
-	if (!str)
-		return (0);
-	if (ft_strcmp_up_lo("echo", str))
-		return (0);
-	return (1);
+	if (ft_strcmp_up_lo(str, "echo"))
+		return 0;
+	return 1;
 }
 
 void	check_empty_and_split(t_args *args)
@@ -45,7 +43,11 @@ void	check_empty_and_split(t_args *args)
 	while (args->split_cmds[i] && !args->is_echo)
 	{	
 		dprintf(2, "content of split cmds before trim:%s\n", args->split_cmds[i]);
-		clean_echo_from_quotes(args->split_cmds[i]);
+//		if (*args->split_cmds[i] == '\'')
+//			args->split_cmds[i] = trim_input(args->split_cmds[i], '\'');
+//		else if (*args->split_cmds[i] == '\"')
+			clean_echo_from_quotes(&args->split_cmds[i]);
+//			args->split_cmds[i] = trim_input(args->split_cmds[i], '\"');
 		dprintf(2, "content of split cmds after trim:%s\n", args->split_cmds[i]);
 		i++;
 	}
@@ -57,9 +59,21 @@ void	prep_and_split_command(t_args *args)
 	int	i;
 
 	i = 0;
+//	dprintf(2, "content of long cmd:%s\n", args->long_command);
 	if (!args->long_command)
 		return ;
 	check_empty_and_split(args);
+	dprintf(2," about to enter is builtin check for trimming\n");
+	dprintf(2," status of is echo:%d\n", args->is_echo);
+//	while (args->split_cmds[i] && !args->is_echo)
+//	{	
+//		dprintf(2, "content of split cmds before trim:%s\n", args->split_cmds[i]);
+//		args->split_cmds[i] = trim_input(args->split_cmds[i], '"');
+//	 //	ft_strtrim(args->split_cmds[i], "\"");
+//		dprintf(2, "content of split cmds after trim:%s\n", args->split_cmds[i]);
+//		i++;
+//	}
+  // quotes should be trimmed here
 	if (args->pipecount == 1 && args->is_builtin && args->long_command)
 		run_builtin(args);
 	if (!args->is_builtin && args->long_command)
@@ -118,10 +132,10 @@ void	exec_child_cmd(t_input *input)
 	}
 	if (input->arg_struct[input->pid_index]->split_cmds[0])
 	{
-		dprintf(2, "execpath:%s\n", input->arg_struct[input->pid_index]->execpath);
+//		dprintf(2,"path sent to execve:%s\n",input->arg_struct[input->pid_index]->execpath);
 //		int k = 0;
 //		while (input->arg_struct[input->pid_index]->split_cmds[k])
-//			dprintf(2, "split cmds content:%s\n", input->arg_struct[input->pid_index]->split_cmds[k++]);
+//			dprintf(2,"split cmds sent to execve:%s\n",input->arg_struct[input->pid_index]->split_cmds[k++]);
 		execve(input->arg_struct[input->pid_index]->execpath,
 			input->arg_struct[input->pid_index]->split_cmds,
 			input->arg_struct[input->pid_index]->envcpy);

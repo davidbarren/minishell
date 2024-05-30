@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 13:43:48 by plang             #+#    #+#             */
-/*   Updated: 2024/05/31 01:23:45 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/30 23:35:38 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	get_part_len(char *str, int i)
 	return (len);
 }
 
-void	clean_expand_quotes(char *str)
+void	clean_expand_quotes(char **str)
 {
 	char	*copy;
 	char	*start;
@@ -110,7 +110,7 @@ void	clean_expand_quotes(char *str)
 
 	i = 0;
 	c = 0;
-	copy = ft_strdup(str);
+	copy = ft_strdup(*str);
 	if (!copy)
 		return ;
 	start = copy;
@@ -122,15 +122,15 @@ void	clean_expand_quotes(char *str)
 			j++;
 			while (copy[j] != c && copy[j])
 			{
-				(str)[i++] = copy[j];
+				(*str)[i++] = copy[j];
 				j++;
 			}
 		}
 		else if (copy[j] != '"' && copy[j] != '\'')
-			(str)[i++] = copy[j];
+			(*str)[i++] = copy[j];
 		j++;
 	}
-	(str)[i] = '\0';
+	(*str)[i] = '\0';
 	free(start);
 }
 
@@ -254,7 +254,7 @@ void	expand_check_arguments(t_env **envs, char **arg, int eflag)
 // but NULL breaks expansion of multiple env variables 
 // EMPTY STRING BREAKS ERROR MSGS
 
-void	expand_and_join(t_env **envs, char *split_cmds, char **part_array)
+void	expand_and_join(t_env **envs, char **split_cmds, char **part_array)
 {
 	int	j;
 	int	eflag;
@@ -270,11 +270,11 @@ void	expand_and_join(t_env **envs, char *split_cmds, char **part_array)
 		j++;
 	}
 	j = 0;
-	free(split_cmds);
-	split_cmds = part_array[j];
+	free(*split_cmds);
+	*split_cmds = part_array[j];
 	while (part_array[j + 1] != NULL)
 	{
-		(split_cmds) = ft_strjoin_flex(split_cmds, part_array[j + 1], 3);
+		(*split_cmds) = ft_strjoin_flex(*split_cmds, part_array[j + 1], 3);
 		j++;
 	}
 	dprintf(2,"value of eflag:%d\n", eflag);
@@ -283,7 +283,7 @@ void	expand_and_join(t_env **envs, char *split_cmds, char **part_array)
 	free(part_array);
 }
 
-void	find_expansion(t_env **envs, char *split_cmds)
+void	find_expansion(t_env **envs, char **split_cmds)
 {
 	int		parts;
 	char	**part_array;
@@ -294,14 +294,14 @@ void	find_expansion(t_env **envs, char *split_cmds)
 	j = 0;
 	start = 0;
 	//clean_echo_from_quotes(split_cmds);
-	parts = how_many_parts(split_cmds);
+	parts = how_many_parts(*split_cmds);
 	part_array = malloc((parts + 1) * sizeof(char *));
 	if (!part_array)
 		return ;
 	while (parts > j)
 	{
-		len = get_part_len(split_cmds, start);
-		part_array[j] = ft_substr(split_cmds, start, len);
+		len = get_part_len(*split_cmds, start);
+		part_array[j] = ft_substr(*split_cmds, start, len);
 		start += ft_strlen(part_array[j]);
 		j++;
 	}
@@ -317,7 +317,7 @@ void	ft_expand(char **split_cmds, t_env **envlist)
 	while (split_cmds[j] != NULL)
 	{
 		if (ft_strchr(split_cmds[j], '$'))
-			find_expansion(envlist, split_cmds[j]);
+			find_expansion(envlist, &split_cmds[j]);
 		j++;
 	}
 }
