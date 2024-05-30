@@ -7,6 +7,7 @@
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:56:38 by dbarrene          #+#    #+#             */
 /*   Updated: 2024/05/30 02:36:00 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/28 16:16:03 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +32,12 @@ void	check_empty_and_split(t_args *args)
 		args->split_cmds = ft_split(args->long_command, '\"');
 	else
 		args->split_cmds = ft_split_mod(args->long_command, ' ');
+	int	k = 0;
+	while (args->split_cmds[k])
+	{
+		printf("in child spawn after split: %s\n", args->split_cmds[k]);
+		k++;
+	}
 	args->is_builtin = flag_for_builtin(args->split_cmds);
 }
 
@@ -43,16 +50,7 @@ void	prep_and_split_command(t_args *args)
 	if (!args->long_command)
 		return ;
 	check_empty_and_split(args);
-//	while (args->split_cmds[i])
-//	{
-//		if (args->is_empty)
-//			args->split_cmds[i] = ft_strdup("");
-//		if (args->split_cmds[i][0] == '\"' && !args->is_empty)
-//			args->split_cmds[i] = trim_input(args->split_cmds[i], '\"');
-//		else if (args->split_cmds[i][0] == '\'' && !args->is_empty)
-//			args->split_cmds[i] = trim_input(args->split_cmds[i], '\'');
-//		i++;
-//	}
+  // quotes should be trimmed here
 	if (args->pipecount == 1 && args->is_builtin && args->long_command)
 		run_builtin(args);
 	if (!args->is_builtin && args->long_command)

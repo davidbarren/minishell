@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   token_test.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:44:54 by dbarrene          #+#    #+#             */
 /*   Updated: 2024/05/30 02:57:43 by dbarrene         ###   ########.fr       */
@@ -100,6 +100,7 @@ void	token_splitting(t_args *args)
 	free(args->arglist);
 	args->arglist = NULL;
 	tokenlist = ft_split_mod(parsed_string, ' ');
+
 	free(parsed_string);
 	args->token_count = ft_arrlen(tokenlist);
 	if (args->redir_count)

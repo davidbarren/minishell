@@ -6,41 +6,59 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:06:11 by plang             #+#    #+#             */
-/*   Updated: 2024/05/10 14:38:09 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/29 15:03:41 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-static void	ft_skip_quotes(char **str)
+void	skipping_through_quotes(char *str, int *i)
 {
-	char	c;
+	char	temp;
 
-	c = **str;
-	(*str)++;
-	while (**str && **str != c)
+	temp = 0;
+	if ((str[*i] == '"' || str[*i] == '\'') && str[*i + 1] != '\0')
 	{
-		(*str)++;
+		temp = str[*i];
+		*i += 1;
+		while (str[*i] != temp && str[*i] != '\0')
+			*i += 1;
 	}
 }
 
 int	valid_pipes(char *str)
 {
+	int	i;
+
+	i = 0;
+	printf("in valid p: %s\n", str);
+	// while (str[i] == ' ' && str[i])
+	// 	i++;
 	ft_skip_chars(&str, ' ');
-	if (*str == '|')
+	if (str[i] == '|')
 		return (3);
-	while (*str != '\0')
+	while (str[i] != '\0')
 	{
-		if (*str == '"' || *str == '\'')
-			ft_skip_quotes(&str);
-		if (*str == '|')
+		while (str[i] == ' ' && str[i + 1] != '\0')
+			i++;
+		if (str[i] == '"' || str[i] == '\'')
+			skipping_through_quotes(str, &i);
+		if (str[i] == '|')
 		{
-			str++;
-			ft_skip_chars(&str, ' ');
-			if (*str == '\0' || *str == '|')
+			i++;
+			while (str[i] == ' ')
+				i++;
+			if (str[i] == '\0')
 				return (3);
+			while (str[i] == ' ')
+				i++;
+			if (str[i] == '|')
+				return (3);
+		if (str[i] == '"' || str[i] == '\'')
+			skipping_through_quotes(str, &i);
 		}
-		str++;
+		if (str[i] != '\0')
+			i++;
 	}
 	return (0);
 }

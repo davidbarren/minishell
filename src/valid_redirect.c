@@ -6,25 +6,25 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:47:32 by plang             #+#    #+#             */
-/*   Updated: 2024/05/13 13:40:25 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/24 17:00:12 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	skipping_through_quotes(char *str, int *i)
-{
-	char	temp;
+// void	skipping_through_quotes(char *str, int *i)
+// {
+// 	char	temp;
 
-	temp = 0;
-	if (str[*i] == '"' || str[*i] == '\'')
-	{
-		temp = str[*i];
-		*i += 1;
-		while (str[*i] != temp && str[*i] != '\0')
-			*i += 1;
-	}
-}
+// 	temp = 0;
+// 	if (str[*i] == '"' || str[*i] == '\'')
+// 	{
+// 		temp = str[*i];
+// 		*i += 1;
+// 		while (str[*i] != temp && str[*i] != '\0')
+// 			*i += 1;
+// 	}
+// }
 
 int	we_have_redirect(char *str, int *i)
 {

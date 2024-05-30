@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 13:43:48 by plang             #+#    #+#             */
-/*   Updated: 2024/05/27 11:12:34 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/29 18:26:15 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,30 @@ int	how_many_parts(char *str)
 				i++;
 			parts++;
 		}
+		if (str[i] == '>' || str[i] == '<')
+		{
+			temp = str[i];
+			i++;
+			while (str[i] != temp && str[i + 1] != '\0')
+				i++;
+			parts++;
+		}
+		if (str[i] == '$' && (str[i + 1] == ' '|| str[i + 1] == '\0'))
+			parts++;
 		i++;
 	}
-	dprintf(2, "value of parts in ft_expand:%d\n", parts);
-	return (parts + 1); // parts + 1 is added but baboonfix, hope it didnt
-						// break errythang!
+	dprintf(2, "parts: %d\n", parts);
+	return (parts);
 }
 
-int	get_part_len(char *str, int i)//, int *wordstart
+int	get_part_len(char *str, int i)
 {
 	int		len;
 	char	c;
 
 	len = 0;
 	c = 0;
+	printf("str in get part len: %s\n", str);
 	if (str[i] == ' ')
 	{
 		while (str[i] == ' ')
@@ -63,13 +73,18 @@ int	get_part_len(char *str, int i)//, int *wordstart
 		}
 		return (len);
 	}
-	// while (str[i] == ' ')
-	// {
-	// 	i++;
-	// 	(*wordstart)++;
-	// }
+	if (str[i] == '$' && (str[i + 1] == ' '|| str[i + 1] == '\0'))
+	{
+		i++;
+		return (1);
+	}
 	if (!ft_isalnum(str[i]) && str[i] != 0)
 	{
+		if (str[i] == '$')
+		{
+			i++;
+			len++;
+		}
 		if (str[i] == '"' || str[i] == '\'')
 			c = str[i];
 		i++;
@@ -93,6 +108,7 @@ void	clean_expand_quotes(char **str)
 	char	*start;
 	int		i;
 	char	c;
+	int		j = 0;
 
 	i = 0;
 	c = 0;
@@ -100,21 +116,24 @@ void	clean_expand_quotes(char **str)
 	if (!copy)
 		return ;
 	start = copy;
-	while (*copy)
+	printf("str: %s\n", *str);
+	printf("copy str: %s\n", copy);
+	while (copy[j])
 	{
-		if (*copy == '"' || *copy == '\'')
+		printf("char in exp clean: %c\n", copy[j]);
+		if (copy[j] == '"' || copy[j] == '\'')
 		{
-			c = *copy;
-			copy++;
-			while (*copy != c && *copy)
+			c = copy[j];
+			j++;
+			while (copy[j] != c && copy[j])
 			{
-				(*str)[i++] = *copy;
-				copy++;
+				(*str)[i++] = copy[j];
+				j++;
 			}
 		}
-		else if (*copy != '"' && *copy != '\'')
-			(*str)[i++] = *copy;
-		copy++;
+		else if (copy[j] != '"' && copy[j] != '\'')
+			(*str)[i++] = copy[j];
+		j++;
 	}
 	(*str)[i] = '\0';
 	free(start);
@@ -134,27 +153,34 @@ char	*is_expansion_valid(t_env **envs, char *arg, int i)
 	int		len;
 	int		start;
 	t_env	*temp;
+	char	*rest;
 
 	len = 0;
 	start = i;
 	temp = *envs;
+	dprintf(2, "str before check:%s\n", arg);
 	while (arg[i] != '\0' && ft_isalpha(arg[i]))
 	{
 		len++;
 		i++;
 	}
 	check = ft_substr(arg, start, len);
+	rest = ft_substr(arg, i, (ft_strlen(arg) - i));
+	dprintf(2, "content of check:%s\n", check);
+	dprintf(2, "content of rest:%s\n", rest);
 	while (temp != NULL)
 	{
 		if (!ft_strcmp(temp->title, check))
 		{
 			free(check);
 			check = expand_key(temp);
+			check = ft_strjoin_flex(check, rest, 3);
 			return (check);
 		}
 		temp = temp->next;
 	}
-	return (NULL);
+	check = rest;
+	return (check);
 }
 
 int	get_qflag(char *arg)
@@ -181,29 +207,55 @@ int	get_qflag(char *arg)
 	return (flag);
 }
 
-void	expand_check_arguments(t_env **envs, char **arg)
+char	*get_beginning(char *str)
+{
+	int		i;
+	char	*beginning;
+
+	i = 0;
+	while (str[i] != '$' && str[i])
+		i++;
+	beginning = ft_substr(str, 0, i);
+	if (!beginning)
+		return (NULL);
+	return (beginning);
+}
+
+void	expand_check_arguments(t_env **envs, char **arg, int eflag)
 {
 	int		i;
 	char	*expanded;
 	int		qflag;
-	int		j;
+	char	*beginning;
 
+	eflag = 0;
 	i = 0;
-	j = 0;
 	qflag = get_qflag(*arg);
-	if (ft_strchr(*arg, '$'))
-		clean_expand_quotes(arg);
+	beginning = 0;
+	// printf("eflag: %d\n", eflag);
+	// if (ft_strchr(*arg, '$') && eflag == 0)
+	// 	clean_expand_quotes(arg);
+	dprintf(2, "in eca :%s\n", (*arg));
+	if ((*arg)[0] != '$' && ft_strchr((*arg), '$'))
+	{
+		beginning = get_beginning((*arg));
+		printf("begin: %s\n", beginning);
+	}
 	while ((*arg)[i] != '\0')
 	{
-		if ((*arg)[i] == '$' && qflag < 2)
+		if ((*arg)[i] == '$' && qflag < 2  && (*arg)[i + 1] != '\0')
 		{
-			i++;
+			if ((*arg)[i + 1] != ' ')
+				i++;
 			expanded = is_expansion_valid(envs, *arg, i);
 			free(*arg);
+			dprintf(2, "Expand: %s\n", expanded);
 			if (!expanded)
 				*arg = ft_strdup("");// = NULL;
 			else
 				*arg = expanded;
+			if (beginning)
+				*arg = ft_strjoin_flex(beginning, expanded, 2);
 			break ;
 		}
 		i++;
@@ -215,11 +267,16 @@ void	expand_check_arguments(t_env **envs, char **arg)
 void	expand_and_join(t_env **envs, char **split_cmds, char **part_array)
 {
 	int	j;
+	int	eflag;
 
 	j = 0;
+	eflag = 0;
 	while (part_array[j] != NULL)
 	{
-		expand_check_arguments(envs, &part_array[j]);
+		printf("str before exp check arg: %s\n", part_array[j]);
+		if ((ft_strcmp_up_lo("echo", part_array[0]) == 0))
+			eflag = 1;
+		expand_check_arguments(envs, &part_array[j], eflag);
 		j++;
 	}
 	j = 0;
@@ -227,13 +284,14 @@ void	expand_and_join(t_env **envs, char **split_cmds, char **part_array)
 	*split_cmds = part_array[j];
 	while (part_array[j + 1] != NULL)
 	{
-		// clean_expand_quotes(split_cmds);
 		(*split_cmds) = ft_strjoin_flex(*split_cmds, part_array[j + 1], 3);
 		j++;
 	}
+	printf("eflag: %d\n", eflag);
+	if (eflag == 0)
+		clean_expand_quotes(split_cmds);
 	free(part_array);
 }
-//ft_strjoin_flex(on part_array);
 
 void	find_expansion(t_env **envs, char **split_cmds)
 {
@@ -245,13 +303,15 @@ void	find_expansion(t_env **envs, char **split_cmds)
 
 	j = 0;
 	start = 0;
+	//clean_echo_from_quotes(split_cmds);
 	parts = how_many_parts(*split_cmds);
 	part_array = malloc((parts + 1) * sizeof(char *));
 	if (!part_array)
 		return ;
 	while (parts > j)
 	{
-		len = get_part_len(*split_cmds, start);//, &k
+		len = get_part_len(*split_cmds, start);
+		dprintf(2, "len: %d\n", len);
 		part_array[j] = ft_substr(*split_cmds, start, len);
 		start += ft_strlen(part_array[j]);
 		j++;

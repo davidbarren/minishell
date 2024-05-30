@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 10:17:25 by plang             #+#    #+#             */
-/*   Updated: 2024/05/10 14:38:39 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/28 15:28:53 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	quote_count(char *str, char c)
 
 	i = 0;
 	k = 0;
+	// printf("in quoteC: %s\n", str);
 	while (str[i] != '\0')
 	{
 		if (str[i] == c)

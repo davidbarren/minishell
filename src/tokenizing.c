@@ -77,9 +77,9 @@ void	tokenize_input(t_input *input)
 	i = 0;
 	while (i < input->pipe_count)
 	{
-//		if (input->arg_struct[i]->is_hdoc)
-//		{
-//			dprintf(2, " we out here with hdoc motherfucker!\n");
+		// dprintf(2, "Hdoc status of struct at index:%d ... status:%d\n", i, input->arg_struct[i]->is_hdoc);
+		if (input->arg_struct[i]->is_hdoc)
+			dprintf(2," we out here with hdoc motherfucker!\n");
 //			 condition_hdoc(input->arg_struct[i]);
 //		}
 //		else
