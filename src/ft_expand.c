@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 13:43:48 by plang             #+#    #+#             */
-/*   Updated: 2024/05/31 17:02:51 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/31 17:11:13 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	how_many_parts(char *str)
 	return (parts);
 }
 
-//added parts++ if $, we need to run tests, also str[i] == '='
+//added parts++ if $, we need to run tests, also str[i] == '=', len and parts are so so but works for now. need to fix if:s
 
 int	get_part_len(char *str, int i)
 {
