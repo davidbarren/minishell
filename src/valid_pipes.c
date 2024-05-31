@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:06:11 by plang             #+#    #+#             */
-/*   Updated: 2024/05/29 15:03:41 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/31 10:34:44 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	valid_pipes(char *str)
 	int	i;
 
 	i = 0;
-	printf("in valid p: %s\n", str);
+	// printf("in valid p: %s\n", str);
 	// while (str[i] == ' ' && str[i])
 	// 	i++;
 	ft_skip_chars(&str, ' ');
