@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:17:42 by plang             #+#    #+#             */
-/*   Updated: 2024/05/29 16:43:52 by plang            ###   ########.fr       */
+/*   Updated: 2024/05/30 13:46:57 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	get_str_count(char *str)
 		count++;
 		while (*str != ' ' && *str)
 		{
-			if ((*str == '"' || *str == '\'')) //&& (quote_count(str, *str) % 2 == 0))
+			if ((*str == '"' || *str == '\'') && (quote_count(str, *str) % 2 == 0))
 			{
 				temp = *str;
 				str++;

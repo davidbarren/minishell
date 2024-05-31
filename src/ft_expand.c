@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 13:43:48 by plang             #+#    #+#             */
-/*   Updated: 2024/05/30 11:48:32 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/31 17:02:51 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,11 @@ int	how_many_parts(char *str)
 			temp = str[i];
 			i++;
 			while (str[i] != temp && str[i + 1] != '\0')
+			{
+				if (str[i] == '$')
+					parts++;
 				i++;
+			}
 			parts++;
 		}
 		if (str[i] == '>' || str[i] == '<')
@@ -50,11 +54,15 @@ int	how_many_parts(char *str)
 		}
 		if (str[i] == '$' && (str[i + 1] == ' '|| str[i + 1] == '\0'))
 			parts++;
+		if (str[i] == '=')
+			parts++;
 		i++;
 	}
 	dprintf(2, "parts: %d\n", parts);
 	return (parts);
 }
+
+//added parts++ if $, we need to run tests, also str[i] == '='
 
 int	get_part_len(char *str, int i)
 {
@@ -63,7 +71,7 @@ int	get_part_len(char *str, int i)
 
 	len = 0;
 	c = 0;
-	printf("str in get part len: %s\n", str);
+	// printf("str in get part len: %s\n", str);
 	if (str[i] == ' ')
 	{
 		while (str[i] == ' ')
@@ -96,6 +104,8 @@ int	get_part_len(char *str, int i)
 			return (len);
 		if (c && str[i] == c)
 			return (len + 1);
+		else if (c && str[i] == '$' && str[i - 1] != c)
+			return (len);
 		i++;
 		len++;
 	}
@@ -120,7 +130,6 @@ void	clean_expand_quotes(char **str)
 	printf("copy str: %s\n", copy);
 	while (copy[j])
 	{
-		printf("char in exp clean: %c\n", copy[j]);
 		if (copy[j] == '"' || copy[j] == '\'')
 		{
 			c = copy[j];
@@ -235,7 +244,7 @@ void	expand_check_arguments(t_env **envs, char **arg, int eflag)
 	i = 0;
 	qflag = get_qflag(*arg);
 	beginning = 0;
-	// printf("eflag: %d\n", eflag);
+	printf("qflag: %d\n", qflag);
 	// if (ft_strchr(*arg, '$') && eflag == 0)
 	// 	clean_expand_quotes(arg);
 	dprintf(2, "in eca :%s\n", (*arg));
@@ -306,6 +315,7 @@ void	find_expansion(t_env **envs, char **split_cmds)
 
 	j = 0;
 	start = 0;
+	// clean_expand_quotes(split_cmds);
 	//clean_echo_from_quotes(split_cmds);
 	parts = how_many_parts(*split_cmds);
 	part_array = malloc((parts + 1) * sizeof(char *));
