@@ -6,11 +6,26 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 13:43:48 by plang             #+#    #+#             */
-/*   Updated: 2024/05/31 17:11:13 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/03 15:34:23 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	env_count_in_quotes(char *str, char c, int i)
+{
+	int	env_c;
+
+	env_c = 0;
+	printf("string index in wnv count i quotes %c\n", str[i]);
+	while (str[i] != c && str[i])
+	{
+		if (str[i] == '$' && str[i + 1] != ' ')
+			env_c++;
+		i++;
+	}
+	return (env_c);
+}
 
 int	how_many_parts(char *str)
 {
@@ -38,8 +53,8 @@ int	how_many_parts(char *str)
 			i++;
 			while (str[i] != temp && str[i + 1] != '\0')
 			{
-				if (str[i] == '$')
-					parts++;
+				// if (str[i] == '$' && quote_count(str, temp) % 2 == 0)
+				// 	parts++;
 				i++;
 			}
 			parts++;
@@ -100,12 +115,16 @@ int	get_part_len(char *str, int i)
 	}
 	while (str[i] != '\0')
 	{
+		// if (c && ft_isalnum(str[i]) && str[i + 1] == c)	
+		// 	return (len + 1);
 		if (!c && !ft_isalnum(str[i]))
 			return (len);
+		// if (str[i] == ' ')
+		// 	return (len);
 		if (c && str[i] == c)
 			return (len + 1);
-		else if (c && str[i] == '$' && str[i - 1] != c)
-			return (len);
+		// else if (c && str[i] == '$' && str[i - 1] != c)
+		// 	return (len);
 		i++;
 		len++;
 	}
@@ -233,14 +252,13 @@ char	*get_beginning(char *str)
 	return (beginning);
 }
 
-void	expand_check_arguments(t_env **envs, char **arg, int eflag)
+void	expand_check_arguments(t_env **envs, char **arg)
 {
 	int		i;
 	char	*expanded;
 	int		qflag;
 	char	*beginning;
 
-	eflag = 0;
 	i = 0;
 	qflag = get_qflag(*arg);
 	beginning = 0;
@@ -272,6 +290,8 @@ void	expand_check_arguments(t_env **envs, char **arg, int eflag)
 		}
 		i++;
 	}
+	if (ft_strchr(*arg, '$') && qflag < 2)
+		expand_check_arguments(envs, arg);
 }
 // but NULL breaks expansion of multiple env variables 
 // EMPTY STRING BREAKS ERROR MSGS
@@ -288,7 +308,8 @@ void	expand_and_join(t_env **envs, char **split_cmds, char **part_array)
 		printf("str before exp check arg: %s\n", part_array[j]);
 		if ((ft_strcmp_up_lo("echo", part_array[0]) == 0))
 			eflag = 1;
-		expand_check_arguments(envs, &part_array[j], eflag);
+		expand_check_arguments(envs, &part_array[j]);
+		printf("str after exp check arg: %s\n", part_array[j]);
 		j++;
 	}
 	j = 0;
@@ -300,8 +321,8 @@ void	expand_and_join(t_env **envs, char **split_cmds, char **part_array)
 		j++;
 	}
 	printf("eflag: %d\n", eflag);
-	if (eflag == 0)
-		clean_expand_quotes(split_cmds);
+	// if (eflag == 0)
+	// 	clean_expand_quotes(split_cmds);
 	free(part_array);
 }
 
@@ -340,6 +361,7 @@ void	ft_expand(char **split_cmds, t_env **envlist)
 	j = 0;
 	while (split_cmds[j] != NULL)
 	{
+		printf("split_cmd: %s\n", split_cmds[j]);
 		if (ft_strchr(split_cmds[j], '$'))
 			find_expansion(envlist, &split_cmds[j]);
 		j++;
