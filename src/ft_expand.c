@@ -37,7 +37,11 @@ int	how_many_parts(char *str)
 			temp = str[i];
 			i++;
 			while (str[i] != temp && str[i + 1] != '\0')
+			{
+				if (str[i] == '$')
+					parts++;
 				i++;
+			}
 			parts++;
 		}
 		if (str[i] == '>' || str[i] == '<')
@@ -50,10 +54,14 @@ int	how_many_parts(char *str)
 		}
 		if (str[i] == '$' && (str[i + 1] == ' '|| str[i + 1] == '\0'))
 			parts++;
+		if (str[i] == '=')
+			parts++;
 		i++;
 	}
 	return (parts + 1);
 }
+
+//added parts++ if $, we need to run tests, also str[i] == '=', len and parts are so so but works for now. need to fix if:s
 
 int	get_part_len(char *str, int i)
 {
@@ -94,6 +102,8 @@ int	get_part_len(char *str, int i)
 			return (len);
 		if (c && str[i] == c)
 			return (len + 1);
+		else if (c && str[i] == '$' && str[i - 1] != c)
+			return (len);
 		i++;
 		len++;
 	}
@@ -225,7 +235,7 @@ void	expand_check_arguments(t_env **envs, char **arg, int eflag)
 	i = 0;
 	qflag = get_qflag(*arg);
 	beginning = 0;
-	// printf("eflag: %d\n", eflag);
+	printf("qflag: %d\n", qflag);
 	// if (ft_strchr(*arg, '$') && eflag == 0)
 	// 	clean_expand_quotes(arg);
 	if ((*arg)[0] != '$' && ft_strchr((*arg), '$') && qflag < 2)
@@ -293,6 +303,7 @@ void	find_expansion(t_env **envs, char **split_cmds)
 
 	j = 0;
 	start = 0;
+	// clean_expand_quotes(split_cmds);
 	//clean_echo_from_quotes(split_cmds);
 	parts = how_many_parts(*split_cmds);
 	part_array = malloc((parts + 1) * sizeof(char *));

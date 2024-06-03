@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/30 16:15:20 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/05/31 15:23:21 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,4 +188,5 @@ char	*prep_tokenizer(char *arglist, int redir_count);
 void	free_redirs(t_redir **redirs);
 void	clean_expand_quotes(char **str);
 void	clean_echo_from_quotes(char **str);
+int		dollar_count_in_dq(char *str, t_env **envs);
 #endif

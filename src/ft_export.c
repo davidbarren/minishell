@@ -122,10 +122,6 @@ int	ft_export(t_env **envs, char **cmd_args)
 	int		i;
 
 	temp = *envs;
-	int k = 0;
-	while (cmd_args[k])
-		dprintf(2, "contents of cmd args:%s\n", cmd_args[k++]);
-	ft_export_clean(cmd_args);
 	if (!cmd_args[1] && export_no_args(envs))
 		return (0); //EXIT_SUCCESS
 	i = 1;
