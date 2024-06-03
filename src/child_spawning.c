@@ -46,7 +46,8 @@ void	check_empty_and_split(t_args *args)
 //		if (*args->split_cmds[i] == '\'')
 //			args->split_cmds[i] = trim_input(args->split_cmds[i], '\'');
 //		else if (*args->split_cmds[i] == '\"')
-			clean_echo_from_quotes(&args->split_cmds[i]);
+			clean_expand_quotes(&args->split_cmds[i]);
+//			clean_echo_from_quotes(&args->split_cmds[i]);
 //			args->split_cmds[i] = trim_input(args->split_cmds[i], '\"');
 		dprintf(2, "content of split cmds after trim:%s\n", args->split_cmds[i]);
 		i++;
