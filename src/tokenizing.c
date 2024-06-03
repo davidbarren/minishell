@@ -6,31 +6,37 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/30 11:59:35 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/03 20:12:18 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	prep_input(char *line, t_input *input)
+void	copy_input(char **temp, t_input *input)
 {
-	char	**temp;
-	int		i;
+	int	i;
 
 	i = 0;
-	temp = ft_quotesplit(line, '|');
-	input->pipe_count = ft_arrlen(temp);
-	input->input = ft_calloc(input->pipe_count + 1, sizeof(char *));
 	while (temp[i])
 	{
 		input->input[i] = ft_strdup(temp[i]);
-		if (!ft_strnstr(input->input[i], "<<", ft_strlen(input->input[i]))) // temp fix with strnstr in case someone passes << as arg for cmd
+		if (!ft_strnstr(input->input[i], "<<", ft_strlen(input->input[i])))
 			ft_expand(input->input, input->envlist);
-		else
-			dprintf(2, "hdoc found in prep input and shit not expanded\n");
 		i++;
 	}
 	free_2d(temp);
+}
+
+void	prep_input(char *line, t_input *input)
+{
+	char	**temp;
+
+	temp = ft_quotesplit(line, '|');
+	input->pipe_count = ft_arrlen(temp);
+	input->input = ft_calloc(input->pipe_count + 1, sizeof(char *));
+	if (!input->input)
+		return ;
+	copy_input(temp, input);
 	build_struct(input);
 	tokenize_input(input);
 	free_2d(input->input);
@@ -77,14 +83,34 @@ void	tokenize_input(t_input *input)
 	i = 0;
 	while (i < input->pipe_count)
 	{
-		// dprintf(2, "Hdoc status of struct at index:%d ... status:%d\n", i, input->arg_struct[i]->is_hdoc);
-		if (input->arg_struct[i]->is_hdoc)
-			dprintf(2," we out here with hdoc motherfucker!\n");
-//			 condition_hdoc(input->arg_struct[i]);
-//		}
-//		else
 		token_splitting(input->arg_struct[i]);
 		prep_and_split_command(input->arg_struct[i]);
 		i++;
 	}
+}
+
+void	print_struct_debug(t_args*args)
+{
+	int k;
+
+	k = 0;
+	printf("address of arglist:%p\n", args->arglist);
+	printf("address of split_cmds head:%p\n", args->split_cmds);
+	while (args->split_cmds[k])
+		printf("address of split_cmds head:%p\n", args->split_cmds[k++]);
+	printf("address of tokenized_args:%p\n", args->tokenized_args);
+	printf("address of long_command:%p\n", args->long_command);
+	k = 0;
+	printf("address of split_path:%p\n", args->split_path);
+	while (args->split_path[k])
+		printf("address of split_path:%p\n", args->split_path[k++]);
+	printf("address of execpath:%p\n", args->execpath);
+	printf("content of execpath:%s\n", args->execpath);
+	printf("address of envcpy:%p\n", args->envcpy);
+	k = 0;
+	while (args->envcpy[k])
+		printf("address of envcpy:%p\n", args->envcpy[k++]);
+	printf("address of input:%p\n", args->input);
+	printf("address of output:%p\n", args->output);
+
 }

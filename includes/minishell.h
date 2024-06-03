@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/31 15:23:21 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/03 19:14:29 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ void	prep_and_split_command(t_args *args);
 int		syntax_validation(char *str);
 int		flag_for_builtin(char **args);
 int		ft_cd(t_env **envs, char **cmd_args);
-void	exec_child_cmd(t_input *input);
+void	exec_child_cmd(t_input *input, int flag);
 void	tokenize_input(t_input *input);
 void	perms_check(t_args *args);
 void	baboonloop(t_input *input);
@@ -174,7 +174,7 @@ void	redirs_iteration(t_redir **redirs, int has_cmd);
 int		redir_check(char *element);
 void	space_insertion(char *prepped, char *s, int i, int k);
 void	find_command(t_args *args, char **tokenlist);
-char 	**ft_split_mod(char *str, char c);
+char	**ft_split_mod(char *str, char c);
 void	store_original_fds(t_args *args);
 void	restore_fds(t_args *args);
 void	fd_routine_no_cmd(t_args *args);
@@ -189,4 +189,9 @@ void	free_redirs(t_redir **redirs);
 void	clean_expand_quotes(char **str);
 void	clean_echo_from_quotes(char **str);
 int		dollar_count_in_dq(char *str, t_env **envs);
+void	ft_exit(char **args);
+int		cmd_is_echo(char *str);
+void	empty_check(t_args *args);
+int		ft_emptyline(char *line);
+void	print_struct_debug(t_args*args);
 #endif

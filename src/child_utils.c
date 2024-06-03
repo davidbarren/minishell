@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 11:26:44 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/26 21:25:03 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:52:55 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	wait_for_children(t_input *input)
 		{
 			exit_code = WEXITSTATUS(status);
 			input->exit_status = exit_code;
+			printf("value of exit status of child:%d\n", input->exit_status);
 			error_messages(input, exit_code, i);
-			ft_printerror("exit status of child:%d\n", input->exit_status);
 		}
 		i++;
 	}
@@ -44,6 +44,8 @@ void	error_messages(t_input *input, int status, int index)
 		if (input->arg_struct[index]->split_cmds[0])
 			ft_printerror("Baboonshell: %s: command not found\n",
 				input->arg_struct[index]->split_cmds[0]);
+//		else if (!input->arg_struct[index]->split_cmds[0])
+//			ft_printerror("Baboonshell:  : command not found\n");
 	}
 }
 

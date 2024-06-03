@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:25:49 by plang             #+#    #+#             */
-/*   Updated: 2024/05/30 16:06:04 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:14:57 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	clean_echo_from_quotes(char **str)
 	if (!copy)
 		return ;
 	start = copy;
-	printf("string in clean echo: %s\n", *str);
 	while (*copy)
 	{
 		if (*copy == '"' || *copy == '\'')

@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:44:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/30 02:57:43 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:24:37 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,12 @@ char	*prep_tokenizer(char *arglist, int redir_count)
 void	token_splitting(t_args *args)
 {
 	char	**tokenlist;
-	t_redir	*temp;
 	char	*parsed_string;
 
 	parsed_string = prep_tokenizer(args->arglist, args->redir_count);
 	free(args->arglist);
 	args->arglist = NULL;
 	tokenlist = ft_split_mod(parsed_string, ' ');
-
 	free(parsed_string);
 	args->token_count = ft_arrlen(tokenlist);
 	if (args->redir_count)
@@ -109,12 +107,6 @@ void	token_splitting(t_args *args)
 		if (!args->redirects)
 			return ;
 		create_redir_node(tokenlist, args->redirects, args);
-		temp = *args->redirects;
-		while (temp)
-		{
-			dprintf(2, "redir node with filename:%s and type:%i\n",temp->str, temp->redir_type);
-			temp = temp->next;
-		}
 	}
 	find_command(args, tokenlist);
 	free_2d(tokenlist);
