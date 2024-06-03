@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:45:07 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/03 19:22:38 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/03 20:21:16 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ void	empty_check(t_args *args)
 	if (args->long_command && !args->split_cmds[0])
 	{
 		free(args->long_command);
+		free_2d(args->split_cmds);
 		args->long_command = ft_strdup("");
 		args->split_cmds = ft_split(args->long_command, 'a');
-//		args->split_cmds[0] = ft_strdup(args->long_command);
+		free(args->execpath);
+		free_2d(args->split_path);
 	}
 }

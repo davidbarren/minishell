@@ -95,7 +95,7 @@ void	exec_child_cmd(t_input *input, int flag)
 		restore_fds(input->arg_struct[input->pid_index]);
 		redirs_iteration(input->arg_struct[input->pid_index]->redirects, flag);
 	}
-	print_struct_debug(input->arg_struct[input->pid_index]);
+//	print_struct_debug(input->arg_struct[input->pid_index]);
 	if (!input->arg_struct[input->pid_index]->long_command)
 		return ;
 	if (input->arg_struct[input->pid_index]->is_builtin)
