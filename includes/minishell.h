@@ -55,6 +55,7 @@ typedef struct s_args
 	char			**split_cmds;
 	int				index;
 	int				is_empty;
+	int				is_echo;
 	char			*tokenized_args;
 	char			*long_command;
 	int				redir_count;

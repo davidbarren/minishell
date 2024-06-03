@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/29 08:04:43 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:45:25 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	free_input(t_input *input)
 {
 	if (input->pids)
 		free(input->pids);
+//	if (input->pipes)
+//		free(input->pipes);
 //	if (input->input)
 //		free_2d(input->input);
 }
