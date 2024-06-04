@@ -6,7 +6,7 @@
 #    By: plang <plang@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 14:15:56 by dbarrene          #+#    #+#              #
-#    Updated: 2024/06/04 13:58:12 by dbarrene         ###   ########.fr        #
+#    Updated: 2024/06/04 15:34:11 by plang            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME = minishell
 
 CC	= cc
-CFLAGS = -Wall -Wextra -g -Werror #-fsanitize=address 
+CFLAGS = -Wall -Wextra -g -Werror -fsanitize=address 
 
 SRCDIR = src
 OBJDIR = obj

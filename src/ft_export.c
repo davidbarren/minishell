@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:54:49 by plang             #+#    #+#             */
-/*   Updated: 2024/05/30 17:29:30 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:29:44 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ int	ft_export(t_env **envs, char **cmd_args)
 	if (!cmd_args[1] && export_no_args(envs))
 		return (0); //EXIT_SUCCESS
 	i = 1;
+	// ft_export clean was here in davids branch
 	while (cmd_args[i])
 	{
 		if (!export_validation(cmd_args[i]))

@@ -6,55 +6,55 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:25:49 by plang             #+#    #+#             */
-/*   Updated: 2024/06/03 17:14:57 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:16:32 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	clean_echo_from_quotes(char **str)
-{
-	char	*copy;
-	char	*start;
-	int		i;
-	char	c;
-	int		flag;
-
-	i = 0;
-	c = 0;
-	copy = ft_strdup(*str);
-	if (!copy)
-		return ;
-	start = copy;
-	while (*copy)
-	{
-		if (*copy == '"' || *copy == '\'')
-		{
-			c = *copy;
-			flag = quote_count((*str), c);
-			if (flag && copy[ft_strlen(copy) - 1] != c)
-			{
-				(*str)[i++] = *copy;
-				c = 0;
-			}
-			if(copy[ft_strlen(copy) - 1] == c)
-			{
-				copy++;
-				while (*copy != c && *copy)
-				{
-					(*str)[i++] = *copy;
-					copy++;
-				}
-			}
-			c = 0;
-		}
-		if (*copy != '"' && *copy != '\'' && c == 0)
-			(*str)[i++] = *copy;
-		copy++;
-	}
-	(*str)[i] = 0;
-	free(start);
-}
+// void	clean_echo_from_quotes(char **str)
+// {
+// 	char	*copy;
+// 	char	*start;
+// 	int		i;
+// 	char	c;
+// 	int		flag;
+// 	i = 0;
+// 	c = 0;
+// 	copy = ft_strdup(*str);
+// 	if (!copy)
+// 		return ;
+// 	start = copy;
+// 	printf("string in clean echo: %s\n", *str);
+// 	while (*copy)
+// 	{
+// 		if (*copy == '"' || *copy == '\'')
+// 		{
+// 			c = *copy;
+// 			flag = quote_count((*str), c);
+// 			if (flag && copy[ft_strlen(copy) - 1] != c)
+// 			{
+// 				(*str)[i++] = *copy;
+// 				c = 0;
+// 			}
+// 			if(copy[ft_strlen(copy) - 1] == c)
+// 			{
+// 				copy++;
+// 				while (*copy != c && *copy)
+// 				{
+// 					(*str)[i++] = *copy;
+// 					copy++;
+// 				}
+// 			}
+// 			c = 0;
+// 		}
+// 		if (*copy != '"' && *copy != '\'' && c == 0)
+// 			(*str)[i++] = *copy;
+// 		copy++;
+// 	}
+// 	(*str)[i] = 0;
+// 	free(start);
+// }
 
 void	ft_echo_clean(char **cmd_args)
 {
@@ -63,10 +63,7 @@ void	ft_echo_clean(char **cmd_args)
 	i = 1;
 	while (cmd_args[i])
 	{
-		// printf("before echo  clean: %s\n", cmd_args[i]);
-		clean_echo_from_quotes(&cmd_args[i]);
-		// printf("after echo clean: %s\n", cmd_args[i]);
-//		clean_expand_quotes(&cmd_args[i]);
+		clean_expand_quotes(&cmd_args[i]);
 		i++;
 	}
 }
@@ -125,5 +122,3 @@ int	ft_echo(char **words)
 		printf("\n");
 	return (0); //EXIT_SUCCESS
 }
-// if the argument in quiestion has more then one quote ' ", 
-// we clean it from the one that is a pair

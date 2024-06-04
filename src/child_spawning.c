@@ -6,10 +6,10 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:56:38 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/30 02:36:00 by dbarrene         ###   ########.fr       */
-/*   Updated: 2024/05/28 16:16:03 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/04 15:37:33 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/minishell.h"
 
@@ -19,6 +19,34 @@ void	restore_fds(t_args *args)
 	close(args->original_stdin);
 	dup2(args->original_stdout, STDOUT_FILENO);
 	close(args->original_stdout);
+}
+
+int		cmd_is_echo(char *str)
+{
+	if (ft_strcmp_up_lo(str, "echo"))
+		return 0;
+	return 1;
+}
+
+int		arg_is_expanded(char *str, t_env **envlist)
+{
+	t_env	*temp;
+	char	*match;
+
+	match = NULL;
+	temp = *envlist;
+	while (temp)
+	{
+		if (temp->info)
+			match = ft_strnstr(str, temp->info, ft_strlen(str));
+		if (match)
+			return (1);
+		match = ft_strnstr(str, temp->title, ft_strlen(str));
+		if (match)
+			return (1);
+		temp = temp->next;
+	}
+	return (0);
 }
 
 void	check_empty_and_split(t_args *args)
@@ -34,9 +62,14 @@ void	check_empty_and_split(t_args *args)
 	{
 		args->split_cmds = ft_split_mod(args->long_command, ' ');
 		args->is_echo = cmd_is_echo(args->split_cmds[0]);
-	}
+  }
 	while (args->split_cmds[i] && !args->is_echo)
-		clean_expand_quotes(&args->split_cmds[i++]);
+	{			
+    args->is_expanded = arg_is_expanded(args->split_cmds[i], args->envlist);
+		if (!args->is_expanded)
+			clean_expand_quotes(&args->split_cmds[i]);
+		i++;
+	}
 	args->is_builtin = flag_for_builtin(args->split_cmds);
 	empty_check(args);
 }
