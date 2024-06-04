@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:44:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/03 17:24:37 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:39:09 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	redir_check(char *element)
 	return (status);
 }
 
-void	create_redir_node(char **tokenlist, t_redir **redirs, t_args *args)
+void	create_redir_node(char **tokenlist, t_redir **redirs, t_args *args) 
 {
 	int	i;
 
@@ -44,18 +44,18 @@ void	create_redir_node(char **tokenlist, t_redir **redirs, t_args *args)
 	while (i < args->token_count - 1)
 	{
 		if (redir_check(tokenlist[i]) == 1)
-			make_redirect_node(redirs, tokenlist[i + 1], 1);
+			make_redirect_node(redirs, tokenlist[i + 1], 1, args->index);
 		else if (redir_check(tokenlist[i]) == 2)
-			make_redirect_node(redirs, tokenlist[i + 1], 2);
+			make_redirect_node(redirs, tokenlist[i + 1], 2, args->index);
 		else if (redir_check(tokenlist[i]) == 3)
-			make_redirect_node(redirs, tokenlist[i + 1], 3);
+			make_redirect_node(redirs, tokenlist[i + 1], 3, args->index);
 		else if (redir_check(tokenlist[i]) == 4)
-			make_redirect_node(redirs, tokenlist[i + 1], 4);
+			make_redirect_node(redirs, tokenlist[i + 1], 4, args->index);
 		i++;
 	}
 }
 
-void	make_redirect_node(t_redir **redir, char *str, int type)
+void	make_redirect_node(t_redir **redir, char *str, int type, int index)
 {
 	t_redir	*new;
 	t_redir	*last;
@@ -66,6 +66,7 @@ void	make_redirect_node(t_redir **redir, char *str, int type)
 	new->next = NULL;
 	new->redir_type = type;
 	new->str = ft_strdup(str);
+	new->index = index;
 	if (!new->str)
 		return ;
 	if (!*redir)

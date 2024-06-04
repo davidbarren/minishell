@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 01:01:28 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/03 17:26:55 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:08:12 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	free_redir_cont(t_redir *redir)
 {
 	if (redir->str)
 		free(redir->str);
+	if (redir->hdoc_title)
+		free(redir->hdoc_title);
 }
 
 void	free_redirs(t_redir **redirs)
@@ -46,4 +48,31 @@ void	free_redirs(t_redir **redirs)
 		*redirs = next;
 	}
 	free(redirs);
+}
+
+t_redir *get_last_hdoc(t_redir **redirs)
+{
+	t_redir *temp;
+	t_redir *target;
+
+	temp = *redirs;
+	target = NULL;
+	while (temp)
+	{
+		if (temp->redir_type == 2)
+			target = temp;
+		temp = temp->next;
+	}
+	return (target);
+}
+
+void	fetch_and_create_hdoc(t_args *args)
+{
+	t_redir *hdoc;
+	
+	hdoc = get_last_hdoc(args->redirects);
+	dprintf(2, "address of hdoc node:%p\n", hdoc);
+	if (!hdoc)
+		return ;
+	create_hdoc(hdoc);
 }

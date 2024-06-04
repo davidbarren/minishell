@@ -87,7 +87,6 @@ void	prep_pids(t_input *input)
 
 void	exec_child_cmd(t_input *input, int flag)
 {
-	store_original_fds(input->arg_struct[input->pid_index]);
 	if (!input->arg_struct[input->pid_index]->long_command)
 		flag = 0;
 	if (input->arg_struct[input->pid_index]->redir_count)

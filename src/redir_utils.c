@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:44:23 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/03 17:27:01 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:09:36 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 void	create_hdoc(t_redir *node)
 {
 	char	*line;
-
+	
+	dprintf(2, "index of hdoc node:%i\n", node->index);
+	dprintf(2, "delim in hdoc:%s\n", node->str);
 	node->str = ft_strjoin_flex(node->str, "\n", 1);
-	node->fd = open(".hdoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	node->hdoc_title = ft_strjoin_flex(".hdoc", ft_itoa(node->index), 2);
+	node->fd = open(node->hdoc_title, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	write(1, ">", 1);
 	line = get_next_line(0);
 	while (line)
@@ -31,10 +34,10 @@ void	create_hdoc(t_redir *node)
 	}
 	free (line);
 	close(node->fd);
-	node->fd = open(".hdoc", O_RDONLY, 0644);
-	dup2(node->fd, STDIN_FILENO);
-	close (node->fd);
-	unlink(".hdoc");
+//	node->fd = open(".hdoc", O_RDONLY, 0644);
+//	dup2(node->fd, STDIN_FILENO);
+//	close (node->fd);
+//	unlink(".hdoc");
 }
 
 void	files_and_dups(t_redir *node, int has_cmd)
@@ -77,6 +80,15 @@ void	vibe_check(t_redir *temp)
 	}
 }
 
+void	hdoc_dup_and_close(t_redir *hdoc)
+{
+	hdoc->fd = open(hdoc->hdoc_title, O_RDONLY, 0644);
+	dup2(hdoc->fd, STDIN_FILENO);
+	close(hdoc->fd);
+	unlink(hdoc->hdoc_title);
+//	free(hdoc->hdoc_title
+}
+
 void	redirs_iteration(t_redir **redirs, int has_cmd)
 {
 	t_redir	*temp;
@@ -92,7 +104,9 @@ void	redirs_iteration(t_redir **redirs, int has_cmd)
 			files_and_dups(temp, has_cmd);
 		}
 		else
-			create_hdoc(temp);
+			hdoc_dup_and_close(temp);
+//		else
+//			create_hdoc(temp);
 		temp = temp->next;
 	}
 }

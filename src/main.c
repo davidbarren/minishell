@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/03 20:10:08 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:15:44 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ void	baboonloop(t_input *input)
 		line = NULL;
 		line = readline("🐒baboonshell> ");
 		if (!line)
+		{
+			dprintf(2," breaking baboonloop\n");
 			break ;
+		}
 		if (*line && !ft_emptyline(line))
 		{
 			add_history(line);
@@ -65,8 +68,8 @@ void	free_input(t_input *input)
 {
 	if (input->pids)
 		free(input->pids);
-//	if (input->pipes)
-//		free(input->pipes);
+	if (input->pipes)
+		free(input->pipes);
 //	if (input->input)
 //		free_2d(input->input);
 }

@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/03 19:14:29 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:06:24 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_redir
 	char			*str;
 	char			*filename;
 	char			*cmd;
-	char			*permissions;
+	char			*hdoc_title;
 	char			*input;
 	char			*output;
 	int				redir_type;
@@ -100,7 +100,7 @@ typedef struct s_split_m
 
 }	t_split_m;
 
-void	make_redirect_node(t_redir **redir, char *str, int type);
+void	make_redirect_node(t_redir **redir, char *str, int type, int index);
 void	prep_input(char *line, t_input *input);
 void	store_env(char **ep, t_env **env);
 t_env	*get_last_node(t_env *env);
@@ -194,4 +194,6 @@ int		cmd_is_echo(char *str);
 void	empty_check(t_args *args);
 int		ft_emptyline(char *line);
 void	print_struct_debug(t_args*args);
+t_redir *get_last_hdoc(t_redir **redirs);
+void	fetch_and_create_hdoc(t_args *args);
 #endif

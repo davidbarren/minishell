@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/03 20:12:18 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:35:46 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	build_struct(t_input *input)
 		input->arg_struct[i] = ft_calloc (1, sizeof (t_args));
 		if (!input->arg_struct[i])
 			return ;
+		input->arg_struct[i]->index = i;
 		input->arg_struct[i]->pipecount = input->pipe_count;
 		input->arg_struct[i]->is_builtin = 0;
 		input->arg_struct[i]->arglist = ft_strdup(input->input[i]);
@@ -84,6 +85,12 @@ void	tokenize_input(t_input *input)
 	while (i < input->pipe_count)
 	{
 		token_splitting(input->arg_struct[i]);
+		if (input->arg_struct[i]->redirects)
+		{
+			store_original_fds(input->arg_struct[i]);
+			fetch_and_create_hdoc(input->arg_struct[i]);
+			restore_fds(input->arg_struct[i]);
+		}
 		prep_and_split_command(input->arg_struct[i]);
 		i++;
 	}
@@ -97,11 +104,11 @@ void	print_struct_debug(t_args*args)
 	printf("address of arglist:%p\n", args->arglist);
 	printf("address of split_cmds head:%p\n", args->split_cmds);
 	while (args->split_cmds[k])
-		printf("address of split_cmds head:%p\n", args->split_cmds[k++]);
+		printf("address of split_cmds :%p\n", args->split_cmds[k++]);
 	printf("address of tokenized_args:%p\n", args->tokenized_args);
 	printf("address of long_command:%p\n", args->long_command);
 	k = 0;
-	printf("address of split_path:%p\n", args->split_path);
+	printf("address of split_path head:%p\n", args->split_path);
 	while (args->split_path[k])
 		printf("address of split_path:%p\n", args->split_path[k++]);
 	printf("address of execpath:%p\n", args->execpath);

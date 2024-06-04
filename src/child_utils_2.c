@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 17:45:07 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/03 20:21:16 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/04 16:12:59 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void	empty_check(t_args *args)
 	{
 		free(args->long_command);
 		free_2d(args->split_cmds);
-		args->long_command = ft_strdup("");
+		args->long_command = ft_strdup("   ");
 		args->split_cmds = ft_split(args->long_command, 'a');
-		free(args->execpath);
-		free_2d(args->split_path);
+//		printf("contents of split_cmds after dumb check:%s\n", args->split_cmds[0]);
+//		free_2d(args->split_path);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 11:26:44 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/03 20:27:11 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:32:28 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ void	error_messages(t_input *input, int status, int index)
 }
 
 void	perms_check(t_args *args)
-{	
-	if (!args->split_cmds[0])
-		return ;
+{
+//	if (!args->split_cmds[0])
+//		return ;
 	if (!args->is_builtin)
 	{
 		if (!access(args->split_cmds[0], F_OK))
