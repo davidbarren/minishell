@@ -6,18 +6,11 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 01:01:28 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/04 16:08:12 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:23:27 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	fd_routine_no_cmd(t_args *args)
-{
-	store_original_fds(args);
-	redirs_iteration(args->redirects, 0);
-	restore_fds(args);
-}
 
 void	store_original_fds(t_args *args)
 {
@@ -50,10 +43,10 @@ void	free_redirs(t_redir **redirs)
 	free(redirs);
 }
 
-t_redir *get_last_hdoc(t_redir **redirs)
+t_redir	*get_last_hdoc(t_redir **redirs)
 {
-	t_redir *temp;
-	t_redir *target;
+	t_redir	*temp;
+	t_redir	*target;
 
 	temp = *redirs;
 	target = NULL;
@@ -68,8 +61,8 @@ t_redir *get_last_hdoc(t_redir **redirs)
 
 void	fetch_and_create_hdoc(t_args *args)
 {
-	t_redir *hdoc;
-	
+	t_redir	*hdoc;
+
 	hdoc = get_last_hdoc(args->redirects);
 	dprintf(2, "address of hdoc node:%p\n", hdoc);
 	if (!hdoc)

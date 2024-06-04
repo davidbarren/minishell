@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 01:32:53 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/03 18:01:06 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:28:37 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,29 @@ int	cmd_is_echo(char *str)
 int	ft_emptyline(char *line)
 {
 	int	i;
-	
+
 	i = 0;
 	while (line[i])
 	{
 		if (line[i] != ' ')
 			return (0);
-		else 
+		else
 			i++;
 	}
 	return (1);
+}
+
+void	fd_routine_no_cmd(t_args *args)
+{
+	store_original_fds(args);
+	redirs_iteration(args->redirects, 0);
+	restore_fds(args);
+}
+
+void	restore_fds(t_args *args)
+{
+	dup2(args->original_stdin, STDIN_FILENO);
+	close(args->original_stdin);
+	dup2(args->original_stdout, STDOUT_FILENO);
+	close(args->original_stdout);
 }

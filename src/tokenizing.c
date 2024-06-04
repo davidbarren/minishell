@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/04 15:30:56 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/04 17:22:01 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	tokenize_input(t_input *input)
 
 void	print_struct_debug(t_args*args)
 {
-	int k;
+	int	k;
 
 	k = 0;
 	printf("address of arglist:%p\n", args->arglist);
@@ -119,5 +119,4 @@ void	print_struct_debug(t_args*args)
 		printf("address of envcpy:%p\n", args->envcpy[k++]);
 	printf("address of input:%p\n", args->input);
 	printf("address of output:%p\n", args->output);
-
 }

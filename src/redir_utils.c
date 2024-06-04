@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:44:23 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/04 16:09:36 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:25:50 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	create_hdoc(t_redir *node)
 {
 	char	*line;
-	
-	dprintf(2, "index of hdoc node:%i\n", node->index);
-	dprintf(2, "delim in hdoc:%s\n", node->str);
+
 	node->str = ft_strjoin_flex(node->str, "\n", 1);
 	node->hdoc_title = ft_strjoin_flex(".hdoc", ft_itoa(node->index), 2);
 	node->fd = open(node->hdoc_title, O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -34,10 +32,6 @@ void	create_hdoc(t_redir *node)
 	}
 	free (line);
 	close(node->fd);
-//	node->fd = open(".hdoc", O_RDONLY, 0644);
-//	dup2(node->fd, STDIN_FILENO);
-//	close (node->fd);
-//	unlink(".hdoc");
 }
 
 void	files_and_dups(t_redir *node, int has_cmd)
@@ -86,7 +80,6 @@ void	hdoc_dup_and_close(t_redir *hdoc)
 	dup2(hdoc->fd, STDIN_FILENO);
 	close(hdoc->fd);
 	unlink(hdoc->hdoc_title);
-//	free(hdoc->hdoc_title
 }
 
 void	redirs_iteration(t_redir **redirs, int has_cmd)
@@ -105,88 +98,6 @@ void	redirs_iteration(t_redir **redirs, int has_cmd)
 		}
 		else
 			hdoc_dup_and_close(temp);
-//		else
-//			create_hdoc(temp);
 		temp = temp->next;
 	}
 }
-
-void	space_insertion(char *prepped, char *s, int i, int k)
-{
-	while (s[i])
-	{
-		if (!ft_strncmp(s + i, ">>", 2) || (!ft_strncmp(s + i, "<<", 2)))
-		{
-			prepped[k + i] = ' ';
-			prepped[k + i + 1] = s[i];
-			prepped[k + i + 2] = s[i];
-			prepped[k + i + 3] = ' ';
-			k += 2;
-			i += 2;
-		}
-		else if ((s[i] == '<' || s[i] == '>') && (ft_strncmp(s + i, ">>", 3)))
-		{
-			prepped[k + i] = ' ';
-			prepped[k + i + 1] = s[i];
-			prepped[k + i + 2] = ' ';
-			k += 2;
-			i++;
-		}
-		else
-		{
-			prepped[k + i] = s[i];
-			i++;
-		}
-	}
-}
-/*
-   void	create_files(t_redir *temp, t_redir *output_node)
-   {
-//	if (access(temp->filename, W_OK | R_OK))
-//		exit (69);
-if (temp->redir_type == 2)
-temp->fd = open(temp->str, O_CREAT | O_APPEND | O_RDWR, 0644);
-else
-temp->fd = open(temp->str, O_CREAT | O_TRUNC | O_RDWR, 0644);
-if (temp->fd == -1)
-ft_printerror("Error creating file");
-if (temp == output_node)
-{
-if (dup2(temp->fd, STDOUT_FILENO) == -1)
-{
-ft_printerror("dup failed you baboon!\n");
-exit (1);
-}
-close (temp->fd);
-}
-else
-close (temp->fd);
-}
-void	file_opening(t_redir *redir)
-{
-	t_redir	*temp;
-	t_redir	*output_node;
-
-	output_node = get_last_redir(redir);
-	temp = redir;
-	while (temp)
-	{
-		create_files(temp, output_node);
-		temp = temp->next;
-	}
-}
-
-void	redir_fd_modifying(t_redir **redir)
-{
-	t_redir	*input_node;
-	t_redir	*output_node;
-
-	input_node = *redir;
-	output_node = get_last_redir(*redir);
-	printf("contents of input node:%s\n", input_node->filename);
-	printf("contents of output node:%s\n", output_node->filename);
-	dup2(output_node->fd, STDOUT_FILENO);
-	close(output_node->fd);
-}
-
-*/
