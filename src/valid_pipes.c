@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:06:11 by plang             #+#    #+#             */
-/*   Updated: 2024/05/30 13:38:00 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/04 15:11:45 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ int	valid_pipes(char *str)
 	int	i;
 
 	i = 0;
-	// while (str[i] == ' ' && str[i])
-	// 	i++;
 	ft_skip_chars(&str, ' ');
 	if (str[i] == '|')
 		return (3);
@@ -53,8 +51,8 @@ int	valid_pipes(char *str)
 				i++;
 			if (str[i] == '|')
 				return (3);
-		if (str[i] == '"' || str[i] == '\'')
-			skipping_through_quotes(str, &i);
+			if (str[i] == '"' || str[i] == '\'')
+				skipping_through_quotes(str, &i);
 		}
 		if (str[i] != '\0')
 			i++;

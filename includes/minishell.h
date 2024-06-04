@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/03 15:00:30 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/04 15:30:28 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_args
 	int				index;
 	int				is_empty;
 	int				is_echo;
+	int				is_expanded;
 	char			*tokenized_args;
 	char			*long_command;
 	int				redir_count;
@@ -187,5 +188,6 @@ int		quote_count(char *str, char c);
 char	*prep_tokenizer(char *arglist, int redir_count);
 void	free_redirs(t_redir **redirs);
 void	clean_expand_quotes(char **str);
-void	clean_echo_from_quotes(char **str);
+//void	clean_echo_from_quotes(char **str);
+void	expand_check_arguments(t_env **envs, char **arg, int *dq);
 #endif

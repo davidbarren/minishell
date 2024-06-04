@@ -6,10 +6,10 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:56:38 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/30 02:36:00 by dbarrene         ###   ########.fr       */
-/*   Updated: 2024/05/28 16:16:03 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/04 15:37:33 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/minishell.h"
 
@@ -28,6 +28,27 @@ int		cmd_is_echo(char *str)
 	return 1;
 }
 
+int		arg_is_expanded(char *str, t_env **envlist)
+{
+	t_env	*temp;
+	char	*match;
+
+	match = NULL;
+	temp = *envlist;
+	while (temp)
+	{
+		if (temp->info)
+			match = ft_strnstr(str, temp->info, ft_strlen(str));
+		if (match)
+			return (1);
+		match = ft_strnstr(str, temp->title, ft_strlen(str));
+		if (match)
+			return (1);
+		temp = temp->next;
+	}
+	return (0);
+}
+
 void	check_empty_and_split(t_args *args)
 {
 	int	i;
@@ -43,9 +64,11 @@ void	check_empty_and_split(t_args *args)
 	while (args->split_cmds[i] && !args->is_echo)
 	{	
 		dprintf(2, "content of split cmds before trim:%s\n", args->split_cmds[i]);
+		args->is_expanded = arg_is_expanded(args->split_cmds[i], args->envlist);
 //		if (*args->split_cmds[i] == '\'')
 //			args->split_cmds[i] = trim_input(args->split_cmds[i], '\'');
 //		else if (*args->split_cmds[i] == '\"')
+		if (!args->is_expanded)
 			clean_expand_quotes(&args->split_cmds[i]);
 //			clean_echo_from_quotes(&args->split_cmds[i]);
 //			args->split_cmds[i] = trim_input(args->split_cmds[i], '\"');
