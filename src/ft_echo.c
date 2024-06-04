@@ -19,7 +19,6 @@
 // 	int		i;
 // 	char	c;
 // 	int		flag;
-
 // 	i = 0;
 // 	c = 0;
 // 	copy = ft_strdup(*str);

@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:05:53 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/27 16:39:47 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:14:16 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	update_hdoc_status(t_args *args)
 		if (ft_strnstr(args->arglist, "<<", ft_strlen(args->arglist)))
 		{
 			args->is_hdoc = 1;
-			dprintf(2, "Hdoc found in update status!\n");
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:32:09 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/03 16:53:22 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/03 15:42:12 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	close_pipes(t_input *input)
 			ft_printerror("Failed to open second end of pipe at index:%d\n", i);
 		free(input->pipes[i++]);
 	}
-	//free(input->pipes);
 }
 
 void	child_generic(t_input *input)

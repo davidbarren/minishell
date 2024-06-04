@@ -49,6 +49,7 @@ CSRCS = $(SRCDIR)/parsing.c\
 		$(SRCDIR)/ft_pwd.c\
 		$(SRCDIR)/ft_unset.c\
 		$(SRCDIR)/ft_cd.c\
+		$(SRCDIR)/ft_exit.c\
 		$(SRCDIR)/valid_chars.c\
 		$(SRCDIR)/valid_quotes.c\
 		$(SRCDIR)/valid_redirect.c\
@@ -58,6 +59,7 @@ CSRCS = $(SRCDIR)/parsing.c\
 		$(SRCDIR)/parsing_utils.c\
 		$(SRCDIR)/child_spawning.c\
 		$(SRCDIR)/child_utils.c\
+		$(SRCDIR)/child_utils_2.c\
 		$(SRCDIR)/pipe_handling.c\
 		$(SRCDIR)/ft_expand.c\
 		$(SRCDIR)/token_test.c\

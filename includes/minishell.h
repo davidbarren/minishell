@@ -39,7 +39,7 @@ typedef struct s_redir
 	char			*str;
 	char			*filename;
 	char			*cmd;
-	char			*permissions;
+	char			*hdoc_title;
 	char			*input;
 	char			*output;
 	int				redir_type;
@@ -101,7 +101,7 @@ typedef struct s_split_m
 
 }	t_split_m;
 
-void	make_redirect_node(t_redir **redir, char *str, int type);
+void	make_redirect_node(t_redir **redir, char *str, int type, int index);
 void	prep_input(char *line, t_input *input);
 void	store_env(char **ep, t_env **env);
 t_env	*get_last_node(t_env *env);
@@ -155,7 +155,7 @@ void	prep_and_split_command(t_args *args);
 int		syntax_validation(char *str);
 int		flag_for_builtin(char **args);
 int		ft_cd(t_env **envs, char **cmd_args);
-void	exec_child_cmd(t_input *input);
+void	exec_child_cmd(t_input *input, int flag);
 void	tokenize_input(t_input *input);
 void	perms_check(t_args *args);
 void	baboonloop(t_input *input);
@@ -175,7 +175,7 @@ void	redirs_iteration(t_redir **redirs, int has_cmd);
 int		redir_check(char *element);
 void	space_insertion(char *prepped, char *s, int i, int k);
 void	find_command(t_args *args, char **tokenlist);
-char 	**ft_split_mod(char *str, char c);
+char	**ft_split_mod(char *str, char c);
 void	store_original_fds(t_args *args);
 void	restore_fds(t_args *args);
 void	fd_routine_no_cmd(t_args *args);
@@ -188,6 +188,14 @@ int		quote_count(char *str, char c);
 char	*prep_tokenizer(char *arglist, int redir_count);
 void	free_redirs(t_redir **redirs);
 void	clean_expand_quotes(char **str);
+int		dollar_count_in_dq(char *str, t_env **envs);
+void	ft_exit(char **args);
+int		cmd_is_echo(char *str);
+void	empty_check(t_args *args);
+int		ft_emptyline(char *line);
+void	print_struct_debug(t_args*args);
+t_redir *get_last_hdoc(t_redir **redirs);
+void	fetch_and_create_hdoc(t_args *args);
 //void	clean_echo_from_quotes(char **str);
 void	expand_check_arguments(t_env **envs, char **arg, int *dq);
 #endif

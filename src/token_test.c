@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:44:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/30 02:57:43 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:39:09 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	redir_check(char *element)
 	return (status);
 }
 
-void	create_redir_node(char **tokenlist, t_redir **redirs, t_args *args)
+void	create_redir_node(char **tokenlist, t_redir **redirs, t_args *args) 
 {
 	int	i;
 
@@ -44,18 +44,18 @@ void	create_redir_node(char **tokenlist, t_redir **redirs, t_args *args)
 	while (i < args->token_count - 1)
 	{
 		if (redir_check(tokenlist[i]) == 1)
-			make_redirect_node(redirs, tokenlist[i + 1], 1);
+			make_redirect_node(redirs, tokenlist[i + 1], 1, args->index);
 		else if (redir_check(tokenlist[i]) == 2)
-			make_redirect_node(redirs, tokenlist[i + 1], 2);
+			make_redirect_node(redirs, tokenlist[i + 1], 2, args->index);
 		else if (redir_check(tokenlist[i]) == 3)
-			make_redirect_node(redirs, tokenlist[i + 1], 3);
+			make_redirect_node(redirs, tokenlist[i + 1], 3, args->index);
 		else if (redir_check(tokenlist[i]) == 4)
-			make_redirect_node(redirs, tokenlist[i + 1], 4);
+			make_redirect_node(redirs, tokenlist[i + 1], 4, args->index);
 		i++;
 	}
 }
 
-void	make_redirect_node(t_redir **redir, char *str, int type)
+void	make_redirect_node(t_redir **redir, char *str, int type, int index)
 {
 	t_redir	*new;
 	t_redir	*last;
@@ -66,6 +66,7 @@ void	make_redirect_node(t_redir **redir, char *str, int type)
 	new->next = NULL;
 	new->redir_type = type;
 	new->str = ft_strdup(str);
+	new->index = index;
 	if (!new->str)
 		return ;
 	if (!*redir)
@@ -93,14 +94,12 @@ char	*prep_tokenizer(char *arglist, int redir_count)
 void	token_splitting(t_args *args)
 {
 	char	**tokenlist;
-	t_redir	*temp;
 	char	*parsed_string;
 
 	parsed_string = prep_tokenizer(args->arglist, args->redir_count);
 	free(args->arglist);
 	args->arglist = NULL;
 	tokenlist = ft_split_mod(parsed_string, ' ');
-
 	free(parsed_string);
 	args->token_count = ft_arrlen(tokenlist);
 	if (args->redir_count)
@@ -109,12 +108,6 @@ void	token_splitting(t_args *args)
 		if (!args->redirects)
 			return ;
 		create_redir_node(tokenlist, args->redirects, args);
-		temp = *args->redirects;
-		while (temp)
-		{
-			dprintf(2, "redir node with filename:%s and type:%i\n",temp->str, temp->redir_type);
-			temp = temp->next;
-		}
 	}
 	find_command(args, tokenlist);
 	free_2d(tokenlist);
