@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:44:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/04 14:39:09 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:22:13 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	redir_check(char *element)
 	return (status);
 }
 
-void	create_redir_node(char **tokenlist, t_redir **redirs, t_args *args) 
+void	create_redir_node(char **tokenlist, t_redir **redirs, t_args *args)
 {
 	int	i;
 

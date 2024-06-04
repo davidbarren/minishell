@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:26:05 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/24 14:47:25 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/04 17:25:34 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,54 +48,32 @@ t_redir	*get_last_redir(t_redir *redir)
 		temp = temp->next;
 	return (temp);
 }
-//
-//void	make_redirect_node(t_redir **redir, char *str, int len)
-//{
-//	t_redir	*new;
-//	t_redir	*last;
-//
-//	new = ft_calloc (1, sizeof(t_redir));
-//	if (!new)
-//		return ;
-//	new->index = 0;
-//	new->next = NULL;
-//	new->str = ft_strndup(str, len, 0);
-//	if (!new->str)
-//		return ;
-//	if (!*redir)
-//		*redir = new;
-//	else
-//	{
-//		last = get_last_redir(*redir);
-//		last->next = new;
-//		new->index = last->index + 1;
-//	}
-//}
-//
-//void	clean_redir_node(t_redir **redir, char *cmd)
-//{
-//	t_redir	*temp;
-//	char	*iter;
-//
-//	temp = *redir;
-//	while (temp)
-//	{
-//		iter = temp->str;
-//		if ((ft_strlen(iter) == 1) && (*iter == '<' || *iter == '>'))
-//		{
-//			temp = temp->next;
-//			iter = temp->str;
-//			temp->redir_type = 2;
-//		}
-//		while (*iter == '<' || *iter == '>' || *iter == ' ')
-//			iter++;
-//		temp->filename = ft_strndup(iter, ft_strlen_mod(iter, ' ') - 1, 0);
-//		while (*iter && (*iter != '>' && *iter != '<'))
-//			iter++;
-//		temp->cmd = ft_strdup(cmd);
-//		printf("Filename:%s\n", temp->filename);
-//		printf("Command to run:%s\n", temp->cmd);
-//		printf("Type of redir:%d\n", temp->redir_type);
-//		temp = temp->next;
-//	}
-//}
+
+void	space_insertion(char *prepped, char *s, int i, int k)
+{
+	while (s[i])
+	{
+		if (!ft_strncmp(s + i, ">>", 2) || (!ft_strncmp(s + i, "<<", 2)))
+		{
+			prepped[k + i] = ' ';
+			prepped[k + i + 1] = s[i];
+			prepped[k + i + 2] = s[i];
+			prepped[k + i + 3] = ' ';
+			k += 2;
+			i += 2;
+		}
+		else if ((s[i] == '<' || s[i] == '>') && (ft_strncmp(s + i, ">>", 3)))
+		{
+			prepped[k + i] = ' ';
+			prepped[k + i + 1] = s[i];
+			prepped[k + i + 2] = ' ';
+			k += 2;
+			i++;
+		}
+		else
+		{
+			prepped[k + i] = s[i];
+			i++;
+		}
+	}
+}

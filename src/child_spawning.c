@@ -6,29 +6,13 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:56:38 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/04 15:37:33 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/04 17:28:07 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../includes/minishell.h"
 
-void	restore_fds(t_args *args)
-{
-	dup2(args->original_stdin, STDIN_FILENO);
-	close(args->original_stdin);
-	dup2(args->original_stdout, STDOUT_FILENO);
-	close(args->original_stdout);
-}
-
-int		cmd_is_echo(char *str)
-{
-	if (ft_strcmp_up_lo(str, "echo"))
-		return 0;
-	return 1;
-}
-
-int		arg_is_expanded(char *str, t_env **envlist)
+int	arg_is_expanded(char *str, t_env **envlist)
 {
 	t_env	*temp;
 	char	*match;
@@ -62,10 +46,10 @@ void	check_empty_and_split(t_args *args)
 	{
 		args->split_cmds = ft_split_mod(args->long_command, ' ');
 		args->is_echo = cmd_is_echo(args->split_cmds[0]);
-  }
+	}
 	while (args->split_cmds[i] && !args->is_echo)
-	{			
-    args->is_expanded = arg_is_expanded(args->split_cmds[i], args->envlist);
+	{
+		args->is_expanded = arg_is_expanded(args->split_cmds[i], args->envlist);
 		if (!args->is_expanded)
 			clean_expand_quotes(&args->split_cmds[i]);
 		i++;

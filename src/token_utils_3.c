@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:34:45 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/18 15:26:37 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:25:42 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ void	redir_fd_modifying(t_redir **redir)
 
 void	create_files(t_redir *temp, t_redir *output_node)
 {
-//	if (access(temp->filename, W_OK | R_OK))
-//		exit (69);
 	if (temp->redir_type == 2)
 		temp->fd = open(temp->filename, O_CREAT | O_APPEND | O_RDWR, 0644);
 	else

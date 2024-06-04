@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 11:26:44 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/04 14:32:28 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:26:54 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,11 @@ void	error_messages(t_input *input, int status, int index)
 		if (input->arg_struct[index]->split_cmds[0])
 			ft_printerror("Baboonshell: %s: command not found\n",
 				input->arg_struct[index]->split_cmds[0]);
-//		else if (!input->arg_struct[index]->split_cmds[0])
-//			ft_printerror("Baboonshell:  : command not found\n");
 	}
 }
 
 void	perms_check(t_args *args)
 {
-//	if (!args->split_cmds[0])
-//		return ;
 	if (!args->is_builtin)
 	{
 		if (!access(args->split_cmds[0], F_OK))

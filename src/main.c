@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/04 14:15:44 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/04 17:29:27 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	main(int argc, char **argv, char **envp)
 	(void) argc;
 	(void) argv;
 	envs = NULL;
-//	printf("address of input:%p\n", &input);
 	ft_bzero(&input, sizeof(t_input));
 	rl_bind_key('\t', rl_complete);
 	using_history();
@@ -28,7 +27,6 @@ int	main(int argc, char **argv, char **envp)
 	input.envlist = &envs;
 	baboonloop(&input);
 	free_list(input.envlist);
-//	free_input(&input);
 	return (69);
 }
 
@@ -42,15 +40,11 @@ void	baboonloop(t_input *input)
 		line = NULL;
 		line = readline("🐒baboonshell> ");
 		if (!line)
-		{
-			dprintf(2," breaking baboonloop\n");
 			break ;
-		}
 		if (*line && !ft_emptyline(line))
 		{
 			add_history(line);
 			input->exit_status = syntax_validation(line);
-//			printf("value of exit status:%d\n", input->exit_status);
 			if (!input->exit_status)
 			{
 				prep_input(line, input);
@@ -58,7 +52,6 @@ void	baboonloop(t_input *input)
 			}
 			else if (input->exit_status)
 				printf("value of status:%d\n", input->exit_status);
-//			baboon_free(input->input);
 			free(line);
 		}
 	}
@@ -70,8 +63,6 @@ void	free_input(t_input *input)
 		free(input->pids);
 	if (input->pipes)
 		free(input->pipes);
-//	if (input->input)
-//		free_2d(input->input);
 }
 
 void	free_structs(t_args **structs, int pipecount)
