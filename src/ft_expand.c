@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 13:43:48 by plang             #+#    #+#             */
-/*   Updated: 2024/06/04 15:30:47 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/05 13:12:42 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	how_many_parts(char *str)
 		}
 		if (str[i] == '$' && (str[i + 1] == ' ' || str[i + 1] == '\0'))
 			parts++;
-		if (str[i] == '=')
+		if (str[i] == '=' || str[i] == '?')
 			parts++;
 		i++;
 	}
@@ -109,7 +109,7 @@ int	get_part_len(char *str, int i)
 	}
 	while (str[i] != '\0')
 	{
-		if (!c && !ft_isalnum(str[i]) && str[i] != '_')
+		if (!c && !ft_isalnum(str[i]) && str[i] != '_' && str[i] != '?')
 			return (len);
 		if (c && str[i] == c)
 			return (len + 1);
@@ -164,6 +164,12 @@ char	*expand_key(t_env *node)
 
 void	get_len_for_key(char *arg, int *i, int *len)
 {
+	if (arg[*i] == '?')
+	{
+		(*len) += 1;
+		(*i) += 1;
+		return ;
+	}
 	while (arg[*i] != '\0' && ft_isalpha(arg[*i]))
 	{
 		(*len) += 1;
@@ -180,8 +186,15 @@ void	get_len_for_key(char *arg, int *i, int *len)
 // is a ?. then we set them the same way and return check
 // add the int exit_status in the function calls starting
 // from ft_export!
+void	expand_qm(char **check, char **rest, int es)
+{
+	//free(check);
+	*check = ft_itoa(es);
+	*check = ft_strjoin_flex(*check, *rest, 3);
+	return ;
+}
 
-char	*is_expansion_valid(t_env **envs, char *arg, int i)
+char	*is_expansion_valid(t_env **envs, char *arg, int i, int es)
 {
 	char	*check;
 	int		lenstart[2];
@@ -193,7 +206,16 @@ char	*is_expansion_valid(t_env **envs, char *arg, int i)
 	temp = *envs;
 	get_len_for_key(arg, &i, &lenstart[0]);
 	check = ft_substr(arg, lenstart[1], lenstart[0]);
+	printf("check: %s\n", check);
 	rest = ft_substr(arg, i, (ft_strlen(arg) - i));
+	printf("rest: %s\n", rest);
+	printf("arg: %s\n", arg);
+	if (check[0] == '?')
+	{
+		printf("hello\n");
+		expand_qm(&check, &rest, es);
+		return (check);
+	}
 	while (temp != NULL)
 	{
 		if (!ft_strcmp(temp->title, check))
@@ -251,14 +273,14 @@ char	*get_beginning(char *str)
 	return (beginning);
 }
 
-void	expand_rest(t_env **envs, char **arg, int *dq, int *i)
+void	expand_rest(t_env **envs, char **arg, int *i, int es)//, int *dq
 {
 	while ((*arg)[*i] != '\0')
 	{
-		if ((*arg)[*i] == '$' && *dq > 0)
+		if ((*arg)[*i] == '$')// && *dq > 0
 		{
-			expand_check_arguments(envs, arg, dq);
-			(*dq) -= 1;
+			expand_check_arguments(envs, arg, es);//, dq
+			//(*dq) -= 1;
 		}
 		(*i) += 1;
 	}
@@ -274,7 +296,7 @@ void	assign_expanded(char **arg, char *expanded, char *beginning)
 		*arg = ft_strjoin_flex(beginning, expanded, 3);
 }
 
-void	expand_check_arguments(t_env **envs, char **arg, int *dq)
+void	expand_check_arguments(t_env **envs, char **arg, int es)//, int *dq
 {
 	int			i;
 	char		*expanded;
@@ -291,31 +313,31 @@ void	expand_check_arguments(t_env **envs, char **arg, int *dq)
 		if ((*arg)[i] == '$' && qflag < 2 && (*arg)[i + 1] != '\0')
 		{
 			i++;
-			expanded = is_expansion_valid(envs, *arg, i);
+			expanded = is_expansion_valid(envs, *arg, i, es);
 			free(*arg);
 			assign_expanded(arg, expanded, beginning);
-			if (ft_strchr((*arg), '$') && qflag < 2 && (*dq) > 0)
-				expand_rest(envs, arg, dq, &i);
+			if (ft_strchr((*arg), '$') && qflag < 2) //&& (*dq) > 0
+				expand_rest(envs, arg, &i, es);// dq,
 			break ;
 		}
 		i++;
 	}
 }
 
-void	expand_and_join(t_env **envs, char **split_cmds, char **part_array)
+void	expand_and_join(t_env **envs, char **split_cmds, char **part_array, int es)
 {
 	int	j;
-	int	eflag;
-	int	dq;
+	// int	eflag;
+	// int	dq;
 
 	j = 0;
-	eflag = 0;
+	// eflag = 0;
 	while (part_array[j] != NULL)
 	{
-		if ((ft_strcmp_up_lo("echo", part_array[0]) == 0))
-			eflag = 1;
-		dq = quote_count(part_array[j], '$');
-		expand_check_arguments(envs, &part_array[j], &dq);
+		// if ((ft_strcmp_up_lo("echo", part_array[0]) == 0))
+		// 	eflag = 1;
+		// dq = quote_count(part_array[j], '$');
+		expand_check_arguments(envs, &part_array[j], es);//,&dq
 		j++;
 	}
 	j = 0;
@@ -326,12 +348,12 @@ void	expand_and_join(t_env **envs, char **split_cmds, char **part_array)
 		(*split_cmds) = ft_strjoin_flex(*split_cmds, part_array[j + 1], 3);
 		j++;
 	}
-	if (eflag == 0)
-		clean_expand_quotes(split_cmds);
+	// if (eflag == 0)
+	// 	clean_expand_quotes(split_cmds);
 	free(part_array);
 }
 
-void	find_expansion(t_env **envs, char **split_cmds)
+void	find_expansion(t_env **envs, char **split_cmds, int es)
 {
 	int		parts;
 	char	**part_array;
@@ -342,21 +364,24 @@ void	find_expansion(t_env **envs, char **split_cmds)
 	j = 0;
 	start = 0;
 	parts = how_many_parts(*split_cmds);
+	printf("parts: %d\n", parts);
 	part_array = malloc((parts + 1) * sizeof(char *));
 	if (!part_array)
 		return ;
 	while (parts > j)
 	{
 		len = get_part_len(*split_cmds, start);
+		printf("len: %d\n", len);
 		part_array[j] = ft_substr(*split_cmds, start, len);
+		printf("part of str: %s\n", part_array[j]);
 		start += ft_strlen(part_array[j]);
 		j++;
 	}
 	part_array[j] = 0;
-	expand_and_join(envs, split_cmds, part_array);
+	expand_and_join(envs, split_cmds, part_array, es);
 }
 
-void	ft_expand(char **split_cmds, t_env **envlist)
+void	ft_expand(char **split_cmds, t_env **envlist, int es)
 {
 	int	j;
 
@@ -364,7 +389,7 @@ void	ft_expand(char **split_cmds, t_env **envlist)
 	while (split_cmds[j] != NULL)
 	{
 		if (ft_strchr(split_cmds[j], '$'))
-			find_expansion(envlist, &split_cmds[j]);
+			find_expansion(envlist, &split_cmds[j], es);
 		j++;
 	}
 }

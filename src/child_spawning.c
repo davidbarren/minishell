@@ -6,32 +6,32 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:56:38 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/04 17:28:07 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/05 10:44:45 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	arg_is_expanded(char *str, t_env **envlist)
-{
-	t_env	*temp;
-	char	*match;
+// int	arg_is_expanded(char *str, t_env **envlist)
+// {
+// 	t_env	*temp;
+// 	char	*match;
 
-	match = NULL;
-	temp = *envlist;
-	while (temp)
-	{
-		if (temp->info)
-			match = ft_strnstr(str, temp->info, ft_strlen(str));
-		if (match)
-			return (1);
-		match = ft_strnstr(str, temp->title, ft_strlen(str));
-		if (match)
-			return (1);
-		temp = temp->next;
-	}
-	return (0);
-}
+// 	match = NULL;
+// 	temp = *envlist;
+// 	while (temp)
+// 	{
+// 		if (temp->info)
+// 			match = ft_strnstr(str, temp->info, ft_strlen(str));
+// 		if (match)
+// 			return (1);
+// 		match = ft_strnstr(str, temp->title, ft_strlen(str));
+// 		if (match)
+// 			return (1);
+// 		temp = temp->next;
+// 	}
+// 	return (0);
+// }
 
 void	check_empty_and_split(t_args *args)
 {
@@ -49,8 +49,8 @@ void	check_empty_and_split(t_args *args)
 	}
 	while (args->split_cmds[i] && !args->is_echo)
 	{
-		args->is_expanded = arg_is_expanded(args->split_cmds[i], args->envlist);
-		if (!args->is_expanded)
+		// args->is_expanded = arg_is_expanded(args->split_cmds[i], args->envlist);
+		// if (!args->is_expanded)
 			clean_expand_quotes(&args->split_cmds[i]);
 		i++;
 	}
