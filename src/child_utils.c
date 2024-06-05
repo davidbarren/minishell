@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 11:26:44 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/05 08:49:07 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/05 15:26:01 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	wait_for_children(t_input *input)
 		{
 			exit_code = WEXITSTATUS(status);
 			input->exit_status = exit_code;
-			printf("value of exit status of child:%d\n", input->exit_status);
 			error_messages(input, exit_code, i);
 		}
 		i++;
@@ -43,6 +42,12 @@ void	error_messages(t_input *input, int status, int index)
 	{
 		if (input->arg_struct[index]->split_cmds[0])
 			ft_printerror("Baboonshell: %s: command not found\n",
+				input->arg_struct[index]->split_cmds[0]);
+	}
+	if (status == 126)
+	{
+		if (input->arg_struct[index]->split_cmds[0])
+			ft_printerror("Baboonshell: %s: is a directory\n",
 				input->arg_struct[index]->split_cmds[0]);
 	}
 }
@@ -96,6 +101,7 @@ void	check_path_access(t_args *args)
 int	run_builtin(t_args *args)
 {
 	int	exit_status;
+
 	args->split_path = NULL;
 	args->execpath = NULL;
 	if (args->redir_count)
