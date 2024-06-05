@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/04 17:22:01 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/05 08:47:38 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	copy_input(char **temp, t_input *input)
 	{
 		input->input[i] = ft_strdup(temp[i]);
 		if (!ft_strnstr(input->input[i], "<<", ft_strlen(input->input[i])))
-			ft_expand(input->input, input->envlist);
+			ft_expand(input->input, input->envlist, input->exit_status);
 		i++;
 	}
 	free_2d(temp);
@@ -91,7 +91,7 @@ void	tokenize_input(t_input *input)
 			fetch_and_create_hdoc(input->arg_struct[i]);
 			restore_fds(input->arg_struct[i]);
 		}
-		prep_and_split_command(input->arg_struct[i]);
+		prep_and_split_command(input->arg_struct[i], &input->exit_status);
 		i++;
 	}
 }

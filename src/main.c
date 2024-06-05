@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/04 17:29:27 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/04 18:03:05 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ int	main(int argc, char **argv, char **envp)
 void	baboonloop(t_input *input)
 {
 	char	*line;
+	int		syntax_status;
 
-	input->exit_status = 0;
+	syntax_status = 0;
+//	input->exit_status = 0;
 	while (1)
 	{
 		line = NULL;
@@ -44,14 +46,14 @@ void	baboonloop(t_input *input)
 		if (*line && !ft_emptyline(line))
 		{
 			add_history(line);
-			input->exit_status = syntax_validation(line);
-			if (!input->exit_status)
+			syntax_status = syntax_validation(line);
+			if (!syntax_status)
 			{
 				prep_input(line, input);
 				free_structs(input->arg_struct, input->pipe_count);
 			}
-			else if (input->exit_status)
-				printf("value of status:%d\n", input->exit_status);
+			else if (syntax_status)
+				input->exit_status = syntax_status;
 			free(line);
 		}
 	}
