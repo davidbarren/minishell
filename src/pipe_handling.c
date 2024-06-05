@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:32:09 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/03 15:42:12 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/05 13:47:53 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,13 @@ void	child_generic(t_input *input)
 	if (input->pid_index == 0 && input->pipe_count != 1)
 	{
 		child_first(input);
+		dprintf(2, "in here\n");
 		return ;
 	}
 	else if (input->pid_index == limit && input->pipe_count != 1)
 	{
 		child_last(input);
+		dprintf(2, "in here child_last\n");
 		return ;
 	}
 	else if (input->pipe_count > 1)
