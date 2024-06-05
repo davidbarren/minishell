@@ -6,13 +6,14 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/05 11:11:51 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/05 15:23:03 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <dirent.h>
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdio.h>

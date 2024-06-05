@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 01:01:28 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/04 17:23:27 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/05 13:40:26 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	fetch_and_create_hdoc(t_args *args)
 	t_redir	*hdoc;
 
 	hdoc = get_last_hdoc(args->redirects);
-	dprintf(2, "address of hdoc node:%p\n", hdoc);
 	if (!hdoc)
 		return ;
 	create_hdoc(hdoc);

@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:33:09 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/05 09:03:01 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:34:13 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ void	command_extraction(t_args *args, char **tokenlist)
 			longboi = ft_strdup(tokenlist[i]);
 			i++;
 			while (!redir_check(tokenlist[i]))
-			{
-				longboi = ft_strjoin_sep(longboi, tokenlist[i], ' ');
-				i++;
-			}
+				longboi = ft_strjoin_sep(longboi, tokenlist[i++], ' ');
 		}
 		i++;
 	}
