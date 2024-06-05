@@ -6,7 +6,7 @@
 #    By: plang <plang@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 14:15:56 by dbarrene          #+#    #+#              #
-#    Updated: 2024/06/05 10:40:00 by dbarrene         ###   ########.fr        #
+#    Updated: 2024/06/05 18:19:43 by dbarrene         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME = minishell
 
 CC	= cc
-CFLAGS = -Wall -Wextra -g -Werror -fsanitize=address 
+CFLAGS = -Wall -Wextra -g -Werror #-fsanitize=address 
 
 SRCDIR = src
 OBJDIR = obj
@@ -68,7 +68,8 @@ CSRCS = $(SRCDIR)/parsing.c\
 		$(SRCDIR)/tokenized_utils.c\
 		$(SRCDIR)/ft_split_mod.c\
 		$(SRCDIR)/general_utils.c\
-
+		$(SRCDIR)/loop_utils.c\
+		
 OBJS= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 BOBJS= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(BSRCS))
 COBJS= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(CSRCS))
