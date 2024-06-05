@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/05 17:21:59 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/05 18:30:12 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,5 +220,5 @@ char	*expand_key(t_env *node);
 void	get_len_for_key(char *arg, int *i, int *len);
 void	expand_qm(char **check, char **rest, int es);
 int		compare_against_envs(t_env **envs, char **check, char **rest);
-
+void	input_valid_routine(t_input *input, char *line);
 #endif
