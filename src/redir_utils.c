@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:44:23 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/04 17:25:50 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/05 10:15:35 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	create_hdoc(t_redir *node)
 	line = get_next_line(0);
 	while (line)
 	{
-		write(1, ">", 1);
 		if (!ft_strncmp(line, node->str, ft_strlen(node->str)))
 			break ;
+		write(1, ">", 1);
 		ft_putstr_fd(line, node->fd);
 		free(line);
 		line = get_next_line(0);

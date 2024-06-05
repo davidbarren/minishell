@@ -91,7 +91,7 @@ void	tokenize_input(t_input *input)
 			fetch_and_create_hdoc(input->arg_struct[i]);
 			restore_fds(input->arg_struct[i]);
 		}
-		prep_and_split_command(input->arg_struct[i]);
+		prep_and_split_command(input->arg_struct[i], &input->exit_status);
 		i++;
 	}
 }

@@ -49,16 +49,16 @@ void	check_empty_and_split(t_args *args)
 	}
 	while (args->split_cmds[i] && !args->is_echo)
 	{
-		// args->is_expanded = arg_is_expanded(args->split_cmds[i], args->envlist);
-		// if (!args->is_expanded)
-			clean_expand_quotes(&args->split_cmds[i]);
+//		args->is_expanded = arg_is_expanded(args->split_cmds[i], args->envlist);
+//		if (!args->is_expanded)
+		clean_expand_quotes(&args->split_cmds[i]);
 		i++;
 	}
 	args->is_builtin = flag_for_builtin(args->split_cmds);
 	empty_check(args);
 }
 
-void	prep_and_split_command(t_args *args)
+void	prep_and_split_command(t_args *args, int *exit)
 {
 	int	i;
 
@@ -68,7 +68,7 @@ void	prep_and_split_command(t_args *args)
 	check_empty_and_split(args);
 	if (args->pipecount == 1 && args->is_builtin && args->long_command)
 	{
-		run_builtin(args);
+		*exit = run_builtin(args);
 	}
 	if (!args->is_builtin && args->long_command)
 		perms_check(args);

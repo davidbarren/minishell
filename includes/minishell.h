@@ -151,7 +151,7 @@ void	redir_fd_modifying(t_redir **redir);
 int		cmd_is_builtin(t_env **envs, char **args);
 int		ft_strcmp_up_lo(char *s1, char *s2);
 void	check_path_access(t_args *args);
-void	prep_and_split_command(t_args *args);
+void	prep_and_split_command(t_args *args, int *exit);
 int		syntax_validation(char *str);
 int		flag_for_builtin(char **args);
 int		ft_cd(t_env **envs, char **cmd_args);
@@ -179,7 +179,7 @@ char	**ft_split_mod(char *str, char c);
 void	store_original_fds(t_args *args);
 void	restore_fds(t_args *args);
 void	fd_routine_no_cmd(t_args *args);
-void	run_builtin(t_args *args);
+int		run_builtin(t_args *args);
 char	*prep_tokenizer(char *arglist, int redir_count);
 void	free_redirs(t_redir **redirs);
 void	create_hdoc(t_redir *node);
@@ -197,5 +197,5 @@ void	print_struct_debug(t_args*args);
 t_redir *get_last_hdoc(t_redir **redirs);
 void	fetch_and_create_hdoc(t_args *args);
 //void	clean_echo_from_quotes(char **str);
-void	expand_check_arguments(t_env **envs, char **arg, int es);//, int *dq
+void	expand_check_arguments(t_env **envs, char **arg, int es);
 #endif

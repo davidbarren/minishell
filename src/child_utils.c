@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 11:26:44 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/04 17:26:54 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/05 08:49:07 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,9 @@ void	check_path_access(t_args *args)
 	args->execpath = NULL;
 }
 
-void	run_builtin(t_args *args)
+int	run_builtin(t_args *args)
 {
+	int	exit_status;
 	args->split_path = NULL;
 	args->execpath = NULL;
 	if (args->redir_count)
@@ -102,7 +103,8 @@ void	run_builtin(t_args *args)
 		store_original_fds(args);
 		redirs_iteration(args->redirects, 1);
 	}
-	cmd_is_builtin(args->envlist, args->split_cmds);
+	exit_status = cmd_is_builtin(args->envlist, args->split_cmds);
 	if (args->redir_count)
 		restore_fds(args);
+	return (exit_status);
 }
