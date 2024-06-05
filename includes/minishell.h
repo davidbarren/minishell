@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/05 08:49:20 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/05 11:11:51 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ void	close_pipes(t_input *input);
 void	child_first(t_input *input);
 void	child_last(t_input *input);
 void	error_messages(t_input *input, int status, int index);
-void	ft_expand(char **split_cmds, t_env **envlist, int exit_status);
+void	ft_expand(char **split_cmds, t_env **envlist, int es);
 void	baboon_free(char **stackarr);
 int		ft_is_emptystr(char *str);
 void	make_tokens(t_args *args);
@@ -197,5 +197,5 @@ void	print_struct_debug(t_args*args);
 t_redir *get_last_hdoc(t_redir **redirs);
 void	fetch_and_create_hdoc(t_args *args);
 //void	clean_echo_from_quotes(char **str);
-void	expand_check_arguments(t_env **envs, char **arg, int *dq, int k);
+void	expand_check_arguments(t_env **envs, char **arg, int es);
 #endif
