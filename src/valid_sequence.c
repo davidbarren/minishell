@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 11:44:26 by plang             #+#    #+#             */
-/*   Updated: 2024/05/10 14:39:21 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/05 10:40:18 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	valid_sequence(char *str, char a, char b, char c)
 	{
 		if (*str == '"' || *str == '\'')
 			ft_skip_quotes(&str);
+		if (!*str)
+			break ;
 		if (*str == a || *str == b)
 		{
 			str++;
