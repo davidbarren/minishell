@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 11:57:26 by plang             #+#    #+#             */
-/*   Updated: 2024/05/09 15:36:28 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:26:46 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	ft_pwd(void)
 	if (getcwd(pwd, sizeof(pwd)) != NULL)
 	{
 		printf("%s\n", pwd);
-		return (0); //EXIT_SUCCESS
+		return (0);
 	}
 	else
-		return (1); //EXIT_FAILURE
+		return (1);
 }

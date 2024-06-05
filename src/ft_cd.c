@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:54:36 by plang             #+#    #+#             */
-/*   Updated: 2024/05/23 13:38:01 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/05 17:25:39 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,10 @@ int	ft_cd(t_env **envs, char **cmd_args)
 	char	*oldpwd;
 	char	*temp;
 
-	oldpwd = getcwd(cwd, sizeof(cwd));//ft_getenv(envs, "PWD");
+	oldpwd = getcwd(cwd, sizeof(cwd));
 	if (!cmd_args[1] || ft_strchr(cmd_args[1], '~'))
 	{
 		temp = ft_getenv(envs, "HOME");
-		printf("temp in ft_cd:%s\n", temp);
 		chdir(temp);
 		if (!ft_getenv(envs, "HOME"))
 			printf("🐒: cd: HOME not set\n");
@@ -101,6 +100,7 @@ int	ft_cd(t_env **envs, char **cmd_args)
 		ft_putstr_fd("🐒: cd: ", 2);
 		ft_putstr_fd(cmd_args[1], 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
+		return (1);
 	}
 	update_paths(envs, oldpwd, "OLDPWD=");
 	update_paths(envs, getcwd(cwd, sizeof(cwd)), "PWD=");

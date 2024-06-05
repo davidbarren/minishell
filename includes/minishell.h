@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/05 15:23:03 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:21:59 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,16 @@ typedef struct s_split_m
 	char	temp;
 	int		str_len;
 	int		str_cnt;
-
 }	t_split_m;
+
+typedef struct	s_clean
+{
+	int		i;
+	int		j;
+	char	c;
+	char	*start;
+	char	*copy;
+}	t_clean;
 
 void	make_redirect_node(t_redir **redir, char *str, int type, int index);
 void	prep_input(char *line, t_input *input);
@@ -197,6 +205,20 @@ int		ft_emptyline(char *line);
 void	print_struct_debug(t_args*args);
 t_redir *get_last_hdoc(t_redir **redirs);
 void	fetch_and_create_hdoc(t_args *args);
-//void	clean_echo_from_quotes(char **str);
 void	expand_check_arguments(t_env **envs, char **arg, int es);
+void	space_parts(char *str, int *i, int *parts);
+void	quote_redir_parts(char *str, int *i, int *parts, char *temp);
+int		how_many_parts(char *str);
+char	*get_beginning(char *str);
+void	expand_rest(t_env **envs, char **arg, int *i, int es);
+void	set_not_sup_char(char *str, int *i, int *len, char *c);
+int		spacelen(char *str, int *i, int *len);
+int		get_part_len(char *str, int i);
+char	*is_expansion_valid(t_env **envs, char *arg, int i, int es);
+int		get_qflag(char *arg);
+char	*expand_key(t_env *node);
+void	get_len_for_key(char *arg, int *i, int *len);
+void	expand_qm(char **check, char **rest, int es);
+int		compare_against_envs(t_env **envs, char **check, char **rest);
+
 #endif

@@ -6,55 +6,11 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:25:49 by plang             #+#    #+#             */
-/*   Updated: 2024/06/04 15:16:32 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/05 17:25:51 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-// void	clean_echo_from_quotes(char **str)
-// {
-// 	char	*copy;
-// 	char	*start;
-// 	int		i;
-// 	char	c;
-// 	int		flag;
-// 	i = 0;
-// 	c = 0;
-// 	copy = ft_strdup(*str);
-// 	if (!copy)
-// 		return ;
-// 	start = copy;
-// 	printf("string in clean echo: %s\n", *str);
-// 	while (*copy)
-// 	{
-// 		if (*copy == '"' || *copy == '\'')
-// 		{
-// 			c = *copy;
-// 			flag = quote_count((*str), c);
-// 			if (flag && copy[ft_strlen(copy) - 1] != c)
-// 			{
-// 				(*str)[i++] = *copy;
-// 				c = 0;
-// 			}
-// 			if(copy[ft_strlen(copy) - 1] == c)
-// 			{
-// 				copy++;
-// 				while (*copy != c && *copy)
-// 				{
-// 					(*str)[i++] = *copy;
-// 					copy++;
-// 				}
-// 			}
-// 			c = 0;
-// 		}
-// 		if (*copy != '"' && *copy != '\'' && c == 0)
-// 			(*str)[i++] = *copy;
-// 		copy++;
-// 	}
-// 	(*str)[i] = 0;
-// 	free(start);
-// }
 
 void	ft_echo_clean(char **cmd_args)
 {
@@ -120,5 +76,5 @@ int	ft_echo(char **words)
 	}
 	if (flag_index == 1)
 		printf("\n");
-	return (0); //EXIT_SUCCESS
+	return (0);
 }

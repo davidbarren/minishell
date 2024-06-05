@@ -6,39 +6,12 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:54:49 by plang             #+#    #+#             */
-/*   Updated: 2024/06/04 15:29:44 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/05 17:27:36 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 #include "../includes/builtins.h"
-
-void	create_titleonly_node(t_env **envs, char *str, int flag)
-{
-	t_env	*new_node;
-	t_env	*last_node;
-
-	new_node = malloc(sizeof(t_env));
-	if (!new_node)
-		return ;
-	new_node->info = NULL;
-	new_node->env_element = NULL;
-	new_node->next = NULL;
-	new_node->title = ft_strdup(str);
-	if (!new_node->title)
-		return ;
-	if (!flag)
-	{
-		last_node = get_last_node(*envs);
-		last_node->next = new_node;
-		new_node->prev = last_node;
-	}
-	else
-	{
-		new_node->prev = NULL;
-		*envs = new_node;
-	}
-}
 
 void	only_export_title(t_env **envs, char *str)
 {
@@ -58,9 +31,17 @@ void	only_export_title(t_env **envs, char *str)
 	}
 }
 
-void	add_export_to_list(t_env **envs, char *str)
+void	adding_to_last_node(t_env **envs, t_env *new_node)
 {
 	t_env	*last_node;
+
+	last_node = get_last_node(*envs);
+	last_node->next = new_node;
+	new_node->prev = last_node;
+}
+
+void	add_export_to_list(t_env **envs, char *str)
+{
 	t_env	*new_node;
 
 	if (find_equal_sign(str))
@@ -78,11 +59,7 @@ void	add_export_to_list(t_env **envs, char *str)
 			*envs = new_node;
 		}
 		else
-		{
-			last_node = get_last_node(*envs);
-			last_node->next = new_node;
-			new_node->prev = last_node;
-		}
+			adding_to_last_node(envs, new_node);
 	}
 	else if (!find_equal_sign(str))
 		only_export_title(envs, str);
@@ -120,12 +97,13 @@ int	ft_export(t_env **envs, char **cmd_args)
 {
 	t_env	*temp;
 	int		i;
+	int		status;
 
+	status = 0;
 	temp = *envs;
 	if (!cmd_args[1] && export_no_args(envs))
-		return (0); //EXIT_SUCCESS
+		return (status);
 	i = 1;
-	// ft_export clean was here in davids branch
 	while (cmd_args[i])
 	{
 		if (!export_validation(cmd_args[i]))
@@ -133,8 +111,11 @@ int	ft_export(t_env **envs, char **cmd_args)
 			export_is_valid(envs, cmd_args, &i);
 		}
 		else
+		{
 			printf("🐒: export: `%s': not a valid identifier\n", cmd_args[i]);
+			status = 1;
+		}
 		i++;
 	}
-	return (0); //EXIT_SUCCESS
+	return (status);
 }
