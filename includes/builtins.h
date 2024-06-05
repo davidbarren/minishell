@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 15:56:39 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/13 14:14:33 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/05 15:16:11 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ void	clean_from_quotes(char **str);
 void	ft_export_clean(char **cmd_args);
 void	change_lists_content(t_env **envs, char *new_env_str);
 int		find_equal_sign(char *data);
+void	create_titleonly_node(t_env **envs, char *str, int flag);
 
 #endif

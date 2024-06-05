@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 10:51:45 by plang             #+#    #+#             */
-/*   Updated: 2024/05/13 18:00:33 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/05 15:14:52 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,31 @@ int	find_equal_sign(char *data)
 		i++;
 	}
 	return (0);
+}
+
+void	create_titleonly_node(t_env **envs, char *str, int flag)
+{
+	t_env	*new_node;
+	t_env	*last_node;
+
+	new_node = malloc(sizeof(t_env));
+	if (!new_node)
+		return ;
+	new_node->info = NULL;
+	new_node->env_element = NULL;
+	new_node->next = NULL;
+	new_node->title = ft_strdup(str);
+	if (!new_node->title)
+		return ;
+	if (!flag)
+	{
+		last_node = get_last_node(*envs);
+		last_node->next = new_node;
+		new_node->prev = last_node;
+	}
+	else
+	{
+		new_node->prev = NULL;
+		*envs = new_node;
+	}
 }

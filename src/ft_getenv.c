@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 17:13:37 by plang             #+#    #+#             */
-/*   Updated: 2024/05/18 17:00:16 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/05 17:26:34 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ t_env	*getenv_node(t_env **envs, char *str)
 	}
 	return (temp);
 }
-// on line 6: used to have: 
-// if (!ft_strncmp(temp->env_element, str, ft_strlen(str))
 
 char	*get_env_str(t_env *complete_env)
 {
