@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:15:18 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/14 11:35:41 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/06 19:29:06 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	print_list(t_env *env)
 	temp = env;
 	while (temp)
 	{
-		printf("%s\n index:%d\n", temp->env_element, temp->index);
+		ft_printf("%s\n index:%d\n", temp->env_element, temp->index);
 		temp = temp->next;
 	}
 }

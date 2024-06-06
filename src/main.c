@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/05 18:24:07 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/06 18:04:41 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ int	main(int argc, char **argv, char **envp)
 	using_history();
 	parse_input(envp, &envs);
 	input.envlist = &envs;
+	ft_update_shlvl(input.envlist);
 	baboonloop(&input);
+	free(input.pipes);
 	free_list(input.envlist);
 	return (0);
 }
@@ -50,8 +52,8 @@ void	baboonloop(t_input *input)
 				input_valid_routine(input, line);
 			else if (syntax_status)
 				input->exit_status = syntax_status;
-			free(line);
 		}
+		free(line);
 	}
 }
 

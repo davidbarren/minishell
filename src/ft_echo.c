@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 12:25:49 by plang             #+#    #+#             */
-/*   Updated: 2024/06/05 17:25:51 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/06 19:22:00 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,12 @@ int	ft_echo(char **words)
 	i = flag_index;
 	while (words[i] != 0)
 	{
-		printf("%s", words[i]);
+		ft_printf("%s", words[i]);
 		if (words[i + 1] != 0)
-			printf("%c", ' ');
+			ft_printf("%c", ' ');
 		i++;
 	}
 	if (flag_index == 1)
-		printf("\n");
+		ft_printf("\n");
 	return (0);
 }

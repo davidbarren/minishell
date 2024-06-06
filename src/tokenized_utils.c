@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:33:09 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/06 13:27:07 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/06 19:21:31 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ int	bad_syntax_post_expansion(char **tokenlist, int *exit_code)
 		return (1);
 	while (tokenlist[k])
 	{
-		clean_expand_quotes(&tokenlist[k]);
+		if (!cmd_is_echo(tokenlist[k]))
+			clean_expand_quotes(&tokenlist[k]);
 		if (ft_is_emptystr(tokenlist[k]))
 		{
 			free(tokenlist[k]);
@@ -85,4 +86,10 @@ int	bad_syntax_post_expansion(char **tokenlist, int *exit_code)
 		k++;
 	}
 	return (0);
+}
+
+void	free_and_null(char **str)
+{
+	free(*str);
+	*str = NULL;
 }

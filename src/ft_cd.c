@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 10:54:36 by plang             #+#    #+#             */
-/*   Updated: 2024/06/05 17:25:39 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/06 19:22:26 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	ft_cd(t_env **envs, char **cmd_args)
 		temp = ft_getenv(envs, "HOME");
 		chdir(temp);
 		if (!ft_getenv(envs, "HOME"))
-			printf("🐒: cd: HOME not set\n");
+			ft_printf("🐒: cd: HOME not set\n");
 		free(temp);
 		temp = NULL;
 	}

@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/06 09:38:25 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/06 19:20:44 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,29 +94,4 @@ void	tokenize_input(t_input *input)
 		prep_and_split_command(input->arg_struct[i], &input->exit_status);
 		i++;
 	}
-}
-
-void	print_struct_debug(t_args*args)
-{
-	int	k;
-
-	k = 0;
-	printf("address of arglist:%p\n", args->arglist);
-	printf("address of split_cmds head:%p\n", args->split_cmds);
-	while (args->split_cmds[k])
-		printf("address of split_cmds :%p\n", args->split_cmds[k++]);
-	printf("address of tokenized_args:%p\n", args->tokenized_args);
-	printf("address of long_command:%p\n", args->long_command);
-	k = 0;
-	printf("address of split_path head:%p\n", args->split_path);
-	while (args->split_path[k])
-		printf("address of split_path:%p\n", args->split_path[k++]);
-	printf("address of execpath:%p\n", args->execpath);
-	printf("content of execpath:%s\n", args->execpath);
-	printf("address of envcpy:%p\n", args->envcpy);
-	k = 0;
-	while (args->envcpy[k])
-		printf("address of envcpy:%p\n", args->envcpy[k++]);
-	printf("address of input:%p\n", args->input);
-	printf("address of output:%p\n", args->output);
 }
