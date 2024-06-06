@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:44:23 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/06 21:27:02 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/06 21:36:16 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,12 @@
 
 void	create_hdoc(t_redir *node)
 {
-	char	*line;
+	char			*line;
+	struct termios	tios;
 
+	tcgetattr(0, &tios);
+	modify_termios_hdoc(&tios);
+	heredoc_signals();
 	node->str = ft_strjoin_flex(node->str, "\n", 1);
 	node->hdoc_title = ft_strjoin_flex(".hdoc", ft_itoa(node->index), 2);
 	node->fd = open(node->hdoc_title, O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -32,6 +36,8 @@ void	create_hdoc(t_redir *node)
 	}
 	free (line);
 	close(node->fd);
+	reset_termios_hdoc(&tios);
+	initial_signals();
 }
 
 void	files_and_dups(t_redir *node, int has_cmd)

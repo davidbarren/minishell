@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/06 21:35:38 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/06 21:32:41 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <signal.h>
+# include <termios.h>
+# include <sys/ioctl.h>
 # include "../libft/includes/libft.h"
 //# include "builtins.h"
 # include <readline/readline.h>
@@ -218,6 +221,13 @@ void	get_len_for_key(char *arg, int *i, int *len);
 void	expand_qm(char **check, char **rest, int es);
 int		compare_against_envs(t_env **envs, char **check, char **rest);
 void	input_valid_routine(t_input *input, char *line);
+void	initial_signals();
+void	reset_termios(struct termios *tios);
+void	modify_termios(struct termios *tios);
+void	heredoc_signals();
+void	reset_termios_hdoc(struct termios *tios);
+void	modify_termios_hdoc(struct termios *tios);
+void	exec_signals();
 int		bad_syntax_post_expansion(char **tokenlist, int *exit_code);
 int		builtin_vibecheck(t_redir **redirs);
 void	pipes_and_pids_allocation(t_input *input);

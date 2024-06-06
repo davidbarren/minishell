@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/06 18:04:41 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/06 21:33:09 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,19 @@ int	main(int argc, char **argv, char **envp)
 
 void	baboonloop(t_input *input)
 {
-	char	*line;
-	int		syntax_status;
+	char			*line;
+	int				syntax_status;
+	struct termios	tios;
 
 	syntax_status = 0;
+	initial_signals();
+	tcgetattr(0, &tios);
 	while (1)
 	{
 		line = NULL;
+		modify_termios(&tios);
 		line = readline("🐒baboonshell> ");
+		reset_termios(&tios);
 		if (!line)
 			break ;
 		if (*line && !ft_emptyline(line))

@@ -64,6 +64,7 @@ void	prep_pids(t_input *input)
 		}
 		if (input->pids[input->pid_index] == 0)
 		{
+			signal(SIGINT, SIG_DFL);
 			child_generic(input);
 			close_pipes(input);
 			if (opendir(input->arg_struct[input->pid_index]->split_cmds[0]))

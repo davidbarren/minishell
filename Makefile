@@ -6,7 +6,7 @@
 #    By: plang <plang@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 14:15:56 by dbarrene          #+#    #+#              #
-#    Updated: 2024/06/06 21:36:09 by dbarrene         ###   ########.fr        #
+#    Updated: 2024/06/06 21:32:54 by plang            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,6 +73,9 @@ CSRCS = $(SRCDIR)/parsing.c\
 		$(SRCDIR)/ft_split_mod.c\
 		$(SRCDIR)/general_utils.c\
 		$(SRCDIR)/loop_utils.c\
+		$(SRCDIR)/initial_signals.c\
+		$(SRCDIR)/hdoc_signals.c\
+		$(SRCDIR)/exec_signals.c\
 		$(SRCDIR)/ft_quoteclean.c\
 		
 OBJS= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
