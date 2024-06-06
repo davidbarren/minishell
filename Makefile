@@ -6,7 +6,7 @@
 #    By: plang <plang@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 14:15:56 by dbarrene          #+#    #+#              #
-#    Updated: 2024/06/06 19:19:58 by dbarrene         ###   ########.fr        #
+#    Updated: 2024/06/06 21:36:09 by dbarrene         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ CSRCS = $(SRCDIR)/parsing.c\
 		$(SRCDIR)/redir_utils.c\
 		$(SRCDIR)/redir_utils_2.c\
 		$(SRCDIR)/tokenized_utils.c\
+		$(SRCDIR)/tokenized_utils_2.c\
 		$(SRCDIR)/ft_split_mod.c\
 		$(SRCDIR)/general_utils.c\
 		$(SRCDIR)/loop_utils.c\

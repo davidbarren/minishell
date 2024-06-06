@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:08:54 by plang             #+#    #+#             */
-/*   Updated: 2024/06/06 19:14:28 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/06 21:23:45 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@ void	space_parts(char *str, int *i, int *parts)
 void	quote_redir_parts(char *str, int *i, int *parts, char *temp)
 {
 	*temp = str[*i];
-	(*i) += 1;
-	while (str[*i] != *temp && str[*i + 1] != '\0')
+	if (str[*i + 1])
+	{
 		(*i) += 1;
-	(*parts) += 1;
+		while (str[*i] != *temp && str[*i + 1] != '\0')
+			(*i) += 1;
+		(*parts) += 1;
+	}
 }
 
 void	redir_parts(char *str, int *i, int *parts, char *temp)
