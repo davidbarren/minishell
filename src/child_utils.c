@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 11:26:44 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/05 15:26:01 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:24:59 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,11 @@ int	run_builtin(t_args *args)
 	args->execpath = NULL;
 	if (args->redir_count)
 	{
+		if (builtin_vibecheck(args->redirects))
+		{
+			exit_status = 1;
+			return (exit_status);
+		}
 		store_original_fds(args);
 		redirs_iteration(args->redirects, 1);
 	}

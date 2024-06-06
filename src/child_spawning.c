@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:56:38 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/05 15:25:18 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/06 13:25:06 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ void	check_empty_and_split(t_args *args)
 	}
 	while (args->split_cmds[i] && !args->is_echo)
 	{
-//		args->is_expanded = arg_is_expanded(args->split_cmds[i], args->envlist);
-//		if (!args->is_expanded)
 		clean_expand_quotes(&args->split_cmds[i]);
 		i++;
 	}
@@ -76,11 +74,7 @@ void	prep_and_split_command(t_args *args, int *exit)
 
 void	prep_pids(t_input *input)
 {
-	open_pipes(input);
-	input->pid_index = 0;
-	input->pids = ft_calloc(input->pipe_count + 1, sizeof (pid_t));
-	if (!input->pids)
-		ft_printerror("allocation for PID array failed\n");
+	pipes_and_pids_allocation(input);
 	while (input->pid_index < input->pipe_count)
 	{
 		input->pids[input->pid_index] = fork();
@@ -113,7 +107,6 @@ void	exec_child_cmd(t_input *input, int flag)
 		restore_fds(input->arg_struct[input->pid_index]);
 		redirs_iteration(input->arg_struct[input->pid_index]->redirects, flag);
 	}
-//	print_struct_debug(input->arg_struct[input->pid_index]);
 	if (!input->arg_struct[input->pid_index]->long_command)
 		return ;
 	if (input->arg_struct[input->pid_index]->is_builtin)
@@ -130,4 +123,13 @@ void	exec_child_cmd(t_input *input, int flag)
 			input->arg_struct[input->pid_index]->envcpy);
 	}
 	exit (127);
+}
+
+void	pipes_and_pids_allocation(t_input *input)
+{
+	open_pipes(input);
+	input->pid_index = 0;
+	input->pids = ft_calloc(input->pipe_count + 1, sizeof (pid_t));
+	if (!input->pids)
+		ft_printerror("allocation for PID array failed\n");
 }

@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 15:32:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/05 11:02:52 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/06 09:38:25 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	tokenize_input(t_input *input)
 	i = 0;
 	while (i < input->pipe_count)
 	{
-		token_splitting(input->arg_struct[i]);
+		token_splitting(input->arg_struct[i], &input->exit_status);
 		if (input->arg_struct[i]->redirects)
 		{
 			store_original_fds(input->arg_struct[i]);

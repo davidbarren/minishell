@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:44:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/05 14:24:28 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/06 13:27:09 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,20 @@ char	*prep_tokenizer(char *arglist, int redir_count)
 	return (ret);
 }
 
-void	token_splitting(t_args *args)
+void	token_splitting(t_args *args, int *exit_code)
 {
 	char	**tokenlist;
 	char	*parsed_string;
 
 	parsed_string = prep_tokenizer(args->arglist, args->redir_count);
+	*exit_code = syntax_validation(parsed_string);
+	if (*exit_code)
+		return ;
 	free(args->arglist);
 	args->arglist = NULL;
 	tokenlist = ft_split(parsed_string, ' ');
+	if (bad_syntax_post_expansion(tokenlist, exit_code))
+		return ;
 	free(parsed_string);
 	args->token_count = ft_arrlen(tokenlist);
 	if (args->redir_count)

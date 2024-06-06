@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:44:23 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/05 15:13:44 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/06 13:26:01 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	vibe_check(t_redir *temp)
 	{
 		if (access(temp->str, O_RDWR))
 		{
-			ft_printerror("🐒baboonshell: %s: Permission denied", temp->str);
+			ft_printerror("🐒baboonshell: %s: Permission denied\n", temp->str);
 			exit (1);
 		}
 	}
