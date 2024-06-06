@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 11:26:44 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/05 15:26:01 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/06 21:36:36 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	wait_for_children(t_input *input)
 	exit_code = 0;
 	status = 0;
 	i = 0;
+	signal(SIGINT, SIG_IGN);
+	exec_signals();
 	while (i < input->pid_index)
 	{
 		waitpid(input->pids[i], &status, 0);
@@ -32,6 +34,7 @@ void	wait_for_children(t_input *input)
 		}
 		i++;
 	}
+	initial_signals();
 	free(input->pids);
 	free_2d(input->input);
 }

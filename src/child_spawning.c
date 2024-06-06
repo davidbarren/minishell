@@ -6,32 +6,11 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:56:38 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/05 15:25:18 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/06 21:36:29 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-// int	arg_is_expanded(char *str, t_env **envlist)
-// {
-// 	t_env	*temp;
-// 	char	*match;
-
-// 	match = NULL;
-// 	temp = *envlist;
-// 	while (temp)
-// 	{
-// 		if (temp->info)
-// 			match = ft_strnstr(str, temp->info, ft_strlen(str));
-// 		if (match)
-// 			return (1);
-// 		match = ft_strnstr(str, temp->title, ft_strlen(str));
-// 		if (match)
-// 			return (1);
-// 		temp = temp->next;
-// 	}
-// 	return (0);
-// }
 
 void	check_empty_and_split(t_args *args)
 {
@@ -91,6 +70,7 @@ void	prep_pids(t_input *input)
 		}
 		if (input->pids[input->pid_index] == 0)
 		{
+			signal(SIGINT, SIG_DFL);
 			child_generic(input);
 			close_pipes(input);
 			if (opendir(input->arg_struct[input->pid_index]->split_cmds[0]))

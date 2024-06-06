@@ -6,7 +6,7 @@
 #    By: plang <plang@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 14:15:56 by dbarrene          #+#    #+#              #
-#    Updated: 2024/06/05 18:19:43 by dbarrene         ###   ########.fr        #
+#    Updated: 2024/06/06 21:32:54 by plang            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,9 @@ CSRCS = $(SRCDIR)/parsing.c\
 		$(SRCDIR)/child_utils_2.c\
 		$(SRCDIR)/pipe_handling.c\
 		$(SRCDIR)/ft_expand.c\
+		$(SRCDIR)/ft_expand_utils1.c\
+		$(SRCDIR)/ft_expand_utils2.c\
+		$(SRCDIR)/ft_expand_utils3.c\
 		$(SRCDIR)/token_test.c\
 		$(SRCDIR)/redir_utils.c\
 		$(SRCDIR)/redir_utils_2.c\
@@ -69,6 +72,9 @@ CSRCS = $(SRCDIR)/parsing.c\
 		$(SRCDIR)/ft_split_mod.c\
 		$(SRCDIR)/general_utils.c\
 		$(SRCDIR)/loop_utils.c\
+		$(SRCDIR)/initial_signals.c\
+		$(SRCDIR)/hdoc_signals.c\
+		$(SRCDIR)/exec_signals.c\
 		
 OBJS= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 BOBJS= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(BSRCS))

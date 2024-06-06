@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/05 18:24:07 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/06 21:33:09 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,63 @@ int	main(int argc, char **argv, char **envp)
 	return (0);
 }
 
+// void	ctrl_c_signal(int signal)
+// {
+// 	if (signal != SIGINT)
+// 		return ;
+// 	if (signal == SIGINT)
+// 	{
+// 		printf("\n");
+// 		rl_on_new_line();
+// 		rl_replace_line("", 0);
+// 		rl_redisplay();
+// 	}
+// }
+
+// void	parent_signal(int signal)
+// {
+// 	if (signal == SIGINT)
+// 	{
+// 		write(1, "\n", 1);
+// 		// rl_on_new_line();
+// 		// rl_replace_line("", 0);
+// 		// rl_redisplay();
+// 	}
+// }
+
+// void	initial_signals()
+// {
+// 	signal(SIGINT, ctrl_c_signal);
+// 	signal(SIGQUIT, SIG_IGN);
+// }
+
+// void	modify_termios(struct termios *tios)
+// {
+// 	tios->c_lflag &= ~(ECHOCTL);
+// 	tcsetattr(STDIN_FILENO, TCSANOW, tios);
+// }
+
+// void	reset_termios(struct termios *tios)
+// {
+// 	tios->c_lflag |= (ECHOCTL);
+// 	tcsetattr(STDIN_FILENO, TCSANOW, tios);
+// }
+
 void	baboonloop(t_input *input)
 {
-	char	*line;
-	int		syntax_status;
+	char			*line;
+	int				syntax_status;
+	struct termios	tios;
 
 	syntax_status = 0;
+	initial_signals();
+	tcgetattr(0, &tios);
 	while (1)
 	{
 		line = NULL;
+		modify_termios(&tios);
 		line = readline("🐒baboonshell> ");
+		reset_termios(&tios);
 		if (!line)
 			break ;
 		if (*line && !ft_emptyline(line))
