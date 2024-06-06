@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:44:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/06 18:47:47 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/06 21:35:20 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,9 @@ void	token_splitting(t_args *args, int *exit_code)
 		return ;
 	free_and_null(&args->arglist);
 	tokenlist = ft_split(parsed_string, ' ');
+	*exit_code = vibecheck_dir(tokenlist, parsed_string);
+	if (*exit_code)
+		return ;
 	if (args->has_redir)
 	{
 		if (bad_syntax_post_expansion(tokenlist, exit_code))
@@ -110,12 +113,7 @@ void	token_splitting(t_args *args, int *exit_code)
 	free(parsed_string);
 	args->token_count = ft_arrlen(tokenlist);
 	if (args->redir_count)
-	{
-		args->redirects = ft_calloc(1, sizeof(t_redir *));
-		if (!args->redirects)
-			return ;
-		create_redir_node(tokenlist, args->redirects, args);
-	}
+		alloc_and_make_redirs(tokenlist, args);
 	find_command(args, tokenlist);
 	free_2d(tokenlist);
 }

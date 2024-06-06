@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/06 17:34:38 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/06 21:35:38 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ typedef struct s_split_m
 	int		str_cnt;
 }	t_split_m;
 
-typedef struct	s_clean
+typedef struct s_clean
 {
 	int		i;
 	int		j;
@@ -200,7 +200,7 @@ int		cmd_is_echo(char *str);
 void	empty_check(t_args *args);
 int		ft_emptyline(char *line);
 void	print_struct_debug(t_args*args);
-t_redir *get_last_hdoc(t_redir **redirs);
+t_redir	*get_last_hdoc(t_redir **redirs);
 void	fetch_and_create_hdoc(t_args *args);
 void	expand_check_arguments(t_env **envs, char **arg, int es);
 void	space_parts(char *str, int *i, int *parts);
@@ -224,5 +224,7 @@ void	pipes_and_pids_allocation(t_input *input);
 t_env	*getenv_node(t_env **envs, char *str);
 void	ft_update_shlvl(t_env **envs);
 void	free_and_null(char **str);
-void	print_2d(char **str);
+void	alloc_and_make_redirs(char **tokenlist, t_args *args);
+void	create_redir_node(char **tokenlist, t_redir **redirs, t_args *args);
+int		vibecheck_dir(char **str, char *parsedstr);
 #endif
