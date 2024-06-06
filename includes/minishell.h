@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/05 18:30:12 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/06 13:23:52 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ void	ft_expand(char **split_cmds, t_env **envlist, int es);
 void	baboon_free(char **stackarr);
 int		ft_is_emptystr(char *str);
 void	make_tokens(t_args *args);
-void	token_splitting(t_args *args);
+void	token_splitting(t_args *args, int *exit_code);
 void	redirs_iteration(t_redir **redirs, int has_cmd);
 int		redir_check(char *element);
 void	space_insertion(char *prepped, char *s, int i, int k);
@@ -221,4 +221,7 @@ void	get_len_for_key(char *arg, int *i, int *len);
 void	expand_qm(char **check, char **rest, int es);
 int		compare_against_envs(t_env **envs, char **check, char **rest);
 void	input_valid_routine(t_input *input, char *line);
+int		bad_syntax_post_expansion(char **tokenlist, int *exit_code);
+int		builtin_vibecheck(t_redir **redirs);
+void	pipes_and_pids_allocation(t_input *input);
 #endif
