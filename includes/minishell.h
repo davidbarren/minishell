@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/06 13:23:52 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/06 17:34:38 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,7 @@ void	add_env_to_back(t_env **env, char *data, int index);
 int		quotes_num(char *line);
 void	parse_input(char **ep, t_env **env);
 void	print_list(t_env *env);
-// void	make_redir_node(char *input, t_redir **redir);
 int		strlen_delim_double(char *str, char c, char k);
-// void	scan_input(char *input, t_args *args);
-// void	make_arg_node(char *input, t_args **args);
 int		ft_arrlen(char **arr);
 char	*trim_input(char *input, char c);
 void	build_struct(t_input *input);
@@ -224,4 +221,8 @@ void	input_valid_routine(t_input *input, char *line);
 int		bad_syntax_post_expansion(char **tokenlist, int *exit_code);
 int		builtin_vibecheck(t_redir **redirs);
 void	pipes_and_pids_allocation(t_input *input);
+t_env	*getenv_node(t_env **envs, char *str);
+void	ft_update_shlvl(t_env **envs);
+void	free_and_null(char **str);
+void	print_2d(char **str);
 #endif

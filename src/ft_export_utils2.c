@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 10:51:49 by plang             #+#    #+#             */
-/*   Updated: 2024/05/23 11:54:23 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/06 19:23:08 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ int	export_no_args(t_env **envs)
 	{
 		if (temp->title != NULL && temp->info != NULL)
 		{
-			printf("declare -x %s", temp->title);
-			printf("=\"%s\"\n", temp->info);
+			ft_printf("declare -x %s", temp->title);
+			ft_printf("=\"%s\"\n", temp->info);
 		}
 		else if (temp->title != NULL && temp->info == NULL)
 		{
-			printf("declare -x %s\n", temp->title);
+			ft_printf("declare -x %s\n", temp->title);
 		}
 		else if (temp->env_element != NULL)
-			printf("declare -x %s\n", temp->env_element);
+			ft_printf("declare -x %s\n", temp->env_element);
 		temp = temp->next;
 	}
 	return (1);

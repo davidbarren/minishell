@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:32:09 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/05 16:48:42 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/06 14:38:04 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	open_pipes(t_input *input)
 	i = 0;
 	if (input->pipe_count == 1)
 		return ;
+	if (input->pipes)
+		free(input->pipes);
 	input->pipes = ft_calloc(input->pipe_count - 1, sizeof (int *));
 	if (!input->pipes)
 		return ;

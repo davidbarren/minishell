@@ -6,40 +6,11 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 17:09:04 by plang             #+#    #+#             */
-/*   Updated: 2024/06/05 17:13:26 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/06 19:20:15 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	clean_expand_quotes(char **str)
-{
-	t_clean	cq;
-
-	ft_memset(&cq, 0, sizeof(cq));
-	cq.copy = ft_strdup(*str);
-	if (!cq.copy)
-		return ;
-	cq.start = cq.copy;
-	while (cq.copy[cq.j])
-	{
-		if (cq.copy[cq.j] == '"' || cq.copy[cq.j] == '\'')
-		{
-			cq.c = cq.copy[cq.j];
-			cq.j++;
-			while (cq.copy[cq.j] != cq.c && cq.copy[cq.j])
-			{
-				(*str)[cq.i++] = cq.copy[cq.j];
-				cq.j++;
-			}
-		}
-		else if (cq.copy[cq.j] != '"' && cq.copy[cq.j] != '\'')
-			(*str)[cq.i++] = cq.copy[cq.j];
-		cq.j++;
-	}
-	(*str)[cq.i] = '\0';
-	free(cq.start);
-}
 
 char	*expand_key(t_env *node)
 {
@@ -94,4 +65,16 @@ int	compare_against_envs(t_env **envs, char **check, char **rest)
 		temp = temp->next;
 	}
 	return (0);
+}
+
+void	expand_rest(t_env **envs, char **arg, int *i, int es)
+{
+	while ((*arg)[*i] != '\0')
+	{
+		if ((*arg)[*i] == '$')
+		{
+			expand_check_arguments(envs, arg, es);
+		}
+		(*i) += 1;
+	}
 }
