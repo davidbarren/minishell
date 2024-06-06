@@ -109,6 +109,11 @@ int	run_builtin(t_args *args)
 	args->execpath = NULL;
 	if (args->redir_count)
 	{
+		if (builtin_vibecheck(args->redirects))
+		{
+			exit_status = 1;
+			return (exit_status);
+		}
 		store_original_fds(args);
 		redirs_iteration(args->redirects, 1);
 	}

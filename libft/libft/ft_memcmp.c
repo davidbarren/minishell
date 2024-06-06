@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 11:06:33 by dbarrene          #+#    #+#             */
-/*   Updated: 2023/11/16 15:02:57 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/06 19:22:45 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,3 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 	}
 	return (p1[i] - p2[i]);
 }
-/*
-int	main(void)
-{
-	char str1[] = "\xff\xaa\xde\x12";
-	char str2[] = "\xff\xaa\xde\x12MACOSAAAAA";
-	printf("%i\n", ft_memcmp(str1, str2, 4));
-	printf("%i\n", memcmp(str1, str2, 4));
-	return (0);
-}*/

@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:32:09 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/05 16:48:42 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/06 20:16:05 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	open_pipes(t_input *input)
 	i = 0;
 	if (input->pipe_count == 1)
 		return ;
+	if (input->pipes)
+		free(input->pipes);
 	input->pipes = ft_calloc(input->pipe_count - 1, sizeof (int *));
 	if (!input->pipes)
 		return ;
@@ -28,9 +30,7 @@ void	open_pipes(t_input *input)
 		input->pipes[i] = ft_calloc(2, sizeof (int));
 		fd = pipe(input->pipes[i]);
 		if (fd == -1)
-		{
-			ft_printerror("Pipes failed to open\n");
-		}
+			exit (-1);
 		i++;
 	}
 }
@@ -48,10 +48,10 @@ void	close_pipes(t_input *input)
 	{
 		status = close(input->pipes[i][0]);
 		if (status == -1)
-			ft_printerror("Failed to open first end of pipe at index:%d\n", i);
+			exit (-1);
 		status = close(input->pipes[i][1]);
 		if (status == -1)
-			ft_printerror("Failed to open second end of pipe at index:%d\n", i);
+			exit (-1);
 		free(input->pipes[i++]);
 	}
 }
@@ -76,10 +76,10 @@ void	child_generic(t_input *input)
 	{
 		status = dup2(input->pipes[input->pid_index - 1][0], STDIN_FILENO);
 		if (status == -1)
-			ft_printerror("Error duping STDIN_FD\n");
+			exit(-1);
 		status = dup2(input->pipes[input->pid_index][1], STDOUT_FILENO);
 		if (status == -1)
-			ft_printerror("Error duping STDOUT\n");
+			exit(-1);
 	}
 }
 
@@ -89,7 +89,7 @@ void	child_first(t_input *input)
 
 	status = dup2(input->pipes[0][1], STDOUT_FILENO);
 	if (status == -1)
-		ft_printerror("failed to dup pipe and stdout in child 0\n");
+		exit (-1);
 }
 
 void	child_last(t_input *input)
@@ -98,5 +98,5 @@ void	child_last(t_input *input)
 
 	status = dup2(input->pipes[input->pipe_count - 2][0], STDIN_FILENO);
 	if (status == -1)
-		ft_printerror("Failed to dup pipe and stdout in last child\n");
+		exit (-1);
 }

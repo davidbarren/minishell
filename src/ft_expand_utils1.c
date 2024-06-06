@@ -22,10 +22,13 @@ void	space_parts(char *str, int *i, int *parts)
 void	quote_redir_parts(char *str, int *i, int *parts, char *temp)
 {
 	*temp = str[*i];
-	(*i) += 1;
-	while (str[*i] != *temp && str[*i + 1] != '\0')
+	if (str[*i + 1])
+	{
 		(*i) += 1;
-	(*parts) += 1;
+		while (str[*i] != *temp && str[*i + 1] != '\0')
+			(*i) += 1;
+		(*parts) += 1;
+	}
 }
 
 void	redir_parts(char *str, int *i, int *parts, char *temp)
@@ -85,16 +88,4 @@ char	*get_beginning(char *str)
 	if (!beginning)
 		return (NULL);
 	return (beginning);
-}
-
-void	expand_rest(t_env **envs, char **arg, int *i, int es)
-{
-	while ((*arg)[*i] != '\0')
-	{
-		if ((*arg)[*i] == '$')
-		{
-			expand_check_arguments(envs, arg, es);
-		}
-		(*i) += 1;
-	}
 }

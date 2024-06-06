@@ -14,7 +14,7 @@
 NAME = minishell
 
 CC	= cc
-CFLAGS = -Wall -Wextra -g -Werror #-fsanitize=address 
+CFLAGS = -Wall -Wextra -g -Werror -fsanitize=address 
 
 SRCDIR = src
 OBJDIR = obj
@@ -69,12 +69,14 @@ CSRCS = $(SRCDIR)/parsing.c\
 		$(SRCDIR)/redir_utils.c\
 		$(SRCDIR)/redir_utils_2.c\
 		$(SRCDIR)/tokenized_utils.c\
+		$(SRCDIR)/tokenized_utils_2.c\
 		$(SRCDIR)/ft_split_mod.c\
 		$(SRCDIR)/general_utils.c\
 		$(SRCDIR)/loop_utils.c\
 		$(SRCDIR)/initial_signals.c\
 		$(SRCDIR)/hdoc_signals.c\
 		$(SRCDIR)/exec_signals.c\
+		$(SRCDIR)/ft_quoteclean.c\
 		
 OBJS= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 BOBJS= $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(BSRCS))

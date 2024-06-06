@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:09:25 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/05/21 17:16:55 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/06 21:31:19 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,60 +53,8 @@ int	ft_quotelen(const char *s, char c)
 	i = 0;
 	while (s[i] && s[i] != c)
 		i++;
-	// if (s[i + 1] == c)
-	// 	i++;
 	return (i + 1);
 }
-/*
-char **ft_newsplit(const char *s, char c)
-{
-	int		i;
-	int		j;
-	char	**array;
-	char	temp;
-
-	if (!s)
-		return (NULL);
-	i = 0;
-	array = ft_calloc(1 + word_count(s,c), sizeof (char *));
-	if (!array)
-		return (NULL);
-	printf("Wordcount: %d\n", word_count(s, c));
-	ft_skip_delims(&s, c);
-	while (*s)
-	{
-		j = 0;
-			while (s[j] != c && str[j] && (str[j] != '\'' && str[j] != '\"'))
-				j++;
-		if (s[j] == '\'' || str[j] == '\"')
-		{
-			temp = s[j];
-//			ft_skip_delims(&s, temp);
-//			 ft_skip_delims(&s, c);
-//			 s+= 1;
-			printf("Temp char: %c\n", temp);
-			j+= ft_quotelen(s + j + 1,  temp);
-			while (s[j] && str[j] != c)
-				j++;
-			array[i++] = ft_subs(str, 0, j);
-			if (!array)
-				free_2d(array);
-			s += j;
-			 ft_skip_delims(&s, c);
-		}
-		else
-		{
-			array[i++] = ft_subs(str, 0, j);
-			if (!array)
-				free_2d(array);
-			s += j;
-			ft_skip_delims(&s, c);
-		}
-	}
-	array[i] = NULL;
-	return (array);
-}
-*/
 
 void	ft_splitmaker(const char *s, char c, t_qsplit *p)
 {

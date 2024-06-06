@@ -6,7 +6,7 @@
 #    By: plang <plang@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/24 10:40:52 by dbarrene          #+#    #+#              #
-#    Updated: 2024/05/03 14:22:27 by dbarrene         ###   ########.fr        #
+#    Updated: 2024/06/06 13:37:11 by dbarrene         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ ft_skipchar.c\
 ft_strcmp.c\
 ft_strjoin_sep.c\
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -Ofast
 INCFLAGS = -Iincludes
 
 DEP = $(OBJ:.o=.d)

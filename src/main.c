@@ -25,52 +25,12 @@ int	main(int argc, char **argv, char **envp)
 	using_history();
 	parse_input(envp, &envs);
 	input.envlist = &envs;
+	ft_update_shlvl(input.envlist);
 	baboonloop(&input);
+	free(input.pipes);
 	free_list(input.envlist);
 	return (0);
 }
-
-// void	ctrl_c_signal(int signal)
-// {
-// 	if (signal != SIGINT)
-// 		return ;
-// 	if (signal == SIGINT)
-// 	{
-// 		printf("\n");
-// 		rl_on_new_line();
-// 		rl_replace_line("", 0);
-// 		rl_redisplay();
-// 	}
-// }
-
-// void	parent_signal(int signal)
-// {
-// 	if (signal == SIGINT)
-// 	{
-// 		write(1, "\n", 1);
-// 		// rl_on_new_line();
-// 		// rl_replace_line("", 0);
-// 		// rl_redisplay();
-// 	}
-// }
-
-// void	initial_signals()
-// {
-// 	signal(SIGINT, ctrl_c_signal);
-// 	signal(SIGQUIT, SIG_IGN);
-// }
-
-// void	modify_termios(struct termios *tios)
-// {
-// 	tios->c_lflag &= ~(ECHOCTL);
-// 	tcsetattr(STDIN_FILENO, TCSANOW, tios);
-// }
-
-// void	reset_termios(struct termios *tios)
-// {
-// 	tios->c_lflag |= (ECHOCTL);
-// 	tcsetattr(STDIN_FILENO, TCSANOW, tios);
-// }
 
 void	baboonloop(t_input *input)
 {
@@ -97,8 +57,8 @@ void	baboonloop(t_input *input)
 				input_valid_routine(input, line);
 			else if (syntax_status)
 				input->exit_status = syntax_status;
-			free(line);
 		}
+		free(line);
 	}
 }
 

@@ -104,7 +104,7 @@ typedef struct s_split_m
 	int		str_cnt;
 }	t_split_m;
 
-typedef struct	s_clean
+typedef struct s_clean
 {
 	int		i;
 	int		j;
@@ -121,10 +121,7 @@ void	add_env_to_back(t_env **env, char *data, int index);
 int		quotes_num(char *line);
 void	parse_input(char **ep, t_env **env);
 void	print_list(t_env *env);
-// void	make_redir_node(char *input, t_redir **redir);
 int		strlen_delim_double(char *str, char c, char k);
-// void	scan_input(char *input, t_args *args);
-// void	make_arg_node(char *input, t_args **args);
 int		ft_arrlen(char **arr);
 char	*trim_input(char *input, char c);
 void	build_struct(t_input *input);
@@ -182,7 +179,7 @@ void	ft_expand(char **split_cmds, t_env **envlist, int es);
 void	baboon_free(char **stackarr);
 int		ft_is_emptystr(char *str);
 void	make_tokens(t_args *args);
-void	token_splitting(t_args *args);
+void	token_splitting(t_args *args, int *exit_code);
 void	redirs_iteration(t_redir **redirs, int has_cmd);
 int		redir_check(char *element);
 void	space_insertion(char *prepped, char *s, int i, int k);
@@ -206,7 +203,7 @@ int		cmd_is_echo(char *str);
 void	empty_check(t_args *args);
 int		ft_emptyline(char *line);
 void	print_struct_debug(t_args*args);
-t_redir *get_last_hdoc(t_redir **redirs);
+t_redir	*get_last_hdoc(t_redir **redirs);
 void	fetch_and_create_hdoc(t_args *args);
 void	expand_check_arguments(t_env **envs, char **arg, int es);
 void	space_parts(char *str, int *i, int *parts);
@@ -231,4 +228,13 @@ void	heredoc_signals();
 void	reset_termios_hdoc(struct termios *tios);
 void	modify_termios_hdoc(struct termios *tios);
 void	exec_signals();
+int		bad_syntax_post_expansion(char **tokenlist, int *exit_code);
+int		builtin_vibecheck(t_redir **redirs);
+void	pipes_and_pids_allocation(t_input *input);
+t_env	*getenv_node(t_env **envs, char *str);
+void	ft_update_shlvl(t_env **envs);
+void	free_and_null(char **str);
+void	alloc_and_make_redirs(char **tokenlist, t_args *args);
+void	create_redir_node(char **tokenlist, t_redir **redirs, t_args *args);
+int		vibecheck_dir(char **str, char *parsedstr);
 #endif

@@ -56,15 +56,15 @@ void	files_and_dups(t_redir *node, int has_cmd)
 		node->fd = open(node->str, O_RDONLY, 0644);
 	}
 	if (node->fd == -1)
-		dprintf(2, "error creating file in node:%s\n", node->str);
+		exit (-1);
 	if (node->redir_type == 1 && has_cmd)
 	{
 		if (dup2(node->fd, STDIN_FILENO) == -1)
-			dprintf(2, "error duping STDIN in node :%s\n", node->str);
+			exit (-1);
 	}
 	else
 		if (dup2(node->fd, STDOUT_FILENO) == -1)
-			dprintf(2, "error duping STDOUT in node :%s\n", node->str);
+			exit (-1);
 	close(node->fd);
 }
 
@@ -74,7 +74,7 @@ void	vibe_check(t_redir *temp)
 	{
 		if (access(temp->str, O_RDWR))
 		{
-			ft_printerror("🐒baboonshell: %s: Permission denied", temp->str);
+			ft_printerror("🐒baboonshell: %s: Permission denied\n", temp->str);
 			exit (1);
 		}
 	}

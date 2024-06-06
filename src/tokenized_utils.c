@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:33:09 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/05 14:34:13 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/06 19:21:31 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	command_extraction(t_args *args, char **tokenlist)
 	{
 		if (!redir_check(tokenlist[i]) && !redir_check(tokenlist[i - 1]))
 		{
-			longboi = ft_strdup(tokenlist[i]);
+			if (!ft_is_emptystr(tokenlist[i]))
+				longboi = ft_strdup(tokenlist[i]);
 			i++;
 			while (!redir_check(tokenlist[i]))
 				longboi = ft_strjoin_sep(longboi, tokenlist[i++], ' ');
@@ -61,4 +62,34 @@ void	find_command(t_args *args, char **tokenlist)
 	}
 	else
 		command_extraction(args, tokenlist);
+}
+
+int	bad_syntax_post_expansion(char **tokenlist, int *exit_code)
+{
+	int	k;
+
+	k = 0;
+	if (!tokenlist)
+		return (1);
+	while (tokenlist[k])
+	{
+		if (!cmd_is_echo(tokenlist[k]))
+			clean_expand_quotes(&tokenlist[k]);
+		if (ft_is_emptystr(tokenlist[k]))
+		{
+			free(tokenlist[k]);
+			tokenlist[k] = NULL;
+			ft_printerror("Baboonshell: : No such file or directory\n");
+			*exit_code = 1;
+			return (1);
+		}
+		k++;
+	}
+	return (0);
+}
+
+void	free_and_null(char **str)
+{
+	free(*str);
+	*str = NULL;
 }

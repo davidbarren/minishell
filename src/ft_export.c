@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:54:49 by plang             #+#    #+#             */
-/*   Updated: 2024/06/05 17:27:36 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/06 19:20:59 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	ft_export(t_env **envs, char **cmd_args)
 		}
 		else
 		{
-			printf("🐒: export: `%s': not a valid identifier\n", cmd_args[i]);
+			ft_printf("🐒: export: `%s': not a valid identifier\n", cmd_args[i]);
 			status = 1;
 		}
 		i++;
