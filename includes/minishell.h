@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/07 11:07:56 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/07 11:21:54 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,6 +239,8 @@ void	free_and_null(char **str);
 void	alloc_and_make_redirs(char **tokenlist, t_args *args);
 void	create_redir_node(char **tokenlist, t_redir **redirs, t_args *args);
 int		vibecheck_dir(char **str, char *parsedstr);
+char	*ft_strdup_free(char *s);
+int		emptystr_condition(char **tokenlist, int *exit_code);
 void	check_g_exit_status(t_input *input);
 void	heredoc_sigint(int signal);
 #endif

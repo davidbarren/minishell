@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:33:09 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/06 19:21:31 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/07 11:22:01 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	command_extraction(t_args *args, char **tokenlist)
 		args->long_command = NULL;
 		return ;
 	}
-	args->long_command = ft_strdup(longboi);
+	args->long_command = ft_strdup_free(longboi);
 }
 
 void	find_command(t_args *args, char **tokenlist)
@@ -73,19 +73,28 @@ int	bad_syntax_post_expansion(char **tokenlist, int *exit_code)
 		return (1);
 	while (tokenlist[k])
 	{
+		if ((tokenlist[k][0] == '\"' || *tokenlist[k] == '\'')
+			&& ((ft_strlen(tokenlist[k]) == 1)))
+			k++;
 		if (!cmd_is_echo(tokenlist[k]))
-			clean_expand_quotes(&tokenlist[k]);
-		if (ft_is_emptystr(tokenlist[k]))
 		{
-			free(tokenlist[k]);
-			tokenlist[k] = NULL;
-			ft_printerror("Baboonshell: : No such file or directory\n");
-			*exit_code = 1;
-			return (1);
+			if (!ft_is_emptystr(tokenlist[k]))
+				tokenlist[k] = trim_input(tokenlist[k], '\"');
+			if (ft_is_emptystr(tokenlist[k]))
+				return (emptystr_condition(&tokenlist[k], exit_code));
 		}
 		k++;
 	}
 	return (0);
+}
+
+int	emptystr_condition(char **tokenlist, int *exit_code)
+{
+	free(*tokenlist);
+	*tokenlist = NULL;
+	ft_printerror("Baboonshell: : No such file or directory\n");
+	*exit_code = 1;
+	return (1);
 }
 
 void	free_and_null(char **str)

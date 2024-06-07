@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:44:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/06 21:35:20 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/07 07:48:01 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,12 @@ void	token_splitting(t_args *args, int *exit_code)
 		return ;
 	free_and_null(&args->arglist);
 	tokenlist = ft_split(parsed_string, ' ');
-	*exit_code = vibecheck_dir(tokenlist, parsed_string);
-	if (*exit_code)
-		return ;
 	if (args->has_redir)
 	{
 		if (bad_syntax_post_expansion(tokenlist, exit_code))
+			return ;
+		*exit_code = vibecheck_dir(tokenlist, parsed_string);
+		if (*exit_code)
 			return ;
 	}
 	free(parsed_string);

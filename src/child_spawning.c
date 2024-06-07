@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:56:38 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/06 20:13:21 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/07 09:50:53 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,6 @@ void	check_empty_and_split(t_args *args)
 
 void	prep_and_split_command(t_args *args, int *exit)
 {
-	int	i;
-
-	i = 0;
 	if (!args->long_command)
 		return ;
 	check_empty_and_split(args);

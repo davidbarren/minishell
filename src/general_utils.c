@@ -6,20 +6,31 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 01:32:53 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/06 12:23:54 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/07 11:04:01 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	baboon_free(char **stackarr)
+char	*ft_strdup_free(char *s)
 {
-	int	i;
+	char	*dup;
+	int		i;
 
+	if (!s)
+		return (NULL);
 	i = 0;
-	if (stackarr)
-		while (stackarr[i])
-			free(stackarr[i++]);
+	dup = (char *)malloc (1 + ft_strlen(s) * sizeof (char));
+	if (!dup)
+		return (NULL);
+	while (s[i] != 0)
+	{
+		dup[i] = s[i];
+		i++;
+	}
+	dup[i] = 0;
+	free(s);
+	return (dup);
 }
 
 int	cmd_is_echo(char *str)
