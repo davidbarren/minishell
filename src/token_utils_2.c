@@ -6,28 +6,11 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:26:05 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/04 17:25:34 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/07 11:33:26 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	extract_cmds(t_args *args)
-{
-	t_redir	*temp;
-
-	if (!args->redir_count)
-		return ;
-	temp = *(args->redirects);
-	while (temp)
-	{
-		if (ft_strnstr(temp->str, args->long_command, ft_strlen(temp->str)))
-		{
-			temp->str = ft_strdup(args->tokenized_args);
-		}
-		temp = temp->next;
-	}
-}
 
 int	ft_arrlen(char **arr)
 {

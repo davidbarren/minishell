@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:44:23 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/07 10:36:38 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/07 12:29:46 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	files_and_dups(t_redir *node, int has_cmd)
 		node->fd = open(node->str, O_RDONLY, 0644);
 	}
 	if (node->fd == -1)
-		exit (-1);
+		return ;
 	if (node->redir_type == 1 && has_cmd)
 	{
 		if (dup2(node->fd, STDIN_FILENO) == -1)

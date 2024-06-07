@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 21:34:02 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/07 11:05:26 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/07 12:30:19 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	vibecheck_dir(char **str, char *parsedstr)
 	i = 0;
 	while (str[i])
 	{
+		if (ft_strnstr(parsedstr, "echo", ft_strlen(parsedstr)))
+			break ;
 		if (*str[i] == '\"')
 			str[i] = trim_input(str[i], '\"');
 		why = (opendir(str[i]));
