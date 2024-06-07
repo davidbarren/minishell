@@ -25,6 +25,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+int	g_signal_exitstatus;
+
 typedef struct s_env
 {
 	struct s_env	*next;
@@ -167,7 +169,7 @@ int		ft_cd(t_env **envs, char **cmd_args);
 void	exec_child_cmd(t_input *input, int flag);
 void	tokenize_input(t_input *input);
 void	perms_check(t_args *args);
-void	baboonloop(t_input *input);
+void	baboonloop(t_input *input, struct termios tios);
 void	create_files(t_redir *temp, t_redir *output_node);
 void	child_generic(t_input *input);
 void	open_pipes(t_input *input);
@@ -239,4 +241,6 @@ void	create_redir_node(char **tokenlist, t_redir **redirs, t_args *args);
 int		vibecheck_dir(char **str, char *parsedstr);
 char	*ft_strdup_free(char *s);
 int		emptystr_condition(char **tokenlist, int *exit_code);
+void	check_g_exit_status(t_input *input);
+void	heredoc_sigint(int signal);
 #endif

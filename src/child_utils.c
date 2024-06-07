@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 11:26:44 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/06 21:36:36 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/07 10:29:46 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	wait_for_children(t_input *input)
 	initial_signals();
 	free(input->pids);
 	free_2d(input->input);
+	check_g_exit_status(input);
 }
 
 void	error_messages(t_input *input, int status, int index)
