@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 19:18:51 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/06 19:19:45 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/07 08:31:25 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	clean_expand_quotes(char **str)
 		{
 			cq.c = cq.copy[cq.j];
 			cq.j++;
-			while (cq.copy[cq.j] != cq.c && cq.copy[cq.j])
+			while (cq.copy[cq.j] != cq.c && cq.copy[cq.j] && cq.copy[cq.j])
 			{
 				(*str)[cq.i++] = cq.copy[cq.j];
 				cq.j++;
 			}
 		}
-		else if (cq.copy[cq.j] != '"' && cq.copy[cq.j] != '\'')
+		else if (cq.copy[cq.j] != '"' && cq.copy[cq.j] != '\'' && cq.copy[cq.j])
 			(*str)[cq.i++] = cq.copy[cq.j];
 		cq.j++;
 	}

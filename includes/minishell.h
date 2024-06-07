@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/06 21:32:41 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/07 11:21:54 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,13 +221,13 @@ void	get_len_for_key(char *arg, int *i, int *len);
 void	expand_qm(char **check, char **rest, int es);
 int		compare_against_envs(t_env **envs, char **check, char **rest);
 void	input_valid_routine(t_input *input, char *line);
-void	initial_signals();
+void	initial_signals(void);
 void	reset_termios(struct termios *tios);
 void	modify_termios(struct termios *tios);
-void	heredoc_signals();
+void	heredoc_signals(void);
 void	reset_termios_hdoc(struct termios *tios);
 void	modify_termios_hdoc(struct termios *tios);
-void	exec_signals();
+void	exec_signals(void);
 int		bad_syntax_post_expansion(char **tokenlist, int *exit_code);
 int		builtin_vibecheck(t_redir **redirs);
 void	pipes_and_pids_allocation(t_input *input);
@@ -237,4 +237,6 @@ void	free_and_null(char **str);
 void	alloc_and_make_redirs(char **tokenlist, t_args *args);
 void	create_redir_node(char **tokenlist, t_redir **redirs, t_args *args);
 int		vibecheck_dir(char **str, char *parsedstr);
+char	*ft_strdup_free(char *s);
+int		emptystr_condition(char **tokenlist, int *exit_code);
 #endif
