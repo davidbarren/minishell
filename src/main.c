@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/06 21:33:09 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/07 11:05:33 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_env	*envs;
-	t_input	input;
+	t_env			*envs;
+	t_input			input;
+	int				g_signal_exitstatus;
+	struct termios	tios;
 
+	g_signal_exitstatus = 0;
 	(void) argc;
 	(void) argv;
 	envs = NULL;
@@ -26,27 +29,26 @@ int	main(int argc, char **argv, char **envp)
 	parse_input(envp, &envs);
 	input.envlist = &envs;
 	ft_update_shlvl(input.envlist);
-	baboonloop(&input);
+	tcgetattr(0, &tios);
+	baboonloop(&input, tios);
 	free(input.pipes);
 	free_list(input.envlist);
 	return (0);
 }
 
-void	baboonloop(t_input *input)
+void	baboonloop(t_input *input, struct termios tios)
 {
-	char			*line;
-	int				syntax_status;
-	struct termios	tios;
+	char		*line;
+	static int	syntax_status = 0;
 
-	syntax_status = 0;
 	initial_signals();
-	tcgetattr(0, &tios);
 	while (1)
 	{
 		line = NULL;
 		modify_termios(&tios);
 		line = readline("🐒baboonshell> ");
 		reset_termios(&tios);
+		check_g_exit_status(input);
 		if (!line)
 			break ;
 		if (*line && !ft_emptyline(line))
