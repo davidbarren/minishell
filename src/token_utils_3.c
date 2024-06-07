@@ -6,40 +6,11 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:34:45 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/04 17:25:42 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/07 11:39:44 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-char	*get_cmd_filename_last(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && str[i] != '<' && str[i] != '>')
-		i++;
-	while (str[i] != ' ')
-		i--;
-	return (ft_strndup(str, i, 0));
-}
-
-char	*get_file_filename_last(char *str)
-{
-	int		i;
-	int		j;
-	char	*temp;
-
-	temp = str;
-	i = 0;
-	j = 0;
-	while (str[i] && str[i] != '<' && str[i] != '>')
-		i++;
-	while (str[i] != ' ')
-		i--;
-	str += i;
-	return (ft_strdup(str));
-}
 
 void	file_opening(t_redir *redir)
 {
@@ -53,19 +24,6 @@ void	file_opening(t_redir *redir)
 		create_files(temp, output_node);
 		temp = temp->next;
 	}
-}
-
-void	redir_fd_modifying(t_redir **redir)
-{
-	t_redir	*input_node;
-	t_redir	*output_node;
-
-	input_node = *redir;
-	output_node = get_last_redir(*redir);
-	printf("contents of input node:%s\n", input_node->filename);
-	printf("contents of output node:%s\n", output_node->filename);
-	dup2(output_node->fd, STDOUT_FILENO);
-	close(output_node->fd);
 }
 
 void	create_files(t_redir *temp, t_redir *output_node)

@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:05:53 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/03 17:14:16 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/07 11:31:00 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,6 @@ char	*ft_strndup(char *str, size_t n, int flag)
 	if (flag == 1)
 		free(str);
 	return (ret);
-}
-
-int	strlen_delim_double(char *str, char c, char k)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == c || str[i] == k)
-			break ;
-		i++;
-	}
-	return (i);
 }
 
 void	update_redirs(t_args *args)

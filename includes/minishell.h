@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/07 11:21:54 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/07 11:59:25 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,132 +115,152 @@ typedef struct s_clean
 	char	*copy;
 }	t_clean;
 
-void	make_redirect_node(t_redir **redir, char *str, int type, int index);
-void	prep_input(char *line, t_input *input);
-void	store_env(char **ep, t_env **env);
-t_env	*get_last_node(t_env *env);
-void	add_env_to_back(t_env **env, char *data, int index);
-int		quotes_num(char *line);
-void	parse_input(char **ep, t_env **env);
-void	print_list(t_env *env);
-int		strlen_delim_double(char *str, char c, char k);
-int		ft_arrlen(char **arr);
-char	*trim_input(char *input, char c);
-void	build_struct(t_input *input);
-void	tokenize_args(t_args *args);
-int		ft_is_redirect(char *str);
-int		count_redirects(char *str);
-char	*ft_strndup(char *str, size_t n, int flag);
-void	clean_arglist(t_args *args);
-void	update_redirs(t_args *args);
-void	extract_cmds(t_args *args);
-char	**copy_2d(char **src);
-void	clean_redir_node(t_redir **redir, char *str);
-char	*get_cmd_filename_last(char *str);
-char	*get_file_filename_last(char *str);
-char	*ft_getenv(t_env **envs, char *str);
-void	prep_child_command(t_args *args);
-int		valid_quotes(char *str);
-int		valid_pipes(char *str);
-int		valid_chars(char *str);
-int		valid_chars2(char *str);
-int		valid_redirect(char *str);
-int		valid_sequence(char *str, char a, char b, char c);
-char	**copy_env(char **ep, t_env **env);
-void	store_env_title_n_info(t_env **env);
+// readline 
 void	rl_replace_line(const char *text, int clear_undo);
-void	free_content(t_env *env);
-void	free_list(t_env **env);
-void	prep_pids(t_input *input);
-void	wait_for_children(t_input *input);
+// Inside main.c
 void	free_struct_content(t_args *args);
 void	free_structs(t_args **structs, int pipecount);
 void	free_input(t_input *input);
-void	file_opening(t_redir *redir);
-t_redir	*get_last_redir(t_redir *redir);
-void	redir_fd_modifying(t_redir **redir);
-int		cmd_is_builtin(t_env **envs, char **args);
-int		ft_strcmp_up_lo(char *s1, char *s2);
-void	check_path_access(t_args *args);
-void	prep_and_split_command(t_args *args, int *exit);
-int		syntax_validation(char *str);
-int		flag_for_builtin(char **args);
-int		ft_cd(t_env **envs, char **cmd_args);
-void	exec_child_cmd(t_input *input, int flag);
-void	tokenize_input(t_input *input);
-void	perms_check(t_args *args);
 void	baboonloop(t_input *input, struct termios tios);
-void	create_files(t_redir *temp, t_redir *output_node);
-void	child_generic(t_input *input);
-void	open_pipes(t_input *input);
-void	close_pipes(t_input *input);
-void	child_first(t_input *input);
-void	child_last(t_input *input);
-void	error_messages(t_input *input, int status, int index);
-void	ft_expand(char **split_cmds, t_env **envlist, int es);
-void	baboon_free(char **stackarr);
-int		ft_is_emptystr(char *str);
-void	make_tokens(t_args *args);
-void	token_splitting(t_args *args, int *exit_code);
-void	redirs_iteration(t_redir **redirs, int has_cmd);
-int		redir_check(char *element);
-void	space_insertion(char *prepped, char *s, int i, int k);
-void	find_command(t_args *args, char **tokenlist);
-char	**ft_split_mod(char *str, char c);
-void	store_original_fds(t_args *args);
-void	restore_fds(t_args *args);
-void	fd_routine_no_cmd(t_args *args);
-int		run_builtin(t_args *args);
-char	*prep_tokenizer(char *arglist, int redir_count);
-void	free_redirs(t_redir **redirs);
-void	create_hdoc(t_redir *node);
-void	baboon_free(char **stackarr);
+// Inside initial_signals.c
+void	initial_signals(void);
+void	reset_termios(struct termios *tios);
+void	modify_termios(struct termios *tios);
+// Inside hdoc_signals.c
+void	heredoc_signals(void);
+void	reset_termios_hdoc(struct termios *tios);
+void	modify_termios_hdoc(struct termios *tios);
+void	heredoc_sigint(int signal);
+void	check_g_exit_status(t_input *input);
+// Inside exec_signals.c
+void	exec_signals(void);
+// Inside valid_syntax_check.c
+int		syntax_validation(char *str);
+// Inside valid_quotes.c
+int		valid_quotes(char *str);
 int		quote_count(char *str, char c);
+// Inside valid_pipes.c
+int		valid_pipes(char *str);
+// Inside valid_chars.c
+int		valid_chars(char *str);
+int		valid_chars2(char *str);
+// Inside valid_redirect.c
+int		valid_redirect(char *str);
+// Inside valid_sequence.c
+int		valid_sequence(char *str, char a, char b, char c);
+// Inside parsing.c
+void	store_env(char **ep, t_env **env);
+t_env	*get_last_node(t_env *env);
+void	add_env_to_back(t_env **env, char *data, int index);
+void	parse_input(char **ep, t_env **env);
+void	print_list(t_env *env);
+// Inside parsing_utils.c
+void	store_env_title_n_info(t_env **env);
+void	free_content(t_env *env);
+void	free_list(t_env **env);
+// Inside tokenizing.c
+void	prep_input(char *line, t_input *input);
+void	build_struct(t_input *input);
+void	tokenize_input(t_input *input);
+// Inside tokenized_utils.c
+int		bad_syntax_post_expansion(char **tokenlist, int *exit_code);
+void	free_and_null(char **str);
+void	find_command(t_args *args, char **tokenlist);
+int		emptystr_condition(char **tokenlist, int *exit_code);
+// Inside tokenized_utils_2.c
+void	alloc_and_make_redirs(char **tokenlist, t_args *args);
+void	create_redir_node(char **tokenlist, t_redir **redirs, t_args *args);
+int		vibecheck_dir(char **str, char *parsedstr);
+// Inside token_utils.c
+char	*ft_strndup(char *str, size_t n, int flag);
+void	update_redirs(t_args *args);
+// Inside token_utils_2.c
+void	space_insertion(char *prepped, char *s, int i, int k);
+int		ft_arrlen(char **arr);
+t_redir	*get_last_redir(t_redir *redir);
+// Inside token_utils_3.c
+void	file_opening(t_redir *redir);
+void	create_files(t_redir *temp, t_redir *output_node);
+// Inside token_test.c
+void	token_splitting(t_args *args, int *exit_code);
 char	*prep_tokenizer(char *arglist, int redir_count);
-void	free_redirs(t_redir **redirs);
-void	clean_expand_quotes(char **str);
-int		dollar_count_in_dq(char *str, t_env **envs);
-void	ft_exit(char **args);
-int		cmd_is_echo(char *str);
-void	empty_check(t_args *args);
-int		ft_emptyline(char *line);
-void	print_struct_debug(t_args*args);
-t_redir	*get_last_hdoc(t_redir **redirs);
-void	fetch_and_create_hdoc(t_args *args);
+int		redir_check(char *element);
+void	make_redirect_node(t_redir **redir, char *str, int type, int index);
+// Inside ft_expand.c
+void	ft_expand(char **split_cmds, t_env **envlist, int es);
 void	expand_check_arguments(t_env **envs, char **arg, int es);
+// Inside ft_expand_utils1.c
 void	space_parts(char *str, int *i, int *parts);
 void	quote_redir_parts(char *str, int *i, int *parts, char *temp);
 int		how_many_parts(char *str);
 char	*get_beginning(char *str);
-void	expand_rest(t_env **envs, char **arg, int *i, int es);
+// Inside ft_expand_utils2.c
 void	set_not_sup_char(char *str, int *i, int *len, char *c);
 int		spacelen(char *str, int *i, int *len);
 int		get_part_len(char *str, int i);
 char	*is_expansion_valid(t_env **envs, char *arg, int i, int es);
 int		get_qflag(char *arg);
+// Inside ft_expand_utils3.c
+void	expand_rest(t_env **envs, char **arg, int *i, int es);
 char	*expand_key(t_env *node);
 void	get_len_for_key(char *arg, int *i, int *len);
 void	expand_qm(char **check, char **rest, int es);
 int		compare_against_envs(t_env **envs, char **check, char **rest);
-void	input_valid_routine(t_input *input, char *line);
-void	initial_signals(void);
-void	reset_termios(struct termios *tios);
-void	modify_termios(struct termios *tios);
-void	heredoc_signals(void);
-void	reset_termios_hdoc(struct termios *tios);
-void	modify_termios_hdoc(struct termios *tios);
-void	exec_signals(void);
-int		bad_syntax_post_expansion(char **tokenlist, int *exit_code);
-int		builtin_vibecheck(t_redir **redirs);
-void	pipes_and_pids_allocation(t_input *input);
+// Inside cmd_is_builtin.c
+int		cmd_is_builtin(t_env **envs, char **args);
+int		ft_strcmp_up_lo(char *s1, char *s2);
+int		flag_for_builtin(char **args);
+int		ft_is_emptystr(char *str);
+// Inside ft_exit.c
+void	ft_exit(char **args);
+// Inside ft_cd.c
+int		ft_cd(t_env **envs, char **cmd_args);
+// Inside trim_input.c
+char	*trim_input(char *input, char c);
+// Inside ft_quoteclean.c
+void	clean_expand_quotes(char **str);
+// Inside ft_getenv.c
+char	*ft_getenv(t_env **envs, char *str);
 t_env	*getenv_node(t_env **envs, char *str);
-void	ft_update_shlvl(t_env **envs);
-void	free_and_null(char **str);
-void	alloc_and_make_redirs(char **tokenlist, t_args *args);
-void	create_redir_node(char **tokenlist, t_redir **redirs, t_args *args);
-int		vibecheck_dir(char **str, char *parsedstr);
+// Inside forking.c
+char	**copy_env(char **ep, t_env **env);
+// Inside child_spawning.c
+void	prep_pids(t_input *input);
+void	prep_and_split_command(t_args *args, int *exit);
+void	exec_child_cmd(t_input *input, int flag);
+void	pipes_and_pids_allocation(t_input *input);
+// Inside child_utils.c
+void	wait_for_children(t_input *input);
+void	check_path_access(t_args *args);
+void	perms_check(t_args *args);
+void	error_messages(t_input *input, int status, int index);
+int		run_builtin(t_args *args);
+// Inside child_utils_2.c
+void	empty_check(t_args *args);
+int		builtin_vibecheck(t_redir **redirs);
+// Inside pipe_handling.c
+void	child_generic(t_input *input);
+void	open_pipes(t_input *input);
+void	close_pipes(t_input *input);
+void	child_first(t_input *input);
+void	child_last(t_input *input);
+// Inside redir_utils.c
+void	redirs_iteration(t_redir **redirs, int has_cmd);
+void	create_hdoc(t_redir *node);
+// Inside redir_utils_2.c
+void	store_original_fds(t_args *args);
+void	free_redirs(t_redir **redirs);
+t_redir	*get_last_hdoc(t_redir **redirs);
+void	fetch_and_create_hdoc(t_args *args);
+// Inside general_utils.c
+void	restore_fds(t_args *args);
+void	fd_routine_no_cmd(t_args *args);
+int		cmd_is_echo(char *str);
+int		ft_emptyline(char *line);
 char	*ft_strdup_free(char *s);
-int		emptystr_condition(char **tokenlist, int *exit_code);
-void	check_g_exit_status(t_input *input);
-void	heredoc_sigint(int signal);
+// Inside loop_utils.c
+void	input_valid_routine(t_input *input, char *line);
+void	ft_update_shlvl(t_env **envs);
+// Inside ft_split_mod.c
+char	**ft_split_mod(char *str, char c);
 #endif
