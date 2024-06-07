@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 21:26:57 by plang             #+#    #+#             */
-/*   Updated: 2024/06/06 21:32:51 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/07 11:06:18 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	ctrl_c_signal(int signal)
 		return ;
 	if (signal == SIGINT)
 	{
+		g_signal_exitstatus = 1;
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
@@ -25,7 +26,7 @@ void	ctrl_c_signal(int signal)
 	}
 }
 
-void	initial_signals()
+void	initial_signals(void)
 {
 	signal(SIGINT, ctrl_c_signal);
 	signal(SIGQUIT, SIG_IGN);
