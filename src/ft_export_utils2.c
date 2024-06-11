@@ -63,10 +63,8 @@ int	check_duplicate_env(char *env_list_str, char *export_str, int what_env)
 
 t_env	*store_export_title_n_info(t_env *new_node, char *str)
 {
-	int		i;
 	int		title_len;
 
-	i = 0;
 	title_len = 0;
 	new_node->env_element = ft_substr(str, 0, ft_strlen(str));
 	if (!new_node->env_element)

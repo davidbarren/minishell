@@ -71,7 +71,8 @@ int	get_str_count(char *str)
 	temp = 0;
 	while (*str != '\0')
 	{
-		count++;
+		if (*str != ' ')
+			count++;
 		while (*str != ' ' && *str)
 		{
 			if ((*str == '"' || *str == '\'')

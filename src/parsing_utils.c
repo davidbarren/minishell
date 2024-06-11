@@ -14,11 +14,9 @@
 
 void	store_env_title_n_info(t_env **env)
 {
-	int		i;
 	int		title_len;
 	t_env	*temp;
 
-	i = 0;
 	temp = *env;
 	while (temp != NULL)
 	{
@@ -40,9 +38,7 @@ void	add_env_to_back(t_env **env, char *data, int index)
 {
 	t_env	*last_node;
 	t_env	*new_node;
-	t_env	*temp;
 
-	temp = *env;
 	new_node = malloc(sizeof(t_env));
 	if (!new_node)
 		return ;

@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/07 11:59:25 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/11 17:55:59 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@
 # include <signal.h>
 # include <termios.h>
 # include <sys/ioctl.h>
+# include <sys/wait.h>
+# include <sys/types.h>
 # include "../libft/includes/libft.h"
 //# include "builtins.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 
-int	g_signal_exitstatus;
+extern int	g_signal_exitstatus;
 
 typedef struct s_env
 {
@@ -263,4 +265,8 @@ void	input_valid_routine(t_input *input, char *line);
 void	ft_update_shlvl(t_env **envs);
 // Inside ft_split_mod.c
 char	**ft_split_mod(char *str, char c);
+// Should go inside cd utils
+int		cd_badargs(char *str);
+void	ft_gohome(t_env **envs);
+int		condition_redirs(char **tokenlist, int *exit_code, char *parsed_string);
 #endif

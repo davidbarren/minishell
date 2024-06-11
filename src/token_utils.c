@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:05:53 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/07 11:31:00 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/11 17:03:52 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,26 @@ void	update_redirs(t_args *args)
 	count = 0;
 	while (args->arglist[i])
 	{
+		if (args->arglist[i] == '\'' || args->arglist[i] == '\"')
+		{
+			c = args->arglist[i];
+			i++;
+			while (args->arglist[i] != c && args->arglist[i])
+				i++;
+			if (args->arglist[i] && args->arglist[i] == c)
+				i++;
+		}
 		if (args->arglist[i] == '>' || args->arglist[i] == '<')
 		{
 			c = args->arglist[i];
 			i++;
 			count++;
-			args->has_redir = 1;
 			if (args->arglist[i] == c)
 			{
 				i++;
-				args->has_redir = 2;
 			}
 		}
-		else
+		else if (args->arglist[i])
 			i++;
 	}
 	args->redir_count = count;

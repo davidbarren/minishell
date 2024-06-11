@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:33:09 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/07 11:22:01 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/11 18:03:43 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,16 +73,16 @@ int	bad_syntax_post_expansion(char **tokenlist, int *exit_code)
 		return (1);
 	while (tokenlist[k])
 	{
-		if ((tokenlist[k][0] == '\"' || *tokenlist[k] == '\'')
-			&& ((ft_strlen(tokenlist[k]) == 1)))
-			k++;
-		if (!cmd_is_echo(tokenlist[k]))
-		{
+//		if ((tokenlist[k][0] == '\"' || *tokenlist[k] == '\'')
+		//	&& ((ft_strlen(tokenlist[k]) == 2)))
+			//k++;
+//		if (!cmd_is_echo(tokenlist[k]))
+//		{
 			if (!ft_is_emptystr(tokenlist[k]))
-				tokenlist[k] = trim_input(tokenlist[k], '\"');
+				clean_expand_quotes(&tokenlist[k]);
 			if (ft_is_emptystr(tokenlist[k]))
 				return (emptystr_condition(&tokenlist[k], exit_code));
-		}
+//		}
 		k++;
 	}
 	return (0);

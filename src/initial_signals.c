@@ -12,6 +12,7 @@
 
 #include "../includes/minishell.h"
 
+//int	g_signal_exitstatus;
 void	ctrl_c_signal(int signal)
 {
 	if (signal != SIGINT)

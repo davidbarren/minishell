@@ -95,12 +95,10 @@ void	export_is_valid(t_env **envs, char **cmd_args, int *i)
 
 int	ft_export(t_env **envs, char **cmd_args)
 {
-	t_env	*temp;
 	int		i;
 	int		status;
 
 	status = 0;
-	temp = *envs;
 	if (!cmd_args[1] && export_no_args(envs))
 		return (status);
 	i = 1;

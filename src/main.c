@@ -12,11 +12,12 @@
 
 #include "../includes/minishell.h"
 
+int	g_signal_exitstatus;
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_env			*envs;
 	t_input			input;
-	int				g_signal_exitstatus;
 	struct termios	tios;
 
 	g_signal_exitstatus = 0;
