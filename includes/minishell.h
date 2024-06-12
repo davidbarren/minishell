@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/11 17:55:59 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:17:54 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,4 +269,6 @@ char	**ft_split_mod(char *str, char c);
 int		cd_badargs(char *str);
 void	ft_gohome(t_env **envs);
 int		condition_redirs(char **tokenlist, int *exit_code, char *parsed_string);
+int		fake_file(char *str);
+void	update_redir_quotehelper(t_args *args, int *i, char c);
 #endif
