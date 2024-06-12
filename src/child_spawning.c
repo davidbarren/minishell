@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 13:56:38 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/07 09:50:53 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:51:04 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ void	prep_pids(t_input *input)
 			signal(SIGINT, SIG_DFL);
 			child_generic(input);
 			close_pipes(input);
-			if (opendir(input->arg_struct[input->pid_index]->split_cmds[0]))
-				exit(126);
+			if (input->arg_struct[input->pid_index]->split_cmds)
+				cmd_is_dir(input->arg_struct[input->pid_index]->split_cmds[0]);
 			exec_child_cmd(input, 1);
-			break ;
+			exit (127);
 		}
 		input->pid_index++;
 	}

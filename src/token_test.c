@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:44:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/11 18:02:48 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:31:27 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,13 +111,8 @@ void	token_splitting(t_args *args, int *exit_code)
 	if (args->redir_count)
 	{
 		if (condition_redirs(tokenlist, exit_code, parsed_string))
-		{
-			free(parsed_string);
 			return ;
-		}
 		alloc_and_make_redirs(tokenlist, args);
 	}
-	free(parsed_string);
-	find_command(args, tokenlist);
-	free_2d(tokenlist);
+	find_command(args, tokenlist, parsed_string);
 }

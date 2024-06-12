@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 13:34:45 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/11 18:02:29 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:13:33 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,16 @@ void	create_files(t_redir *temp, t_redir *output_node)
 
 int	condition_redirs(char **tokenlist, int *exit_code, char *parsed_string)
 {
+	if (!tokenlist)
+		return (1);
 	if (bad_syntax_post_expansion(tokenlist, exit_code))
 	{
+		free(parsed_string);
 		free_2d(tokenlist);
 		return (1);
 	}
 	*exit_code = vibecheck_dir(tokenlist, parsed_string);
 	if (*exit_code)
-	{
-		free_2d(tokenlist);
 		return (1);
-	}
 	return (0);
 }

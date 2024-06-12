@@ -6,17 +6,12 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 13:57:20 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/04 13:01:48 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:27:43 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-/*
-int		silly_atoi(char *code)
-{
 
-}
-*/
 void	exit_bad_args(char **args, int status)
 {
 	if (status == 1)

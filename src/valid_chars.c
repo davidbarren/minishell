@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 13:42:20 by plang             #+#    #+#             */
-/*   Updated: 2024/05/14 11:37:00 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:22:37 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	first_or_last(char *str, char c)
 	while (str[i] == ' ')
 		i++;
 	j--;
-	while (str[j] == ' ')
+	while (str[j] == ' ' && j)
 		j--;
 	if (str[i] == c || str[j] == c)
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:44:23 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/07 12:29:46 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:17:13 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	files_and_dups(t_redir *node, int has_cmd)
 	{
 		if (access(node->str, O_RDONLY))
 		{
-			ft_printerror("🐒:%s: No such file or directory\n", node->str);
+			g_signal_exitstatus = fake_file(node->str);
 			return ;
 		}
 		node->fd = open(node->str, O_RDONLY, 0644);

@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/12 13:17:54 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:48:53 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ void	tokenize_input(t_input *input);
 // Inside tokenized_utils.c
 int		bad_syntax_post_expansion(char **tokenlist, int *exit_code);
 void	free_and_null(char **str);
-void	find_command(t_args *args, char **tokenlist);
+void	find_command(t_args *args, char **tokenlist, char *parsed_string);
 int		emptystr_condition(char **tokenlist, int *exit_code);
 // Inside tokenized_utils_2.c
 void	alloc_and_make_redirs(char **tokenlist, t_args *args);
@@ -271,4 +271,5 @@ void	ft_gohome(t_env **envs);
 int		condition_redirs(char **tokenlist, int *exit_code, char *parsed_string);
 int		fake_file(char *str);
 void	update_redir_quotehelper(t_args *args, int *i, char c);
+void	cmd_is_dir(char *str);
 #endif
