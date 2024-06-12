@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 21:34:02 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/07 12:30:19 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:50:55 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,22 @@ int	vibecheck_dir(char **str, char *parsedstr)
 		i++;
 	}
 	return (0);
+}
+
+int	fake_file(char *str)
+{
+	ft_printerror("🐒:Baboonshell:%s: No such file or directory\n", str);
+	return (1);
+}
+
+void	cmd_is_dir(char *str)
+{
+	DIR	*why;
+
+	why = opendir(str);
+	if (why)
+	{
+		closedir(why);
+		exit(126);
+	}
 }

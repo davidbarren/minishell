@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:44:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/07 07:48:01 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:31:27 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	create_redir_node(char **tokenlist, t_redir **redirs, t_args *args)
 	i = 0;
 	while (i < args->token_count - 1)
 	{
-		if (redir_check(tokenlist[i]) == 1)
+		if (redir_check(tokenlist[i]) == 1 && !ft_is_emptystr(tokenlist[i + 1]))
 			make_redirect_node(redirs, tokenlist[i + 1], 1, args->index);
 		else if (redir_check(tokenlist[i]) == 2)
 			make_redirect_node(redirs, tokenlist[i + 1], 2, args->index);
@@ -96,24 +96,23 @@ void	token_splitting(t_args *args, int *exit_code)
 	char	**tokenlist;
 	char	*parsed_string;
 
-	parsed_string = prep_tokenizer(args->arglist, args->redir_count);
+	if (args->redir_count)
+		parsed_string = prep_tokenizer(args->arglist, args->redir_count);
+	else
+		parsed_string = ft_strdup(args->arglist);
 	*exit_code = syntax_validation(parsed_string);
 	if (*exit_code)
-		return ;
-	free_and_null(&args->arglist);
-	tokenlist = ft_split(parsed_string, ' ');
-	if (args->has_redir)
 	{
-		if (bad_syntax_post_expansion(tokenlist, exit_code))
-			return ;
-		*exit_code = vibecheck_dir(tokenlist, parsed_string);
-		if (*exit_code)
-			return ;
+		free(parsed_string);
+		return ;
 	}
-	free(parsed_string);
+	tokenlist = ft_split_mod(parsed_string, ' ');
 	args->token_count = ft_arrlen(tokenlist);
 	if (args->redir_count)
+	{
+		if (condition_redirs(tokenlist, exit_code, parsed_string))
+			return ;
 		alloc_and_make_redirs(tokenlist, args);
-	find_command(args, tokenlist);
-	free_2d(tokenlist);
+	}
+	find_command(args, tokenlist, parsed_string);
 }

@@ -6,17 +6,18 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:13:54 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/07 11:05:33 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/12 11:04:47 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+int	g_signal_exitstatus;
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_env			*envs;
 	t_input			input;
-	int				g_signal_exitstatus;
 	struct termios	tios;
 
 	g_signal_exitstatus = 0;

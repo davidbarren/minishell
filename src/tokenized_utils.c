@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:33:09 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/07 11:22:01 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:16:10 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	command_extraction(t_args *args, char **tokenlist)
 	args->long_command = ft_strdup_free(longboi);
 }
 
-void	find_command(t_args *args, char **tokenlist)
+void	find_command(t_args *args, char **tokenlist, char *parsed_string)
 {
 	int		i;
 	char	*longboi;
@@ -62,6 +62,8 @@ void	find_command(t_args *args, char **tokenlist)
 	}
 	else
 		command_extraction(args, tokenlist);
+	free_2d(tokenlist);
+	free(parsed_string);
 }
 
 int	bad_syntax_post_expansion(char **tokenlist, int *exit_code)
@@ -73,16 +75,10 @@ int	bad_syntax_post_expansion(char **tokenlist, int *exit_code)
 		return (1);
 	while (tokenlist[k])
 	{
-		if ((tokenlist[k][0] == '\"' || *tokenlist[k] == '\'')
-			&& ((ft_strlen(tokenlist[k]) == 1)))
-			k++;
-		if (!cmd_is_echo(tokenlist[k]))
-		{
-			if (!ft_is_emptystr(tokenlist[k]))
-				tokenlist[k] = trim_input(tokenlist[k], '\"');
-			if (ft_is_emptystr(tokenlist[k]))
-				return (emptystr_condition(&tokenlist[k], exit_code));
-		}
+		if (!ft_is_emptystr(tokenlist[k]))
+			clean_expand_quotes(&tokenlist[k]);
+		if (ft_is_emptystr(tokenlist[k]))
+			return (emptystr_condition(&tokenlist[k], exit_code));
 		k++;
 	}
 	return (0);

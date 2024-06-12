@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 13:54:49 by plang             #+#    #+#             */
-/*   Updated: 2024/06/06 19:20:59 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/12 15:28:28 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,10 @@ void	export_is_valid(t_env **envs, char **cmd_args, int *i)
 
 int	ft_export(t_env **envs, char **cmd_args)
 {
-	t_env	*temp;
 	int		i;
 	int		status;
 
 	status = 0;
-	temp = *envs;
 	if (!cmd_args[1] && export_no_args(envs))
 		return (status);
 	i = 1;
@@ -112,7 +110,8 @@ int	ft_export(t_env **envs, char **cmd_args)
 		}
 		else
 		{
-			ft_printf("🐒: export: `%s': not a valid identifier\n", cmd_args[i]);
+			ft_printerror("🐒: export: `%s': not a valid identifier\n",
+				cmd_args[i]);
 			status = 1;
 		}
 		i++;

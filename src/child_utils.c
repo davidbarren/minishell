@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/15 11:26:44 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/07 10:29:46 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/12 14:43:19 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	error_messages(t_input *input, int status, int index)
 {
 	if (status == 127)
 	{
+		if (!input->arg_struct[index]->split_cmds)
+			return ;
 		if (input->arg_struct[index]->split_cmds[0])
 			ft_printerror("Baboonshell: %s: command not found\n",
 				input->arg_struct[index]->split_cmds[0]);

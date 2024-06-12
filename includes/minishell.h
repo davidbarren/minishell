@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 17:14:42 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/07 11:59:25 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/12 14:48:53 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@
 # include <signal.h>
 # include <termios.h>
 # include <sys/ioctl.h>
+# include <sys/wait.h>
+# include <sys/types.h>
 # include "../libft/includes/libft.h"
 //# include "builtins.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 
-int	g_signal_exitstatus;
+extern int	g_signal_exitstatus;
 
 typedef struct s_env
 {
@@ -165,7 +167,7 @@ void	tokenize_input(t_input *input);
 // Inside tokenized_utils.c
 int		bad_syntax_post_expansion(char **tokenlist, int *exit_code);
 void	free_and_null(char **str);
-void	find_command(t_args *args, char **tokenlist);
+void	find_command(t_args *args, char **tokenlist, char *parsed_string);
 int		emptystr_condition(char **tokenlist, int *exit_code);
 // Inside tokenized_utils_2.c
 void	alloc_and_make_redirs(char **tokenlist, t_args *args);
@@ -263,4 +265,11 @@ void	input_valid_routine(t_input *input, char *line);
 void	ft_update_shlvl(t_env **envs);
 // Inside ft_split_mod.c
 char	**ft_split_mod(char *str, char c);
+// Should go inside cd utils
+int		cd_badargs(char *str);
+void	ft_gohome(t_env **envs);
+int		condition_redirs(char **tokenlist, int *exit_code, char *parsed_string);
+int		fake_file(char *str);
+void	update_redir_quotehelper(t_args *args, int *i, char c);
+void	cmd_is_dir(char *str);
 #endif

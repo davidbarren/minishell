@@ -6,7 +6,7 @@
 #    By: plang <plang@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/07 14:15:56 by dbarrene          #+#    #+#              #
-#    Updated: 2024/06/07 10:04:12 by dbarrene         ###   ########.fr        #
+#    Updated: 2024/06/12 17:20:06 by dbarrene         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME = minishell
 
 CC	= cc
-CFLAGS = -Wall -Wextra -g -Werror #-fsanitize=address 
+CFLAGS = -Wall -Wextra -g -Werror -fsanitize=address 
 
 SRCDIR = src
 OBJDIR = obj
@@ -49,6 +49,7 @@ CSRCS = $(SRCDIR)/parsing.c\
 		$(SRCDIR)/ft_pwd.c\
 		$(SRCDIR)/ft_unset.c\
 		$(SRCDIR)/ft_cd.c\
+		$(SRCDIR)/ft_cd_utils.c\
 		$(SRCDIR)/ft_exit.c\
 		$(SRCDIR)/valid_chars.c\
 		$(SRCDIR)/valid_quotes.c\

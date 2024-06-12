@@ -6,7 +6,7 @@
 /*   By: dbarrene <dbarrene@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 15:05:53 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/07 11:31:00 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/12 13:19:23 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,31 @@ void	update_redirs(t_args *args)
 	count = 0;
 	while (args->arglist[i])
 	{
+		if (args->arglist[i] == '\'' || args->arglist[i] == '\"')
+			update_redir_quotehelper(args, &i, c);
 		if (args->arglist[i] == '>' || args->arglist[i] == '<')
 		{
 			c = args->arglist[i];
 			i++;
 			count++;
-			args->has_redir = 1;
 			if (args->arglist[i] == c)
 			{
 				i++;
-				args->has_redir = 2;
 			}
 		}
-		else
+		else if (args->arglist[i])
 			i++;
 	}
 	args->redir_count = count;
 	update_hdoc_status(args);
+}
+
+void	update_redir_quotehelper(t_args *args, int *i, char c)
+{
+	c = args->arglist[*i];
+	*i += 1;
+	while (args->arglist[*i] != c && args->arglist[*i])
+		*i += 1;
+	if (args->arglist[*i] && args->arglist[*i] == c)
+		*i += 1;
 }

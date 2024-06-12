@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 11:32:09 by dbarrene          #+#    #+#             */
-/*   Updated: 2024/06/06 20:16:05 by dbarrene         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:29:52 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ void	open_pipes(t_input *input)
 		input->pipes[i] = ft_calloc(2, sizeof (int));
 		fd = pipe(input->pipes[i]);
 		if (fd == -1)
-			exit (-1);
+		{
+			perror("🐒baboonshell");
+			exit (1);
+		}
 		i++;
 	}
 }
@@ -52,7 +55,8 @@ void	close_pipes(t_input *input)
 		status = close(input->pipes[i][1]);
 		if (status == -1)
 			exit (-1);
-		free(input->pipes[i++]);
+		free(input->pipes[i]);
+		i++;
 	}
 }
 

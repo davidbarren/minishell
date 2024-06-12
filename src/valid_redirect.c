@@ -6,7 +6,7 @@
 /*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 14:47:32 by plang             #+#    #+#             */
-/*   Updated: 2024/06/05 17:15:40 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/12 14:22:13 by dbarrene         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	valid_redirect(char *str)
 		i++;
 	}
 	i--;
-	while (str[i] == ' ')
+	while (str[i] == ' ' && str[i] && i)
 		i--;
 	if (str[i] == '>' || str[i] == '<')
 		return (2);
