@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   initial_signals.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: plang <plang@student.42.fr>                +#+  +:+       +#+        */
+/*   By: plang <plang@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 21:26:57 by plang             #+#    #+#             */
-/*   Updated: 2024/06/07 11:06:18 by plang            ###   ########.fr       */
+/*   Updated: 2024/06/25 17:25:56 by plang            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-//int	g_signal_exitstatus;
 void	ctrl_c_signal(int signal)
 {
 	if (signal != SIGINT)

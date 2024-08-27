@@ -3,18 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: plang <plang@student.42.fr>                +#+  +:+       +#+         #
+#    By: plang <plang@student.hive.fi>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/03/07 14:15:56 by dbarrene          #+#    #+#              #
-#    Updated: 2024/06/12 17:20:06 by dbarrene         ###   ########.fr        #
+#    Created: 2024/06/25 17:21:57 by plang             #+#    #+#              #
+#    Updated: 2024/06/25 17:22:09 by plang            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 
 NAME = minishell
 
 CC	= cc
-CFLAGS = -Wall -Wextra -g -Werror -fsanitize=address 
+CFLAGS = -Wall -Wextra -g -Werror
 
 SRCDIR = src
 OBJDIR = obj
